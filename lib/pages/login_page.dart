@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
         centerTitle: true,
         title: const Text(
           'Login',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+          style: TextStyleTheme.appBarTitle,
         ),
       ),
       body: SingleChildScrollView(

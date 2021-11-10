@@ -16,6 +16,7 @@ class App extends StatelessWidget {
       ),
       routes: RouteData.routes,
       initialRoute: RouteData.initialRoute,
+      onUnknownRoute: RouteData.unknownRoute(),
     );
   }
 }
