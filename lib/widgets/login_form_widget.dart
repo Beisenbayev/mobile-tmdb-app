@@ -16,12 +16,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   String? errorText;
 
   void _handleAuth() {
-    if (loginController.text == 'login' && passwordController.text == 'pass') {
-      errorText = null;
-    } else {
-      errorText = 'Incorrect login or password!';
-      print(errorText);
-    }
+    setState(() {
+      if (loginController.text == 'login' && passwordController.text == 'pass') {
+        errorText = null;
+      } else {
+        errorText = 'Incorrect login or password!';
+      }
+    });
   }
 
   void _handleResetPassword() {
@@ -31,6 +32,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _InputField(
           label: 'Username',
@@ -41,6 +43,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           label: 'Password',
           controller: passwordController,
         ),
+        if (errorText != null) _ErrorField(text: errorText!),
         const SizedBox(height: 30.0),
         Row(
           children: <Widget>[
@@ -85,6 +88,25 @@ class _InputField extends StatelessWidget {
         TextField(
           controller: controller,
           decoration: InputFieldStyleTheme.outlined,
+        )
+      ],
+    );
+  }
+}
+
+class _ErrorField extends StatelessWidget {
+  final String text;
+
+  const _ErrorField({key, required this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        const SizedBox(height: 10),
+        Text(
+          text,
+          style: TextStyleTheme.error,
         )
       ],
     );
