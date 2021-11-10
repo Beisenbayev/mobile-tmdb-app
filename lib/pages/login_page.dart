@@ -51,7 +51,7 @@ class _LoginPageTextWidget extends StatelessWidget {
         TextButton(
           style: ButtonStyleTheme.textButton,
           onPressed: () {},
-          child: Text('registration'),
+          child: const Text('registration'),
         ),
         const SizedBox(height: 16.0),
         const Text(
@@ -61,7 +61,7 @@ class _LoginPageTextWidget extends StatelessWidget {
         TextButton(
           style: ButtonStyleTheme.textButton,
           onPressed: () {},
-          child: Text('verification'),
+          child: const Text('verification'),
         )
       ],
     );

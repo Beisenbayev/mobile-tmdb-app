@@ -11,29 +11,48 @@ class LoginFormWidget extends StatefulWidget {
 }
 
 class _LoginFormWidgetState extends State<LoginFormWidget> {
+  final loginController = TextEditingController();
+  final passwordController = TextEditingController();
+  String? errorText;
+
+  void _handleAuth() {
+    if (loginController.text == 'login' && passwordController.text == 'pass') {
+      errorText = null;
+    } else {
+      errorText = 'Incorrect login or password!';
+      print(errorText);
+    }
+  }
+
+  void _handleResetPassword() {
+    print('reset password');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         _InputField(
           label: 'Username',
+          controller: loginController,
         ),
         const SizedBox(height: 16.0),
         _InputField(
           label: 'Password',
+          controller: passwordController,
         ),
         const SizedBox(height: 30.0),
         Row(
           children: <Widget>[
             ElevatedButton(
               style: ButtonStyleTheme.elevatedButton,
-              onPressed: () {},
+              onPressed: _handleAuth,
               child: const Text('Login'),
             ),
             const SizedBox(width: 20.0),
             TextButton(
               style: ButtonStyleTheme.textButton,
-              onPressed: () {},
+              onPressed: _handleResetPassword,
               child: const Text('Reset password'),
             ),
           ],
@@ -45,10 +64,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 
 class _InputField extends StatelessWidget {
   final String label;
+  final TextEditingController controller;
 
   const _InputField({
     key,
     required this.label,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -61,7 +82,8 @@ class _InputField extends StatelessWidget {
           style: TextStyleTheme.main,
         ),
         const SizedBox(height: 5.0),
-        const TextField(
+        TextField(
+          controller: controller,
           decoration: InputFieldStyleTheme.outlined,
         )
       ],
