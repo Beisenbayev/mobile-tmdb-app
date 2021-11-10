@@ -10,11 +10,11 @@ class App extends StatelessWidget {
       title: 'MooVeeLand',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xff033765),
+          backgroundColor: Color.fromRGBO(3, 37, 65, 1),
           foregroundColor: Colors.white,
         ),
       ),
-      home: LoginPage(),
+      home: const LoginPage(),
     );
   }
 }

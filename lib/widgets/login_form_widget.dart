@@ -46,7 +46,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 class _InputField extends StatelessWidget {
   final String label;
 
-  _InputField({
+  const _InputField({
     key,
     required this.label,
   }) : super(key: key);
