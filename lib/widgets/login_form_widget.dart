@@ -20,6 +20,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       if (loginController.text == 'login' &&
           passwordController.text == 'pass') {
         errorText = null;
+        Navigator.pushReplacementNamed(context, '/home');
       } else {
         errorText = 'Incorrect login or password!';
       }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/pages/login_page.dart';
+import 'package:moovee_land/utils/routes.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -14,7 +14,8 @@ class App extends StatelessWidget {
           foregroundColor: Colors.white,
         ),
       ),
-      home: const LoginPage(),
+      routes: RouteData.routes,
+      initialRoute: RouteData.initialRoute,
     );
   }
 }
