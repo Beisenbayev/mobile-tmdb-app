@@ -17,7 +17,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 
   void _handleAuth() {
     setState(() {
-      if (loginController.text == 'login' && passwordController.text == 'pass') {
+      if (loginController.text == 'login' &&
+          passwordController.text == 'pass') {
         errorText = null;
       } else {
         errorText = 'Incorrect login or password!';
@@ -42,6 +43,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         _InputField(
           label: 'Password',
           controller: passwordController,
+          isPassword: true,
         ),
         if (errorText != null) _ErrorField(text: errorText!),
         const SizedBox(height: 30.0),
@@ -68,11 +70,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 class _InputField extends StatelessWidget {
   final String label;
   final TextEditingController controller;
+  final bool isPassword;
 
   const _InputField({
     key,
     required this.label,
     required this.controller,
+    this.isPassword = false,
   }) : super(key: key);
 
   @override
@@ -86,6 +90,7 @@ class _InputField extends StatelessWidget {
         ),
         const SizedBox(height: 5.0),
         TextField(
+          obscureText: isPassword,
           controller: controller,
           decoration: InputFieldStyleTheme.outlined,
         )
