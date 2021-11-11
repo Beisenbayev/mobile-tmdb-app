@@ -10,11 +10,15 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'MooVeeLand',
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: ColorPaletteTheme.elementMainBackground,
-          foregroundColor: ColorPaletteTheme.elementForeground,
-        ),
-      ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: ColorPaletteTheme.elementMainBackground,
+            foregroundColor: ColorPaletteTheme.elementForeground,
+          ),
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: ColorPaletteTheme.elementMainBackground,
+            selectedItemColor: ColorPaletteTheme.elementForeground,
+            unselectedItemColor: ColorPaletteTheme.elementForeground.withOpacity(0.3) 
+          )),
       routes: RouteData.routes,
       initialRoute: RouteData.initialRoute,
       onUnknownRoute: RouteData.unknownRoute(),

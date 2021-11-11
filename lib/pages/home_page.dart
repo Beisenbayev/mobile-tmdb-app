@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/theme/text_theme.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('News'),
+    Text('Movies'),
+    Text('Shows'),
+  ];
+
+  void handleSelectItem(index) {
+    if (_selectedIndex == index) return;
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,12 +29,30 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'TMDB',
+          'MooVee',
           style: TextStyleTheme.appBarTitle,
         ),
       ),
-      body: const Center(
-        child: Text('home'),
+      body: Center(
+        child: _widgetOptions[_selectedIndex],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: handleSelectItem,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'News',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_movies_rounded),
+            label: 'Movies',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.tv),
+            label: 'Shows',
+          ),
+        ],
       ),
     );
   }
