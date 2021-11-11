@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/utils/routes.dart';
+import 'package:moovee_land/theme/colors_theme.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -10,8 +11,8 @@ class App extends StatelessWidget {
       title: 'MooVeeLand',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromRGBO(3, 37, 65, 1),
-          foregroundColor: Colors.white,
+          backgroundColor: ColorPaletteTheme.elementMainBackground,
+          foregroundColor: ColorPaletteTheme.elementForeground,
         ),
       ),
       routes: RouteData.routes,

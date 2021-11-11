@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'colors_theme.dart';
 
 abstract class ButtonStyleTheme {
   static ButtonStyle elevatedButton = ButtonStyle(
     backgroundColor: MaterialStateProperty.all(
-      const Color.fromRGBO(1, 180, 228, 1),
+      ColorPaletteTheme.elementSecondaryBackground,
     ),
-    foregroundColor: MaterialStateProperty.all(Colors.white),
+    foregroundColor: MaterialStateProperty.all(
+      ColorPaletteTheme.elementForeground,
+    ),
     textStyle: MaterialStateProperty.all(
       const TextStyle(
         fontSize: 16,
@@ -22,13 +25,12 @@ abstract class ButtonStyleTheme {
 
   static ButtonStyle textButton = ButtonStyle(
     foregroundColor: MaterialStateProperty.all(
-      const Color.fromRGBO(1, 180, 228, 1),
+      ColorPaletteTheme.elementSecondaryBackground,
     ),
     textStyle: MaterialStateProperty.all(
       const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w400,
-        color: Color.fromRGBO(1, 180, 228, 1),
       ),
     ),
   );

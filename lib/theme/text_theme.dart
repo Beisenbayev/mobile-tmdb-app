@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'colors_theme.dart';
 
 abstract class TextStyleTheme {
   static const TextStyle appBarTitle = TextStyle(
-    fontSize: 24, 
+    fontSize: 24,
     fontWeight: FontWeight.w600,
-    color: Colors.white
+    color: ColorPaletteTheme.elementForeground,
   );
 
   static const TextStyle main = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: Colors.black
+    color: ColorPaletteTheme.foreground,
   );
 
   static const TextStyle error = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: Color.fromRGBO(172, 84, 84, 1),
+    color: ColorPaletteTheme.error,
   );
 }
