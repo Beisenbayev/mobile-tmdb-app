@@ -44,6 +44,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
         const SizedBox(height: 5),
         Expanded(
           child: ListView.builder(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             itemCount: _searchedMovies.length,
             itemExtent: 170,
