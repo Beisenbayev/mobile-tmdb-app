@@ -11,8 +11,8 @@ class LoginFormWidget extends StatefulWidget {
 }
 
 class _LoginFormWidgetState extends State<LoginFormWidget> {
-  final loginController = TextEditingController();
-  final passwordController = TextEditingController();
+  final loginController = TextEditingController(text: 'login');
+  final passwordController = TextEditingController(text: 'pass');
   String? errorText;
 
   void _handleAuth() {
