@@ -9,4 +9,5 @@ abstract class ColorPaletteTheme {
   static const foreground = Colors.black;
 
   static const error = Color.fromRGBO(172, 84, 84, 1);
+  static const subtitle = Color.fromRGBO(153, 153, 153, 1);
 }

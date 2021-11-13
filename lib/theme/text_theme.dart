@@ -14,6 +14,12 @@ abstract class TextStyleTheme {
     color: ColorPaletteTheme.foreground,
   );
 
+  static const TextStyle subtitle = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: ColorPaletteTheme.subtitle,
+  );
+
   static const TextStyle main = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
