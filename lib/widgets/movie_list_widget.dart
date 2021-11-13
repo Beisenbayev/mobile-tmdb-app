@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/modules/movie_data.dart';
 import 'package:moovee_land/theme/text_theme.dart';
 
 class MovieListWidget extends StatelessWidget {
-  const MovieListWidget({Key? key}) : super(key: key);
+  MovieListWidget({Key? key}) : super(key: key);
+
+  final _movies = MoviesData.movies;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      itemCount: 15,
+      itemCount: _movies.length,
       itemExtent: 170,
       itemBuilder: (BuildContext context, int index) {
         return Container(

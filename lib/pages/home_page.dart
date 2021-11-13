@@ -11,10 +11,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('News'),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const Text('News'),
     MovieListWidget(),
-    Text('Shows'),
+    const Text('Shows'),
   ];
 
   void handleSelectItem(index) {
