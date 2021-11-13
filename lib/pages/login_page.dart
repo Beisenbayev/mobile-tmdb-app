@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: Column(
           children: <Widget>[
-            LoginFormWidget(),
+            const LoginFormWidget(),
             const SizedBox(height: 26.0),
             _LoginPageTextWidget()
           ],

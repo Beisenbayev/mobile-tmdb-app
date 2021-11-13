@@ -1,25 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/modules/movie_data.dart';
 import 'package:moovee_land/theme/text_theme.dart';
+import 'package:moovee_land/widgets/search_panel_widget.dart';
 
-class MovieListWidget extends StatelessWidget {
-  MovieListWidget({Key? key}) : super(key: key);
+class MovieListWidget extends StatefulWidget {
+  const MovieListWidget({Key? key}) : super(key: key);
 
-  final _movies = MoviesData.movies;
+  @override
+  State<MovieListWidget> createState() => _MovieListWidgetState();
+}
+
+class _MovieListWidgetState extends State<MovieListWidget> {
+  final _movies = MoviesCollection.movies;
+  List<Movie> _searchedMovies = [];
+
+  void handleSearch(String text) {
+    setState(() {
+      if (text.isNotEmpty) {
+        _searchedMovies = _movies.where((element) {
+          return element.title.toLowerCase().contains(text.toLowerCase());
+        }).toList();
+      } else {
+        _searchedMovies = _movies;
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _searchedMovies = _movies;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      itemCount: _movies.length,
-      itemExtent: 170,
-      itemBuilder: (BuildContext context, int index) {
-        final Movie movie = _movies[index];
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: MovieCardWidget(data: movie),
-        );
-      },
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 0),
+          child: SearchPanelWidget(searchHandler: handleSearch),
+        ),
+        const SizedBox(height: 5),
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            itemCount: _searchedMovies.length,
+            itemExtent: 170,
+            itemBuilder: (BuildContext context, int index) {
+              final Movie movie = _searchedMovies[index];
+              return Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10.0,
+                ),
+                child: MovieCardWidget(data: movie),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
