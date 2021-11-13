@@ -8,6 +8,12 @@ abstract class TextStyleTheme {
     color: ColorPaletteTheme.elementForeground,
   );
 
+  static const TextStyle itemTitle = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: ColorPaletteTheme.foreground,
+  );
+
   static const TextStyle main = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
