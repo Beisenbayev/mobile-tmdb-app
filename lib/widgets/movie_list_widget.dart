@@ -14,9 +14,10 @@ class MovieListWidget extends StatelessWidget {
       itemCount: _movies.length,
       itemExtent: 170,
       itemBuilder: (BuildContext context, int index) {
+        final Movie movie = _movies[index];
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: MovieCardWidget(),
+          child: MovieCardWidget(data: movie),
         );
       },
     );
@@ -24,7 +25,12 @@ class MovieListWidget extends StatelessWidget {
 }
 
 class MovieCardWidget extends StatelessWidget {
-  const MovieCardWidget({Key? key}) : super(key: key);
+  final Movie data;
+
+  const MovieCardWidget({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,31 +41,31 @@ class MovieCardWidget extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Image(
-                image: AssetImage('assets/images/image.jpg'),
+              Image(
+                image: AssetImage(data.imageName),
               ),
               const SizedBox(width: 15),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
+                  children: <Widget>[
                     Text(
-                      'Parasite',
+                      data.title,
                       style: TextStyleTheme.itemTitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 5.0),
+                    const SizedBox(height: 5.0),
                     Text(
-                      'July 20, 2001',
+                      data.date,
                       style: TextStyleTheme.subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 20.0),
+                    const SizedBox(height: 20.0),
                     Text(
-                      'All unemployed, Ki-taek\'s family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident.',
+                      data.description,
                       style: TextStyleTheme.main,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
