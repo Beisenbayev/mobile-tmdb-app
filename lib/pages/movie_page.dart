@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/theme/colors_theme.dart';
+import 'package:moovee_land/widgets/movie_page/movie_info_widget.dart';
 
 class MoviePage extends StatefulWidget {
   final int id;
@@ -18,6 +20,14 @@ class _MoviePageState extends State<MoviePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('MooVee'),
+      ),
+      body: ListView(
+        children: <Widget>[
+          ColoredBox(
+            color: ColorPaletteTheme.backgroundDark,
+            child: MovieInfoWidget(),
+          ),
+        ],
       ),
     );
   }

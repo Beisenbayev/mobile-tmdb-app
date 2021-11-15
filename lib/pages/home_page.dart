@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/theme/text_theme.dart';
 import 'package:moovee_land/widgets/movie_list_widget.dart';
 
 class HomePage extends StatefulWidget {
