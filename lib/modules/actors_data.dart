@@ -6,7 +6,7 @@ class Actor {
   Actor({
     required this.fullName,
     required this.character,
-    this.episodeCount
+    this.episodeCount,
   });
 }
 
