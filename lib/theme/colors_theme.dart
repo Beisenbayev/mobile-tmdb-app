@@ -9,6 +9,7 @@ abstract class ColorPaletteTheme {
   static const foreground = Colors.black;
 
   static const backgroundDark = Color.fromRGBO(27, 22, 26, 1.0);
+  static const backgroundDarker = Color.fromRGBO(24, 20, 23, 1.0);
 
   static const radialPercentFill = Color.fromRGBO(8, 28, 34, 1.0);
   static const radialPercentFree = Color.fromRGBO(28, 63, 39, 1.0);
