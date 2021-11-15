@@ -8,6 +8,8 @@ abstract class ColorPaletteTheme {
   static const background = Colors.white;
   static const foreground = Colors.black;
 
+  static const backgroundDark = Color.fromRGBO(27, 22, 26, 1.0);
+
   static const error = Color.fromRGBO(172, 84, 84, 1);
   static const subtitle = Color.fromRGBO(153, 153, 153, 1);
 }
