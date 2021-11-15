@@ -28,11 +28,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'MooVee',
-          style: TextStyleTheme.appBarTitle,
-        ),
+        title: const Text('MooVee'),
       ),
       body: Center(
         child: _widgetOptions[_selectedIndex],

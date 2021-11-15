@@ -13,11 +13,7 @@ class ErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'TMDB',
-          style: TextStyleTheme.appBarTitle,
-        ),
+        title: const Text('MooVee'),
       ),
       body: Center(
         child: Text(
