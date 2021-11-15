@@ -26,6 +26,13 @@ abstract class TextStyleTheme {
     color: ColorPaletteTheme.subtitle,
   );
 
+  static const TextStyle subtitleCursive  = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.italic,
+    color: ColorPaletteTheme.subtitle,
+  );
+
   static const TextStyle main = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
