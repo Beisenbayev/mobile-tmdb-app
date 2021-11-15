@@ -18,7 +18,7 @@ class MoviesCollection {
   static List<Movie> movies = [
     Movie(
       id: 1,
-      imageName: 'assets/images/image.jpg',
+      imageName: 'assets/images/listPoster.jpg',
       title: 'Venom: Let There Be Carnage',
       date: 'September 30, 2021',
       description:
@@ -26,7 +26,7 @@ class MoviesCollection {
     ),
     Movie(
       id: 2,
-      imageName: 'assets/images/image.jpg',
+      imageName: 'assets/images/listPoster.jpg',
       title: 'Army of Thieves',
       date: 'September 30, 2021',
       description:
@@ -34,7 +34,7 @@ class MoviesCollection {
     ),
     Movie(
       id: 3,
-      imageName: 'assets/images/image.jpg',
+      imageName: 'assets/images/listPoster.jpg',
       title: 'Eternals',
       date: 'September 30, 2021',
       description:
@@ -42,7 +42,7 @@ class MoviesCollection {
     ),
     Movie(
       id: 4,
-      imageName: 'assets/images/image.jpg',
+      imageName: 'assets/images/listPoster.jpg',
       title: 'Dune',
       date: 'September 30, 2021',
       description:
@@ -50,7 +50,7 @@ class MoviesCollection {
     ),
     Movie(
       id: 5,
-      imageName: 'assets/images/image.jpg',
+      imageName: 'assets/images/listPoster.jpg',
       title: 'No Time to Die',
       date: 'September 30, 2021',
       description:
@@ -58,7 +58,7 @@ class MoviesCollection {
     ),
     Movie(
       id: 6,
-      imageName: 'assets/images/image.jpg',
+      imageName: 'assets/images/listPoster.jpg',
       title: 'Dune',
       date: 'September 30, 2021',
       description:
@@ -66,7 +66,7 @@ class MoviesCollection {
     ),
     Movie(
       id: 7,
-      imageName: 'assets/images/image.jpg',
+      imageName: 'assets/images/listPoster.jpg',
       title: 'Venom: Let There Be Carnage',
       date: 'September 30, 2021',
       description:
@@ -74,7 +74,7 @@ class MoviesCollection {
     ),
     Movie(
       id: 8,
-      imageName: 'assets/images/image.jpg',
+      imageName: 'assets/images/listPoster.jpg',
       title: 'No Time to Die',
       date: 'September 30, 2021',
       description:
@@ -82,7 +82,7 @@ class MoviesCollection {
     ),
     Movie(
       id: 9,
-      imageName: 'assets/images/image.jpg',
+      imageName: 'assets/images/listPoster.jpg',
       title: 'Venom: Let There Be Carnage',
       date: 'September 30, 2021',
       description:
