@@ -14,6 +14,12 @@ abstract class TextStyleTheme {
     color: ColorPaletteTheme.foreground,
   );
 
+  static const TextStyle itemTitleWhite = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
+
   static const TextStyle subtitle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
@@ -24,6 +30,18 @@ abstract class TextStyleTheme {
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: ColorPaletteTheme.foreground,
+  );
+
+  static const TextStyle mainWhite = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
+
+  static const TextStyle mainBoldWhite = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
   );
 
   static const TextStyle error = TextStyle(
