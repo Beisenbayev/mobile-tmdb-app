@@ -26,6 +26,10 @@ class _MovieListWidgetState extends State<MovieListWidget> {
     });
   }
 
+  void handleCardTap(id) {
+    Navigator.pushNamed(context, '/home/movie', arguments: id);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -54,7 +58,10 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                 padding: const EdgeInsets.symmetric(
                   vertical: 10.0,
                 ),
-                child: MovieCardWidget(data: movie),
+                child: MovieCardWidget(
+                  data: movie,
+                  tapHandler: handleCardTap,
+                ),
               );
             },
           ),
@@ -66,10 +73,12 @@ class _MovieListWidgetState extends State<MovieListWidget> {
 
 class MovieCardWidget extends StatelessWidget {
   final Movie data;
+  final void Function(int) tapHandler;
 
   const MovieCardWidget({
     Key? key,
     required this.data,
+    required this.tapHandler,
   }) : super(key: key);
 
   @override
@@ -119,9 +128,7 @@ class MovieCardWidget extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {
-                print('ok');
-              },
+              onTap: () => tapHandler(data.id),
             ),
           )
         ],
