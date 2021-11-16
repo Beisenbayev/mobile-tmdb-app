@@ -30,7 +30,7 @@ class _MoviePageState extends State<MoviePage> {
             child: MovieInfoWidget(),
           ),
           MovieActorsWidget(),
-          MovieRecommendationsWidget(),
+          const MovieRecommendationsWidget(),
         ],
       ),
     );
