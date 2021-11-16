@@ -11,7 +11,7 @@ class RecommendedMovie {
 }
 
 class RecommendedMoviesCollection {
-  static List<RecommendedMovie> recommendedMovie = [
+  static List<RecommendedMovie> recommendedMovies = [
     RecommendedMovie(title: 'Dune', imageName: 'assets/images/recommendationMovie.jpg', userScore: 78),
     RecommendedMovie(title: 'Dune', imageName: 'assets/images/recommendationMovie.jpg', userScore: 78),
     RecommendedMovie(title: 'Dune', imageName: 'assets/images/recommendationMovie.jpg', userScore: 78),

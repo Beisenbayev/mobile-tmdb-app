@@ -216,9 +216,9 @@ class _DescriptionWidget extends StatelessWidget {
 }
 
 class _MembersWidget extends StatelessWidget {
-  List<Member> data;
+  final List<Member> data;
 
-  _MembersWidget({
+  const _MembersWidget({
     Key? key,
     required this.data,
   }) : super(key: key);
