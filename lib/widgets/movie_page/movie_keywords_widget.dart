@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/modules/movie_keywords_data.dart';
 import 'package:moovee_land/theme/button_theme.dart';
+import 'package:moovee_land/theme/text_theme.dart';
 
 class MovieKeywordsWidget extends StatelessWidget {
   final List<Keyword> _keywords = KeywordsCollection.keywords;
@@ -19,20 +20,51 @@ class MovieKeywordsWidget extends StatelessWidget {
           ),
         ),
       ),
-      child: Wrap(
-        spacing: 5.0,
-        runSpacing: 5.0,
-        children: _keywords.map((item) {
-          return MovieKeywordChipWidget(data: item);
-        }).toList(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _TitleWidget(),
+          const SizedBox(height: 8),
+          _KeywordButtonsWidget(keywords: _keywords),
+        ],
       ),
     );
   }
 }
 
-class MovieKeywordChipWidget extends StatelessWidget {
+class _TitleWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      'Keywords',
+      style: TextStyleTheme.itemTitle,
+    );
+  }
+}
+
+class _KeywordButtonsWidget extends StatelessWidget {
+  final List<Keyword> keywords;
+
+  const _KeywordButtonsWidget({
+    Key? key,
+    required this.keywords,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 5.0,
+      runSpacing: 5.0,
+      children: keywords.map((item) {
+        return MovieKeywordButtonWidget(data: item);
+      }).toList(),
+    );
+  }
+}
+
+class MovieKeywordButtonWidget extends StatelessWidget {
   final Keyword data;
-  const MovieKeywordChipWidget({
+  const MovieKeywordButtonWidget({
     Key? key,
     required this.data,
   }) : super(key: key);
