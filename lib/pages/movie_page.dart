@@ -32,7 +32,7 @@ class _MoviePageState extends State<MoviePage> {
             child: MovieInfoWidget(),
           ),
           MovieActorsWidget(),
-          const MovieRecommendationsWidget(),
+          MovieRecommendationsWidget(),
           MovieFactsWidget(),
           MovieKeywordsWidget(),
         ],

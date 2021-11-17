@@ -3,7 +3,10 @@ import 'package:moovee_land/modules/recommended_movies_data.dart';
 import 'package:moovee_land/theme/text_theme.dart';
 
 class MovieRecommendationsWidget extends StatelessWidget {
-  const MovieRecommendationsWidget({Key? key}) : super(key: key);
+  final List<RecommendedMovie> _recommendedMovies =
+      RecommendedMoviesCollection.recommendedMovies;
+
+  MovieRecommendationsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,9 @@ class MovieRecommendationsWidget extends StatelessWidget {
         children: <Widget>[
           _TitleWidget(),
           const SizedBox(height: 16.0),
-          _HorizontalScrollMoviesWidget()
+          _HorizontalScrollMoviesWidget(
+            recommendedMovies: _recommendedMovies,
+          )
         ],
       ),
     );
@@ -43,20 +48,24 @@ class _TitleWidget extends StatelessWidget {
 }
 
 class _HorizontalScrollMoviesWidget extends StatelessWidget {
-  final List<RecommendedMovie> _recommendedMovies =
-      RecommendedMoviesCollection.recommendedMovies;
+  final List<RecommendedMovie> recommendedMovies;
+
+  const _HorizontalScrollMoviesWidget({
+    Key? key,
+    required this.recommendedMovies,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 175.0,
       child: ListView.builder(
-        itemCount: _recommendedMovies.length,
+        itemCount: recommendedMovies.length,
         itemExtent: 250.0,
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
-          final recommendedMovie = _recommendedMovies[index];
+          final recommendedMovie = recommendedMovies[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
             child: RecommendedMovieCardWidget(
