@@ -34,4 +34,19 @@ abstract class ButtonStyleTheme {
       ),
     ),
   );
+
+  static ButtonStyle outlinedGrayButton = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(
+      Colors.black.withOpacity(0.1),
+    ),
+    foregroundColor: MaterialStateProperty.all(
+      ColorPaletteTheme.foreground
+    ),
+    textStyle: MaterialStateProperty.all(
+      const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
+  );
 }
