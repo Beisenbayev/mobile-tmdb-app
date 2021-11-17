@@ -11,28 +11,31 @@ class MovieInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        _TopPosterWidget(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            children: <Widget>[
-              const SizedBox(height: 16.0),
-              _TitleWidget(),
-              const SizedBox(height: 16.0),
-              _UserScoreWidget(),
-              const SizedBox(height: 16.0),
-              _GenreWidget(),
-              const SizedBox(height: 20.0),
-              _DescriptionWidget(),
-              const SizedBox(height: 30.0),
-              _MembersWidget(data: members),
-              const SizedBox(height: 16.0),
-            ],
+    return ColoredBox(
+      color: ColorPaletteTheme.backgroundDark,
+      child: Column(
+        children: <Widget>[
+          _TopPosterWidget(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: <Widget>[
+                const SizedBox(height: 16.0),
+                _TitleWidget(),
+                const SizedBox(height: 16.0),
+                _UserScoreWidget(),
+                const SizedBox(height: 16.0),
+                _GenreWidget(),
+                const SizedBox(height: 20.0),
+                _DescriptionWidget(),
+                const SizedBox(height: 30.0),
+                _MembersWidget(data: members),
+                const SizedBox(height: 16.0),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
