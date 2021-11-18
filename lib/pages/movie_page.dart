@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/widgets/movie_page/movie_actors_widget.dart';
+import 'package:moovee_land/widgets/movie_page/movie_contributors_widget.dart';
 import 'package:moovee_land/widgets/movie_page/movie_facts_widget.dart';
 import 'package:moovee_land/widgets/movie_page/movie_info_widget.dart';
 import 'package:moovee_land/widgets/movie_page/movie_keywords_widget.dart';
@@ -31,6 +32,7 @@ class _MoviePageState extends State<MoviePage> {
           MovieRecommendationsWidget(),
           MovieFactsWidget(),
           MovieKeywordsWidget(),
+          MovieContributorsWidget(),
         ],
       ),
     );
