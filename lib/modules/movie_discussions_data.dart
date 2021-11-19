@@ -17,7 +17,7 @@ class Discussion {
 }
 
 class DiscussionsCollection {
-  final List<Discussion> discussions = [
+  static List<Discussion> discussions = [
     Discussion(
       title:
           'Share your initial thoughts about No Time To Die *HEAVY SPOILER DISCUSSION*',
