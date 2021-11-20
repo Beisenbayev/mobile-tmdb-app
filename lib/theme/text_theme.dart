@@ -57,6 +57,18 @@ abstract class TextStyleTheme {
     color: Colors.white,
   );
 
+  static const TextStyle small = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: ColorPaletteTheme.foreground,
+  );
+
+  static const TextStyle smallBold = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    color: ColorPaletteTheme.foreground,
+  );
+
   static const TextStyle error = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
