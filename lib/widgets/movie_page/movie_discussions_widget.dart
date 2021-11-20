@@ -26,7 +26,9 @@ class MovieDiscussionsWidget extends StatelessWidget {
           const SizedBox(height: 16.0),
           _DiscussionsListWidget(
             discussions: _discussions,
-          )
+          ),
+          const SizedBox(height: 16.0),
+          _DiscussionsPageButtonWidget(),
         ],
       ),
     );
@@ -68,7 +70,7 @@ class _DiscussionsListWidget extends StatelessWidget {
 class DiscussionsCardWidget extends StatelessWidget {
   final Discussion data;
 
-  DiscussionsCardWidget({
+  const DiscussionsCardWidget({
     Key? key,
     required this.data,
   }) : super(key: key);
@@ -86,22 +88,52 @@ class DiscussionsCardWidget extends StatelessWidget {
               children: [
                 Row(
                   children: <Widget>[
-                    Image(image: AssetImage(data.imageName)),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image(image: AssetImage(data.imageName)),
+                    ),
                     const SizedBox(width: 10.0),
                     Expanded(
                       child: Text(
                         data.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyleTheme.main,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 3.0,),
+                const SizedBox(height: 3.0),
                 Row(
                   children: <Widget>[
-                    Expanded(child: Text(data.type)),
-                    Expanded(child: Text('${data.repliesCount}')),
-                    Expanded(child: Text('${data.date} by ${data.username}')),
+                    Expanded(
+                      child: Text(
+                        data.type,
+                        style: TextStyleTheme.small,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        '${data.repliesCount}',
+                        style: TextStyleTheme.small,
+                      ),
+                    ),
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: '${data.date} by ',
+                              style: TextStyleTheme.small,
+                            ),
+                            TextSpan(
+                              text: data.username,
+                              style: TextStyleTheme.smallBold,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -114,6 +146,19 @@ class DiscussionsCardWidget extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _DiscussionsPageButtonWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {},
+      child: const Text(
+        'Go to Discussions',
+        style: TextStyleTheme.mainBold,
       ),
     );
   }
