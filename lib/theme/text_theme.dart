@@ -63,6 +63,13 @@ abstract class TextStyleTheme {
     color: ColorPaletteTheme.foreground,
   );
 
+  static const TextStyle smallWhite = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
+
+
   static const TextStyle smallBold = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w600,
