@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/app/login/widgets/login_form_widget.dart';
+import 'package:moovee_land/core/models/login_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/button_theme.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  @override
   Widget build(BuildContext context) {
+    final model = LoginPageProvider.of(context)!.model;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),

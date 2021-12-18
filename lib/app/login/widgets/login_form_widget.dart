@@ -1,31 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/core/models/login_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/form_theme.dart';
 import 'package:moovee_land/core/theme/button_theme.dart';
 
-class LoginFormWidget extends StatefulWidget {
+class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _LoginFormWidgetState();
-}
-
-class _LoginFormWidgetState extends State<LoginFormWidget> {
-  final loginController = TextEditingController(text: 'login');
-  final passwordController = TextEditingController(text: 'pass');
-  String? errorText;
-
-  void _handleAuth() {
-    setState(() {
-      if (loginController.text == 'login' &&
-          passwordController.text == 'pass') {
-        errorText = null;
-        Navigator.pushReplacementNamed(context, '/home');
-      } else {
-        errorText = 'Incorrect login or password!';
-      }
-    });
-  }
 
   void _handleResetPassword() {
     print('reset password');
@@ -33,26 +13,34 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final model = LoginPageProvider.of(context)!.model;
+
+    final buttonOnPressed =
+        model.isSubmitting ? null : () => model.handleAuth(context);
+    final buttonStyle = model.isSubmitting
+        ? ButtonStyleTheme.elevatedButtonDisabled
+        : ButtonStyleTheme.elevatedButton;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _InputField(
           label: 'Username',
-          controller: loginController,
+          controller: model.loginController,
         ),
         const SizedBox(height: 16.0),
         _InputField(
           label: 'Password',
-          controller: passwordController,
+          controller: model.passwordController,
           isPassword: true,
         ),
-        if (errorText != null) _ErrorField(text: errorText!),
+        if (model.errorText != null) _ErrorField(text: model.errorText!),
         const SizedBox(height: 30.0),
         Row(
           children: <Widget>[
             ElevatedButton(
-              style: ButtonStyleTheme.elevatedButton,
-              onPressed: _handleAuth,
+              style: buttonStyle,
+              onPressed: buttonOnPressed,
               child: const Text('Login'),
             ),
             const SizedBox(width: 20.0),
