@@ -23,6 +23,27 @@ abstract class ButtonStyleTheme {
     ),
   );
 
+  static ButtonStyle elevatedButtonDisabled = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(
+      ColorPaletteTheme.elementSecondaryBackground.withOpacity(0.4),
+    ),
+    foregroundColor: MaterialStateProperty.all(
+      ColorPaletteTheme.elementForeground,
+    ),
+    textStyle: MaterialStateProperty.all(
+      const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+      ),
+    ),
+    padding: MaterialStateProperty.all(
+      const EdgeInsets.symmetric(
+        vertical: 14,
+        horizontal: 20,
+      ),
+    ),
+  );
+
   static ButtonStyle textButton = ButtonStyle(
     foregroundColor: MaterialStateProperty.all(
       ColorPaletteTheme.elementSecondaryBackground,
