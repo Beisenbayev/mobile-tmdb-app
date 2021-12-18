@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/pages/error_page.dart';
-import 'package:moovee_land/pages/home_page.dart';
-import 'package:moovee_land/pages/login_page.dart';
-import 'package:moovee_land/pages/movie_page.dart';
+import 'package:moovee_land/router/error_page.dart';
+import 'package:moovee_land/app/home/home_page.dart';
+import 'package:moovee_land/app/login/login_page.dart';
+import 'package:moovee_land/app/movie/movie_page.dart';
 
 abstract class RouteData {
   static Map<String, WidgetBuilder> routes = {

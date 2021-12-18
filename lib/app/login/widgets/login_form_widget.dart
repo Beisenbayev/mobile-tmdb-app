@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/theme/text_theme.dart';
-import 'package:moovee_land/theme/form_theme.dart';
-import 'package:moovee_land/theme/button_theme.dart';
+import 'package:moovee_land/core/theme/text_theme.dart';
+import 'package:moovee_land/core/theme/form_theme.dart';
+import 'package:moovee_land/core/theme/button_theme.dart';
 
 class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({Key? key}) : super(key: key);

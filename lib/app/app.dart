@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/theme/text_theme.dart';
-import 'package:moovee_land/utils/routes.dart';
-import 'package:moovee_land/theme/colors_theme.dart';
+import 'package:moovee_land/core/theme/text_theme.dart';
+import 'package:moovee_land/router/routes.dart';
+import 'package:moovee_land/core/theme/colors_theme.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/theme/text_theme.dart';
+import 'package:moovee_land/core/theme/text_theme.dart';
 
 class ErrorPage extends StatelessWidget {
   final String errorText;

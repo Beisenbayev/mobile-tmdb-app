@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/modules/actors_data.dart';
-import 'package:moovee_land/theme/text_theme.dart';
+import 'package:moovee_land/core/modules/actors_data.dart';
+import 'package:moovee_land/core/theme/text_theme.dart';
 
 class MovieActorsWidget extends StatelessWidget {
   final List<Actor> _actors = ActorsCollection.actors;

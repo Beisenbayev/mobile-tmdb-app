@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/modules/movie_discussions_data.dart';
-import 'package:moovee_land/theme/text_theme.dart';
+import 'package:moovee_land/core/modules/movie_discussions_data.dart';
+import 'package:moovee_land/core/theme/text_theme.dart';
 
 class MovieDiscussionsWidget extends StatelessWidget {
   final List<Discussion> _discussions = DiscussionsCollection.discussions;

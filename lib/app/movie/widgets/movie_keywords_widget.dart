@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/modules/movie_keywords_data.dart';
-import 'package:moovee_land/theme/button_theme.dart';
-import 'package:moovee_land/theme/text_theme.dart';
+import 'package:moovee_land/core/modules/movie_keywords_data.dart';
+import 'package:moovee_land/core/theme/button_theme.dart';
+import 'package:moovee_land/core/theme/text_theme.dart';
 
 class MovieKeywordsWidget extends StatelessWidget {
   final List<Keyword> _keywords = KeywordsCollection.keywords;

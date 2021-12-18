@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/modules/recommended_movies_data.dart';
-import 'package:moovee_land/theme/text_theme.dart';
+import 'package:moovee_land/core/modules/recommended_movies_data.dart';
+import 'package:moovee_land/core/theme/text_theme.dart';
 
 class MovieRecommendationsWidget extends StatelessWidget {
   final List<RecommendedMovie> _recommendedMovies =

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/modules/movies_data.dart';
-import 'package:moovee_land/theme/text_theme.dart';
-import 'package:moovee_land/widgets/search_panel_widget.dart';
+import 'package:moovee_land/core/modules/movies_data.dart';
+import 'package:moovee_land/core/theme/text_theme.dart';
+import 'package:moovee_land/core/widgets/search_panel_widget.dart';
 
 class MovieListWidget extends StatefulWidget {
   const MovieListWidget({Key? key}) : super(key: key);

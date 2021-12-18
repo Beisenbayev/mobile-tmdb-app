@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/modules/movie_facts_data.dart';
-import 'package:moovee_land/theme/text_theme.dart';
+import 'package:moovee_land/core/modules/movie_facts_data.dart';
+import 'package:moovee_land/core/theme/text_theme.dart';
 
 class MovieFactsWidget extends StatelessWidget {
   final List<MovieFact> _movieFacts = MovieFactsCollections.movieFacts;

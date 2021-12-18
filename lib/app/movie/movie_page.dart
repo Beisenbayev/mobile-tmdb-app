@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/widgets/movie_page/movie_actors_widget.dart';
-import 'package:moovee_land/widgets/movie_page/movie_contributors_widget.dart';
-import 'package:moovee_land/widgets/movie_page/movie_discussions_widget.dart';
-import 'package:moovee_land/widgets/movie_page/movie_facts_widget.dart';
-import 'package:moovee_land/widgets/movie_page/movie_info_widget.dart';
-import 'package:moovee_land/widgets/movie_page/movie_keywords_widget.dart';
-import 'package:moovee_land/widgets/movie_page/movie_recommendations_widget.dart';
+import 'package:moovee_land/app/movie/widgets/movie_actors_widget.dart';
+import 'package:moovee_land/app/movie/widgets/movie_contributors_widget.dart';
+import 'package:moovee_land/app/movie/widgets/movie_discussions_widget.dart';
+import 'package:moovee_land/app/movie/widgets/movie_facts_widget.dart';
+import 'package:moovee_land/app/movie/widgets/movie_info_widget.dart';
+import 'package:moovee_land/app/movie/widgets/movie_keywords_widget.dart';
+import 'package:moovee_land/app/movie/widgets/movie_recommendations_widget.dart';
 
 class MoviePage extends StatefulWidget {
   final int id;
