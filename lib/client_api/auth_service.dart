@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:moovee_land/client_api/api_config.dart';
 
-class AuthApi {
+class AuthService {
   Future<String> auth({required username, required password}) async {
     final token = await _createToken();
     final validToken = await _validateToken(

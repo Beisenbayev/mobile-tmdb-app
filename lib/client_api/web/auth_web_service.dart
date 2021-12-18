@@ -3,11 +3,10 @@ import 'dart:html';
 
 import 'package:moovee_land/client_api/web/api_web_config.dart';
 
-class AuthWebApi {
+class AuthWebService {
   Future<String> auth({
     required String username,
     required String password,
-    required String token,
   }) async {
     final token = await _authToken();
     final validToken = await _validateToken(
