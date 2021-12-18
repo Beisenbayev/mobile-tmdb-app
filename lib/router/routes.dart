@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/core/models/login_page_model.dart';
 import 'package:moovee_land/router/error_page.dart';
 import 'package:moovee_land/app/home/home_page.dart';
 import 'package:moovee_land/app/login/login_page.dart';
@@ -11,10 +12,15 @@ class RouteAliasData {
 }
 
 abstract class RouteData {
-  static const String initialRoute = '/login';
+  static const String initialRoute = RouteAliasData.login;
 
   static Map<String, WidgetBuilder> routes = {
-    RouteAliasData.login: (context) => const LoginPage(),
+    RouteAliasData.login: (context) {
+      return LoginPageProvider(
+        model: LoginPageModel(),
+        child: const LoginPage(),
+      );
+    },
     RouteAliasData.home: (context) => const HomePage(),
   };
 
