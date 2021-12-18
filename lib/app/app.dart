@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/core/theme/text_theme.dart';
+import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:moovee_land/router/routes.dart';
-import 'package:moovee_land/core/theme/colors_theme.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -11,22 +10,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'MooVeeLand',
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: ColorPaletteTheme.elementMainBackground,
-          foregroundColor: ColorPaletteTheme.elementForeground,
-          titleTextStyle: TextStyleTheme.appBarTitle,
-          centerTitle: true,
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: ColorPaletteTheme.elementMainBackground,
-          selectedItemColor: ColorPaletteTheme.elementForeground,
-          unselectedItemColor:
-              ColorPaletteTheme.elementForeground.withOpacity(0.3),
-        ),
+        appBarTheme: WidgetStyleTheme.appBarTheme,
+        bottomNavigationBarTheme: WidgetStyleTheme.navigationBarTheme,
       ),
       routes: RouteData.routes,
       initialRoute: RouteData.initialRoute,
-      onUnknownRoute: RouteData.unknownRoute(),
+      onGenerateRoute: (settings) => RouteData.onGenerateRoute(settings),
+      onUnknownRoute: (settings) => RouteData.unknownRoute(settings),
     );
   }
 }
