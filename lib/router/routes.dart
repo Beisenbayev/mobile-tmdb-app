@@ -5,9 +5,9 @@ import 'package:moovee_land/app/login/login_page.dart';
 import 'package:moovee_land/app/movie/movie_page.dart';
 
 class RouteAliasData {
-  static const String login = '/login';
-  static const String home = '/home';
-  static const String movieInfo = '/home/movie';
+  static const String login = 'login';
+  static const String home = 'home';
+  static const String movieInfo = 'home/movie';
 }
 
 abstract class RouteData {
