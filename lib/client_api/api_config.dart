@@ -3,7 +3,7 @@ import 'dart:io';
 
 class ApiConfig {
   static final client = HttpClient();
-  static const String apiKey = '0a2a46b5593a0978cc8e87ba34037430';
+  static const String apiKey = '74204da53696b8c3aa676978394bff1f';
   static const String baseUrl = 'https://api.themoviedb.org/3';
   static const String imageUrl = 'https://image.tmdb.org/t/p/w500';
 }

@@ -17,7 +17,7 @@ class AuthApi {
   }
 
   Future<String> _createToken() async {
-    final uri = ApiUtils.createURI('authentication/token/new', {
+    final uri = ApiUtils.createURI('/authentication/token/new', {
       'api_key': ApiConfig.apiKey,
     });
     final request = await ApiConfig.client.getUrl(uri);
@@ -32,7 +32,7 @@ class AuthApi {
     required password,
     required token,
   }) async {
-    final uri = ApiUtils.createURI('authentication/token/validate_with_login', {
+    final uri = ApiUtils.createURI('/authentication/token/validate_with_login', {
       'api_key': ApiConfig.apiKey,
     });
     final request = await ApiConfig.client.postUrl(uri);
@@ -49,7 +49,7 @@ class AuthApi {
   }
 
   Future<String> _createSession({required token}) async {
-    final uri = ApiUtils.createURI('authentication/session/new', {
+    final uri = ApiUtils.createURI('/authentication/session/new', {
       'api_key': ApiConfig.apiKey,
     });
     final request = await ApiConfig.client.postUrl(uri);
