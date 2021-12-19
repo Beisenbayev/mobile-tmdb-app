@@ -12,7 +12,9 @@ class RouteAliasData {
 }
 
 abstract class RouteData {
-  static const String initialRoute = RouteAliasData.login;
+  static String initialRoute(bool isAuth) {
+    return isAuth ? RouteAliasData.home : RouteAliasData.login;
+  }
 
   static Map<String, WidgetBuilder> routes = {
     RouteAliasData.login: (context) {
