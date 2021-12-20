@@ -10,11 +10,9 @@ class ApiConfig {
 
 class ApiUtils {
   static Uri createURI(String path, [Map<String, dynamic>? query]) {
-    return Uri(
-      host: ApiConfig.baseUrl,
-      path: path,
-      queryParameters: query,
-    );
+    final Uri url = Uri.parse('${ApiConfig.baseUrl}/$path');
+    if (query != null) return url.replace(queryParameters: query);
+    return url;
   }
 
   static Future<dynamic> getRequestJson(HttpClientRequest request) async {
