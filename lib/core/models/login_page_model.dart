@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/web/auth_web_service.dart';
+import 'package:moovee_land/client_api/auth_service.dart';
+//import 'package:moovee_land/client_api/web/auth_web_service.dart';
 import 'package:moovee_land/router/routes.dart';
 
 class LoginPageModel extends ChangeNotifier {
-  final _authService = AuthWebService();
+  final _authService = AuthService();
   final loginController = TextEditingController();
   final passwordController = TextEditingController();
   bool isSubmitting = false;
@@ -28,6 +29,7 @@ class LoginPageModel extends ChangeNotifier {
       await _authService.auth(username: login, password: password);
       Navigator.of(context).pushReplacementNamed(RouteAliasData.home);
     } catch (error) {
+      print(error);
       errorText = 'Incorrect login or password!';
       notifyListeners();
     } finally {
