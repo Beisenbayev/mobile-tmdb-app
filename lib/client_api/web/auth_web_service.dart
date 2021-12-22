@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:html';
-
 import 'package:moovee_land/client_api/web/api_web_config.dart';
 
 class AuthWebService {
@@ -16,11 +13,10 @@ class AuthWebService {
   }
 
   Future<String> _authToken() async {
-    final response = await HttpRequest.getString(
-            '${ApiWebConfig.baseUrl}/authentication/token/new?api_key=${ApiWebConfig.apiKey}')
-        .then((request) => jsonDecode(request))
-        .then((response) => response as Map<String, dynamic>);
-    final token = response['request_token'] as String;
+    final token = await ApiWebUtils.get<String>(
+      path: 'authentication/token/new',
+      parser: (dynamic response) => response['request_token'] as String,
+    );
     return token;
   }
 
@@ -34,25 +30,21 @@ class AuthWebService {
       'password': password,
       'request_token': token,
     };
-    final response = await HttpRequest.postFormData(
-      '${ApiWebConfig.baseUrl}/authentication/token/validate_with_login?api_key=${ApiWebConfig.apiKey}',
-      parameters,
-    )
-        .then((request) => jsonDecode(request.response))
-        .then((response) => response as Map<String, dynamic>);
-    final validToken = response['request_token'] as String;
+    final validToken = await ApiWebUtils.post<String>(
+      path: 'authentication/token/validate_with_login',
+      parser: (dynamic response) => response['request_token'] as String,
+      bodyParameters: parameters,
+    );
     return validToken;
   }
 
   Future<String> _createSession({required String token}) async {
     final Map<String, String> parameters = {'request_token': token};
-    final response = await HttpRequest.postFormData(
-      '${ApiWebConfig.baseUrl}/authentication/session/new?api_key=${ApiWebConfig.apiKey}',
-      parameters,
-    )
-        .then((request) => jsonDecode(request.response))
-        .then((response) => response as Map<String, dynamic>);
-    final sessionId = response['session_id'] as String;
+    final sessionId = await ApiWebUtils.post<String>(
+      path: 'authentication/session/new',
+      parser: (dynamic response) => response['session_id'] as String,
+      bodyParameters: parameters,
+    );
     return sessionId;
   }
 }
