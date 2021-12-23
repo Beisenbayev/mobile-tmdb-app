@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-//import 'package:moovee_land/client_api/auth_service.dart';
+import 'package:moovee_land/client_api/auth_service.dart';
 import 'package:moovee_land/core/storage/session_storage.dart';
-import 'package:moovee_land/client_api/web/auth_web_service.dart';
+//import 'package:moovee_land/client_api/web/auth_web_service.dart';
 import 'package:moovee_land/router/routes.dart';
 
 class LoginPageModel extends ChangeNotifier {
-  final _authService = AuthWebService();
+  final _authService = AuthService();
   final _sessionStorage = SessionStorage();
   final loginController = TextEditingController();
   final passwordController = TextEditingController();

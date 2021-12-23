@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:moovee_land/client_api/api_config.dart';
 
 class AuthService {
@@ -17,13 +14,13 @@ class AuthService {
   }
 
   Future<String> _createToken() async {
-    final uri = ApiUtils.createURI('authentication/token/new', {
-      'api_key': ApiConfig.apiKey,
-    });
-    final request = await ApiConfig.client.getUrl(uri);
-    final json =
-        (await ApiUtils.getRequestJson(request)) as Map<String, dynamic>;
-    final token = json['request_token'] as String;
+    final token = await ApiUtils.get<String>(
+      path: 'authentication/token/new',
+      parser: (dynamic json) => json['request_token'] as String,
+      queryParameters: {
+        'api_key': ApiConfig.apiKey,
+      },
+    );
     return token;
   }
 
@@ -32,33 +29,32 @@ class AuthService {
     required password,
     required token,
   }) async {
-    final uri =
-        ApiUtils.createURI('authentication/token/validate_with_login', {
-      'api_key': ApiConfig.apiKey,
-    });
-    final request = await ApiConfig.client.postUrl(uri);
-    request.headers.contentType = ContentType.json;
-    request.write(jsonEncode(<String, dynamic>{
+    final Map<String, dynamic> parameters = {
       'username': username,
       'password': password,
       'request_token': token
-    }));
-    final json =
-        (await ApiUtils.getRequestJson(request)) as Map<String, dynamic>;
-    final validToken = json['request_token'] as String;
+    };
+    final validToken = await ApiUtils.post<String>(
+      path: 'authentication/token/validate_with_login',
+      parser: (dynamic json) => json['request_token'] as String,
+      bodyParameters: parameters,
+      queryParameters: {
+        'api_key': ApiConfig.apiKey,
+      },
+    );
     return validToken;
   }
 
   Future<String> _createSession({required token}) async {
-    final uri = ApiUtils.createURI('authentication/session/new', {
-      'api_key': ApiConfig.apiKey,
-    });
-    final request = await ApiConfig.client.postUrl(uri);
-    request.headers.contentType = ContentType.json;
-    request.write(jsonEncode(<String, dynamic>{'request_token': token}));
-    final json =
-        (await ApiUtils.getRequestJson(request)) as Map<String, dynamic>;
-    final sessionId = json['session_id'] as String;
+    final Map<String, dynamic> parameters = {'request_token': token};
+    final sessionId = await ApiUtils.post<String>(
+      path: 'authentication/session/new',
+      parser: (dynamic json) => json['session_id'] as String,
+      bodyParameters: parameters,
+      queryParameters: {
+        'api_key': ApiConfig.apiKey,
+      },
+    );
     return sessionId;
   }
 }

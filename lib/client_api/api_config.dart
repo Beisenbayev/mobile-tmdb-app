@@ -24,4 +24,35 @@ class ApiUtils {
         .then((value) => jsonDecode(value));
     return json;
   }
+
+  static Future<T> get<T>({
+    required String path,
+    required T Function(dynamic request) parser,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    final uri = createURI(path, queryParameters);
+    final request = await ApiConfig.client.getUrl(uri);
+
+    final json = await getRequestJson(request) as Map<String, dynamic>;
+    final response = parser(json);
+
+    return response;
+  }
+
+  static Future<T> post<T>({
+    required String path,
+    required T Function(dynamic response) parser,
+    required Map<String, dynamic> bodyParameters,
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    final uri = createURI(path, queryParameters);
+    final request = await ApiConfig.client.postUrl(uri);
+    request.headers.contentType = ContentType.json;
+    request.write(jsonEncode(bodyParameters));
+
+    final json = await getRequestJson(request) as Map<String, dynamic>;
+    final response = parser(json);
+
+    return response;
+  }
 }

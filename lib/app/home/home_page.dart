@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/app/home/widgets/movie_list_widget.dart';
+import 'package:moovee_land/core/storage/session_storage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,7 +14,10 @@ class _HomePageState extends State<HomePage> {
   static final List<Widget> _widgetOptions = <Widget>[
     const Text('News'),
     const MovieListWidget(),
-    const Text('Shows'),
+    ElevatedButton(onPressed: () async {
+      final _sessionStorage = SessionStorage();
+      await _sessionStorage.setSessionId(null);
+    }, child: const Text('logout')),
   ];
 
   void handleSelectItem(index) {
