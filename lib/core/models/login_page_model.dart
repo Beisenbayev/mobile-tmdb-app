@@ -32,9 +32,20 @@ class LoginPageModel extends ChangeNotifier {
           await _authService.auth(username: login, password: password);
       _sessionStorage.setSessionId(sessionId);
       Navigator.of(context).pushReplacementNamed(RouteAliasData.home);
-    } catch (error) {
-      errorText = 'Incorrect login or password!';
-      notifyListeners();
+    } on AuthExeption catch (error) {
+      switch (error.type) {
+        case AuthExeptionsType.network:
+          errorText = 'Network error. Please check your connection!';
+          break;
+        case AuthExeptionsType.auth:
+          errorText = 'Incorrect login or password!';
+          break;
+        case AuthExeptionsType.other:
+          errorText = 'Something went wrong, please try again!';
+          break;
+      }
+    } catch (_) {
+      errorText = 'Something went wrong, please try again!';
     } finally {
       isSubmitting = false;
       notifyListeners();
