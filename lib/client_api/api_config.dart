@@ -8,15 +8,26 @@ class ApiConfig {
   static const String imageUrl = 'https://image.tmdb.org/t/p/w500';
 }
 
+enum ApiExeptionsType { invalidApiKey }
+
+class ApiExeption implements Exception {
+  final ApiExeptionsType type;
+
+  const ApiExeption(this.type);
+}
+
 class ApiUtils {
-  static Uri createURI(String path, [Map<String, dynamic>? query]) {
+  static Uri _createURI(String path, [Map<String, dynamic>? query]) {
     final Uri url = Uri.parse('${ApiConfig.baseUrl}/$path');
     if (query != null) return url.replace(queryParameters: query);
     return url;
   }
 
-  static Future<dynamic> getRequestJson(HttpClientRequest request) async {
+  static Future<dynamic> _getRequestJson(HttpClientRequest request) async {
     final response = await request.close();
+    if (response.statusCode == 401) {
+      throw const ApiExeption(ApiExeptionsType.invalidApiKey);
+    }
     final json = await response
         .transform(utf8.decoder)
         .toList()
@@ -30,10 +41,10 @@ class ApiUtils {
     required T Function(dynamic request) parser,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final uri = createURI(path, queryParameters);
+    final uri = _createURI(path, queryParameters);
     final request = await ApiConfig.client.getUrl(uri);
 
-    final json = await getRequestJson(request) as Map<String, dynamic>;
+    final json = await _getRequestJson(request) as Map<String, dynamic>;
     final response = parser(json);
 
     return response;
@@ -45,12 +56,12 @@ class ApiUtils {
     required Map<String, dynamic> bodyParameters,
     Map<String, dynamic>? queryParameters,
   }) async {
-    final uri = createURI(path, queryParameters);
+    final uri = _createURI(path, queryParameters);
     final request = await ApiConfig.client.postUrl(uri);
     request.headers.contentType = ContentType.json;
     request.write(jsonEncode(bodyParameters));
 
-    final json = await getRequestJson(request) as Map<String, dynamic>;
+    final json = await _getRequestJson(request) as Map<String, dynamic>;
     final response = parser(json);
 
     return response;

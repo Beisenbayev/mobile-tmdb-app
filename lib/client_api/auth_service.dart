@@ -1,16 +1,33 @@
+import 'dart:io';
+
 import 'package:moovee_land/client_api/api_config.dart';
+
+enum AuthExeptionsType { network, auth, other }
+
+class AuthExeption implements Exception {
+  final AuthExeptionsType type;
+
+  const AuthExeption(this.type);
+}
 
 class AuthService {
   Future<String> auth({required username, required password}) async {
-    final token = await _createToken();
-    final validToken = await _validateToken(
-      username: username,
-      password: password,
-      token: token,
-    );
-    final sessionId = await _createSession(token: validToken);
-
-    return sessionId;
+    try {
+      final token = await _createToken();
+      final validToken = await _validateToken(
+        username: username,
+        password: password,
+        token: token,
+      );
+      final sessionId = await _createSession(token: validToken);
+      return sessionId;
+    } on SocketException {
+      throw const AuthExeption(AuthExeptionsType.network);
+    } on ApiExeption {
+      throw const AuthExeption(AuthExeptionsType.auth);
+    } catch (_) {
+      throw const AuthExeption(AuthExeptionsType.other);
+    }
   }
 
   Future<String> _createToken() async {
