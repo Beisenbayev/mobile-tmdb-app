@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/modules/movies_data.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
+import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:moovee_land/core/widgets/search_panel_widget.dart';
+import 'package:moovee_land/router/routes.dart';
 
 class MovieListWidget extends StatefulWidget {
   const MovieListWidget({Key? key}) : super(key: key);
@@ -27,7 +30,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
   }
 
   void handleCardTap(id) {
-    Navigator.pushNamed(context, '/home/movie', arguments: id);
+    Navigator.of(context).pushNamed(RouteAliasData.movieInfo, arguments: id);
   }
 
   @override
@@ -39,59 +42,57 @@ class _MovieListWidgetState extends State<MovieListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 10.0, 16.0, 0),
-          child: SearchPanelWidget(searchHandler: handleSearch),
-        ),
-        const SizedBox(height: 5),
-        Expanded(
-          child: ListView.builder(
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            itemCount: _searchedMovies.length,
-            itemExtent: 170,
-            itemBuilder: (BuildContext context, int index) {
-              final Movie movie = _searchedMovies[index];
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 10.0,
-                ),
-                child: MovieCardWidget(
-                  data: movie,
-                  tapHandler: handleCardTap,
-                ),
-              );
-            },
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: PaddingConsts.screenVertical,
+        horizontal: PaddingConsts.screenHorizontal,
+      ),
+      child: Column(
+        children: [
+          SearchPanelWidget(searchHandler: handleSearch),
+          const SizedBox(height: 5),
+          Expanded(
+            child: ListView.builder(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              itemCount: _searchedMovies.length,
+              itemExtent: 170,
+              itemBuilder: (BuildContext context, int index) {
+                final movie = _searchedMovies[index];
+                return MovieCardWidget(
+                  movie: movie,
+                  handleCardTap: handleCardTap,
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
 class MovieCardWidget extends StatelessWidget {
-  final Movie data;
-  final void Function(int) tapHandler;
+  final Movie movie;
+  final void Function(int) handleCardTap;
 
   const MovieCardWidget({
     Key? key,
-    required this.data,
-    required this.tapHandler,
+    required this.movie,
+    required this.handleCardTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 7,
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
       clipBehavior: Clip.hardEdge,
+      decoration: WidgetThemeShelf.roundedCardTheme,
       child: Stack(
         children: <Widget>[
           Row(
             children: <Widget>[
               Image(
-                image: AssetImage(data.imageName),
+                image: AssetImage(movie.imageName),
               ),
               const SizedBox(width: 15),
               Expanded(
@@ -100,21 +101,21 @@ class MovieCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      data.title,
+                      movie.title,
                       style: TextThemeShelf.itemTitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 5.0),
                     Text(
-                      data.date,
+                      movie.date,
                       style: TextThemeShelf.subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 20.0),
                     Text(
-                      data.description,
+                      movie.description,
                       style: TextThemeShelf.main,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -128,7 +129,7 @@ class MovieCardWidget extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () => tapHandler(data.id),
+              onTap: () => handleCardTap(movie.id),
             ),
           )
         ],

@@ -4,10 +4,10 @@ import 'colors_theme.dart';
 abstract class ButtonThemeShelf {
   static ButtonStyle elevatedButton = ButtonStyle(
     backgroundColor: MaterialStateProperty.all(
-      ColorThemeShelf.elementSecondaryBackground,
+      ColorThemeShelf.secondaryBackground,
     ),
     foregroundColor: MaterialStateProperty.all(
-      ColorThemeShelf.elementForeground,
+      ColorThemeShelf.whiteForeground,
     ),
     textStyle: MaterialStateProperty.all(
       const TextStyle(
@@ -25,10 +25,10 @@ abstract class ButtonThemeShelf {
 
   static ButtonStyle elevatedButtonDisabled = ButtonStyle(
     backgroundColor: MaterialStateProperty.all(
-      ColorThemeShelf.elementSecondaryBackground.withOpacity(0.4),
+      ColorThemeShelf.secondaryBackground.withOpacity(0.4),
     ),
     foregroundColor: MaterialStateProperty.all(
-      ColorThemeShelf.elementForeground,
+      ColorThemeShelf.whiteForeground,
     ),
     textStyle: MaterialStateProperty.all(
       const TextStyle(
@@ -46,7 +46,7 @@ abstract class ButtonThemeShelf {
 
   static ButtonStyle textButton = ButtonStyle(
     foregroundColor: MaterialStateProperty.all(
-      ColorThemeShelf.elementSecondaryBackground,
+      ColorThemeShelf.secondaryBackground,
     ),
     textStyle: MaterialStateProperty.all(
       const TextStyle(
@@ -60,7 +60,7 @@ abstract class ButtonThemeShelf {
     backgroundColor: MaterialStateProperty.all(
       Colors.black.withOpacity(0.1),
     ),
-    foregroundColor: MaterialStateProperty.all(ColorThemeShelf.foreground),
+    foregroundColor: MaterialStateProperty.all(ColorThemeShelf.blackForeground),
     textStyle: MaterialStateProperty.all(
       const TextStyle(
         fontSize: 16,

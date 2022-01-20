@@ -5,15 +5,24 @@ import 'colors_theme.dart';
 
 class WidgetThemeShelf {
   static const appBarTheme = AppBarTheme(
-    backgroundColor: ColorThemeShelf.elementMainBackground,
-    foregroundColor: ColorThemeShelf.elementForeground,
+    backgroundColor: ColorThemeShelf.mainBackground,
+    foregroundColor: ColorThemeShelf.whiteForeground,
     titleTextStyle: TextThemeShelf.appBarTitle,
     centerTitle: true,
   );
 
   static final navigationBarTheme = BottomNavigationBarThemeData(
-    backgroundColor: ColorThemeShelf.elementMainBackground,
-    selectedItemColor: ColorThemeShelf.elementForeground,
-    unselectedItemColor: ColorThemeShelf.elementForeground.withOpacity(0.3),
+    backgroundColor: ColorThemeShelf.mainBackground,
+    selectedItemColor: ColorThemeShelf.whiteForeground,
+    unselectedItemColor: ColorThemeShelf.whiteForeground.withOpacity(0.3),
+  );
+
+  static final roundedCardTheme = BoxDecoration(
+    border: Border.all(
+      width: 1,
+      color: ColorThemeShelf.borderColor,
+    ),
+    borderRadius: const BorderRadius.all(Radius.circular(6)),
+    color: Colors.white,
   );
 }

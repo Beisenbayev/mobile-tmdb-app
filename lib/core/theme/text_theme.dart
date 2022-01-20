@@ -5,13 +5,13 @@ abstract class TextThemeShelf {
   static const TextStyle appBarTitle = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w600,
-    color: ColorThemeShelf.elementForeground,
+    color: ColorThemeShelf.whiteForeground,
   );
 
   static const TextStyle itemTitle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
-    color: ColorThemeShelf.foreground,
+    color: ColorThemeShelf.blackForeground,
   );
 
   static const TextStyle itemTitleWhite = TextStyle(
@@ -36,13 +36,13 @@ abstract class TextThemeShelf {
   static const TextStyle main = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: ColorThemeShelf.foreground,
+    color: ColorThemeShelf.blackForeground,
   );
 
   static const TextStyle mainBold = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: ColorThemeShelf.foreground,
+    color: ColorThemeShelf.blackForeground,
   );
 
   static const TextStyle mainWhite = TextStyle(
@@ -60,7 +60,7 @@ abstract class TextThemeShelf {
   static const TextStyle small = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w400,
-    color: ColorThemeShelf.foreground,
+    color: ColorThemeShelf.blackForeground,
   );
 
   static const TextStyle smallWhite = TextStyle(
@@ -72,7 +72,7 @@ abstract class TextThemeShelf {
   static const TextStyle smallBold = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.w600,
-    color: ColorThemeShelf.foreground,
+    color: ColorThemeShelf.blackForeground,
   );
 
   static const TextStyle smallBoldWhite = TextStyle(
