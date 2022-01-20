@@ -15,8 +15,8 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'MooVeeLand',
       theme: ThemeData(
-        appBarTheme: WidgetStyleTheme.appBarTheme,
-        bottomNavigationBarTheme: WidgetStyleTheme.navigationBarTheme,
+        appBarTheme: WidgetThemeShelf.appBarTheme,
+        bottomNavigationBarTheme: WidgetThemeShelf.navigationBarTheme,
       ),
       routes: RouteData.routes,
       initialRoute: RouteData.initialRoute(model.isAuth),

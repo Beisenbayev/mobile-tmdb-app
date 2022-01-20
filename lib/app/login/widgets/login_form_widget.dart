@@ -18,8 +18,8 @@ class LoginFormWidget extends StatelessWidget {
     final buttonOnPressed =
         model.isSubmitting ? null : () => model.handleAuth(context);
     final buttonStyle = model.isSubmitting
-        ? ButtonStyleTheme.elevatedButtonDisabled
-        : ButtonStyleTheme.elevatedButton;
+        ? ButtonThemeShelf.elevatedButtonDisabled
+        : ButtonThemeShelf.elevatedButton;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +45,7 @@ class LoginFormWidget extends StatelessWidget {
             ),
             const SizedBox(width: 20.0),
             TextButton(
-              style: ButtonStyleTheme.textButton,
+              style: ButtonThemeShelf.textButton,
               onPressed: _handleResetPassword,
               child: const Text('Reset password'),
             ),
@@ -75,13 +75,13 @@ class _InputField extends StatelessWidget {
       children: <Widget>[
         Text(
           label,
-          style: TextStyleTheme.main,
+          style: TextThemeShelf.main,
         ),
         const SizedBox(height: 5.0),
         TextField(
           obscureText: isPassword,
           controller: controller,
-          decoration: InputFieldStyleTheme.outlined,
+          decoration: InputThemeShelf.outlined,
         )
       ],
     );
@@ -100,7 +100,7 @@ class _ErrorField extends StatelessWidget {
         const SizedBox(height: 10),
         Text(
           text,
-          style: TextStyleTheme.error,
+          style: TextThemeShelf.error,
         )
       ],
     );

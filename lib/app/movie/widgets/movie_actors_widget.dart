@@ -17,7 +17,7 @@ class MovieActorsWidget extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'Top Billed Cast',
-              style: TextStyleTheme.itemTitle,
+              style: TextThemeShelf.itemTitle,
             ),
           ),
           const SizedBox(height: 16.0),
@@ -46,7 +46,7 @@ class MovieActorsWidget extends StatelessWidget {
               onPressed: () {},
               child: const Text(
                 'Full Cast & Crew',
-                style: TextStyleTheme.itemTitle,
+                style: TextThemeShelf.itemTitle,
               ),
             ),
           )
@@ -82,18 +82,18 @@ class ActorCardWidget extends StatelessWidget {
                   children: [
                     Text(
                       data.fullName,
-                      style: TextStyleTheme.mainBold,
+                      style: TextThemeShelf.mainBold,
                     ),
                     const SizedBox(height: 3),
                     Text(
                       data.character,
-                      style: TextStyleTheme.main,
+                      style: TextThemeShelf.main,
                     ),
                     if (data.episodeCount is int) ...[
                       const SizedBox(height: 3),
                       Text(
                         '${data.episodeCount} episodes',
-                        style: TextStyleTheme.subtitle,
+                        style: TextThemeShelf.subtitle,
                       )
                     ]
                   ],

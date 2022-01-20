@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'colors_theme.dart';
 
-abstract class ButtonStyleTheme {
+abstract class ButtonThemeShelf {
   static ButtonStyle elevatedButton = ButtonStyle(
     backgroundColor: MaterialStateProperty.all(
-      ColorPaletteTheme.elementSecondaryBackground,
+      ColorThemeShelf.elementSecondaryBackground,
     ),
     foregroundColor: MaterialStateProperty.all(
-      ColorPaletteTheme.elementForeground,
+      ColorThemeShelf.elementForeground,
     ),
     textStyle: MaterialStateProperty.all(
       const TextStyle(
@@ -25,10 +25,10 @@ abstract class ButtonStyleTheme {
 
   static ButtonStyle elevatedButtonDisabled = ButtonStyle(
     backgroundColor: MaterialStateProperty.all(
-      ColorPaletteTheme.elementSecondaryBackground.withOpacity(0.4),
+      ColorThemeShelf.elementSecondaryBackground.withOpacity(0.4),
     ),
     foregroundColor: MaterialStateProperty.all(
-      ColorPaletteTheme.elementForeground,
+      ColorThemeShelf.elementForeground,
     ),
     textStyle: MaterialStateProperty.all(
       const TextStyle(
@@ -46,7 +46,7 @@ abstract class ButtonStyleTheme {
 
   static ButtonStyle textButton = ButtonStyle(
     foregroundColor: MaterialStateProperty.all(
-      ColorPaletteTheme.elementSecondaryBackground,
+      ColorThemeShelf.elementSecondaryBackground,
     ),
     textStyle: MaterialStateProperty.all(
       const TextStyle(
@@ -60,9 +60,7 @@ abstract class ButtonStyleTheme {
     backgroundColor: MaterialStateProperty.all(
       Colors.black.withOpacity(0.1),
     ),
-    foregroundColor: MaterialStateProperty.all(
-      ColorPaletteTheme.foreground
-    ),
+    foregroundColor: MaterialStateProperty.all(ColorThemeShelf.foreground),
     textStyle: MaterialStateProperty.all(
       const TextStyle(
         fontSize: 16,

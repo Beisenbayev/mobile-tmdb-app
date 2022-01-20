@@ -41,7 +41,7 @@ class _TitleWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: Text(
         'Recommendations',
-        style: TextStyleTheme.itemTitle,
+        style: TextThemeShelf.itemTitle,
       ),
     );
   }
@@ -107,7 +107,7 @@ class RecommendedMovieCardWidget extends StatelessWidget {
                         data.title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: TextStyleTheme.main,
+                        style: TextThemeShelf.main,
                       ),
                     ),
                     const SizedBox(
@@ -115,7 +115,7 @@ class RecommendedMovieCardWidget extends StatelessWidget {
                     ),
                     Text(
                       '${data.userScore}%',
-                      style: TextStyleTheme.main,
+                      style: TextThemeShelf.main,
                     ),
                   ],
                 ),

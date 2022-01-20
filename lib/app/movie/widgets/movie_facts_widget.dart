@@ -38,12 +38,12 @@ class MovieFactItemWidget extends StatelessWidget {
         children: <Widget>[
           Text(
             data.title,
-            style: TextStyleTheme.mainBold,
+            style: TextThemeShelf.mainBold,
           ),
           const SizedBox(height: 3.0),
           Text(
             data.description,
-            style: TextStyleTheme.main,
+            style: TextThemeShelf.main,
           ),
         ],
       ),

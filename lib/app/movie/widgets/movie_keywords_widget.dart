@@ -37,7 +37,7 @@ class _TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       'Keywords',
-      style: TextStyleTheme.itemTitle,
+      style: TextThemeShelf.itemTitle,
     );
   }
 }
@@ -73,7 +73,7 @@ class MovieKeywordButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () {},
-      style: ButtonStyleTheme.outlinedGrayButton,
+      style: ButtonThemeShelf.outlinedGrayButton,
       child: Text(data.title),
     );
   }

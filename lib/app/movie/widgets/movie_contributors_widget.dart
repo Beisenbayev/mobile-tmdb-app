@@ -27,7 +27,7 @@ class _TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       'Top Contributors',
-      style: TextStyleTheme.itemTitle,
+      style: TextThemeShelf.itemTitle,
     );
   }
 }
@@ -88,11 +88,11 @@ class ContributorCardWidget extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       '${data.contributCount}',
-                      style: TextStyleTheme.mainBold,
+                      style: TextThemeShelf.mainBold,
                     ),
                     Text(
                       data.fullName,
-                      style: TextStyleTheme.main,
+                      style: TextThemeShelf.main,
                     ),
                   ],
                 )

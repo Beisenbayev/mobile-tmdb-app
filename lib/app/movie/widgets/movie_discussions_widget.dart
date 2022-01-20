@@ -40,7 +40,7 @@ class _TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       'Socile',
-      style: TextStyleTheme.itemTitle,
+      style: TextThemeShelf.itemTitle,
     );
   }
 }
@@ -98,7 +98,7 @@ class DiscussionsCardWidget extends StatelessWidget {
                         data.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyleTheme.main,
+                        style: TextThemeShelf.main,
                       ),
                     ),
                   ],
@@ -109,13 +109,13 @@ class DiscussionsCardWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         data.type,
-                        style: TextStyleTheme.small,
+                        style: TextThemeShelf.small,
                       ),
                     ),
                     Expanded(
                       child: Text(
                         '${data.repliesCount}',
-                        style: TextStyleTheme.small,
+                        style: TextThemeShelf.small,
                       ),
                     ),
                     Expanded(
@@ -124,11 +124,11 @@ class DiscussionsCardWidget extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: '${data.date} by ',
-                              style: TextStyleTheme.small,
+                              style: TextThemeShelf.small,
                             ),
                             TextSpan(
                               text: data.username,
-                              style: TextStyleTheme.smallBold,
+                              style: TextThemeShelf.smallBold,
                             ),
                           ],
                         ),
@@ -158,7 +158,7 @@ class _DiscussionsPageButtonWidget extends StatelessWidget {
       onPressed: () {},
       child: const Text(
         'Go to Discussions',
-        style: TextStyleTheme.mainBold,
+        style: TextThemeShelf.mainBold,
       ),
     );
   }

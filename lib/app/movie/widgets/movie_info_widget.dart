@@ -12,7 +12,7 @@ class MovieInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: ColorPaletteTheme.backgroundDark,
+      color: ColorThemeShelf.backgroundDark,
       child: Column(
         children: <Widget>[
           _TopPosterWidget(),
@@ -57,7 +57,7 @@ class _TopPosterWidget extends StatelessWidget {
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: <Color>[
-                ColorPaletteTheme.backgroundDark,
+                ColorThemeShelf.backgroundDark,
                 Colors.transparent,
                 Colors.transparent,
               ],
@@ -93,11 +93,11 @@ class _TitleWidget extends StatelessWidget {
         children: [
           TextSpan(
             text: 'Shang-Chi and the Legend of the Ten Rings ',
-            style: TextStyleTheme.itemTitleWhite,
+            style: TextThemeShelf.itemTitleWhite,
           ),
           TextSpan(
             text: '(2021)',
-            style: TextStyleTheme.mainWhite,
+            style: TextThemeShelf.mainWhite,
           ),
         ],
       ),
@@ -121,17 +121,17 @@ class _UserScoreWidget extends StatelessWidget {
                 height: 55,
                 child: RadialPercentWidget(
                   percent: 79,
-                  activeLineColor: ColorPaletteTheme.radialPercentActive,
-                  freeLineColor: ColorPaletteTheme.radialPercentFree,
-                  fillColor: ColorPaletteTheme.radialPercentFill,
+                  activeLineColor: ColorThemeShelf.radialPercentActive,
+                  freeLineColor: ColorThemeShelf.radialPercentFree,
+                  fillColor: ColorThemeShelf.radialPercentFill,
                   lineWidth: 3,
-                  textStyle: TextStyleTheme.mainBoldWhite,
+                  textStyle: TextThemeShelf.mainBoldWhite,
                 ),
               ),
               SizedBox(width: 6),
               Text(
                 'User Score',
-                style: TextStyleTheme.mainBoldWhite,
+                style: TextThemeShelf.mainBoldWhite,
               )
             ],
           ),
@@ -152,7 +152,7 @@ class _UserScoreWidget extends StatelessWidget {
                 SizedBox(width: 6),
                 Text(
                   'Play Trailer',
-                  style: TextStyleTheme.mainWhite,
+                  style: TextThemeShelf.mainWhite,
                 ),
               ],
             ))
@@ -168,7 +168,7 @@ class _GenreWidget extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
-        color: ColorPaletteTheme.backgroundDarker,
+        color: ColorThemeShelf.backgroundDarker,
         border: Border.symmetric(
           horizontal: BorderSide(
             color: Colors.black.withOpacity(0.4),
@@ -181,11 +181,11 @@ class _GenreWidget extends StatelessWidget {
         children: const <Widget>[
           Text(
             '09/02/2021 (KZ) • 2h 12m',
-            style: TextStyleTheme.mainWhite,
+            style: TextThemeShelf.mainWhite,
           ),
           Text(
             'Action, Adventure, Fantasy',
-            style: TextStyleTheme.mainWhite,
+            style: TextThemeShelf.mainWhite,
           ),
         ],
       ),
@@ -201,17 +201,17 @@ class _DescriptionWidget extends StatelessWidget {
       children: const <Widget>[
         Text(
           'You can\'t outrun your destiny.',
-          style: TextStyleTheme.subtitleCursive,
+          style: TextThemeShelf.subtitleCursive,
         ),
         SizedBox(height: 12.0),
         Text(
           'Overview',
-          style: TextStyleTheme.itemTitleWhite,
+          style: TextThemeShelf.itemTitleWhite,
         ),
         SizedBox(height: 10.0),
         Text(
           'Shang-Chi must confront the past he thought he left behind when he is drawn into the web of the mysterious Ten Rings organization.',
-          style: TextStyleTheme.mainWhite,
+          style: TextThemeShelf.mainWhite,
         ),
       ],
     );
@@ -263,12 +263,12 @@ class _MemberProfileWidget extends StatelessWidget {
         children: <Widget>[
           Text(
             fullName,
-            style: TextStyleTheme.mainBoldWhite,
+            style: TextThemeShelf.mainBoldWhite,
           ),
           const SizedBox(height: 3),
           Text(
             position,
-            style: TextStyleTheme.mainWhite,
+            style: TextThemeShelf.mainWhite,
           ),
         ],
       ),

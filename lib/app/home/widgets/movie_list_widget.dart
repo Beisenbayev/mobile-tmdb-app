@@ -101,21 +101,21 @@ class MovieCardWidget extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       data.title,
-                      style: TextStyleTheme.itemTitle,
+                      style: TextThemeShelf.itemTitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 5.0),
                     Text(
                       data.date,
-                      style: TextStyleTheme.subtitle,
+                      style: TextThemeShelf.subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 20.0),
                     Text(
                       data.description,
-                      style: TextStyleTheme.main,
+                      style: TextThemeShelf.main,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

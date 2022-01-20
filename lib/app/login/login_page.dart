@@ -37,20 +37,20 @@ class _LoginPageTextWidget extends StatelessWidget {
       children: <Widget>[
         const Text(
           'In order to use the editing and rating capabilities of TMDB, as well as get personal recommendations you will need to login to your account. If you do not have an account, registering for an account is free and simple. Click here to get started.: ',
-          style: TextStyleTheme.main,
+          style: TextThemeShelf.main,
         ),
         TextButton(
-          style: ButtonStyleTheme.textButton,
+          style: ButtonThemeShelf.textButton,
           onPressed: () {},
           child: const Text('registration'),
         ),
         const SizedBox(height: 16.0),
         const Text(
           'If you signed up but didn\'t get your verification email, click here to have it resent: ',
-          style: TextStyleTheme.main,
+          style: TextThemeShelf.main,
         ),
         TextButton(
-          style: ButtonStyleTheme.textButton,
+          style: ButtonThemeShelf.textButton,
           onPressed: () {},
           child: const Text('verification'),
         )

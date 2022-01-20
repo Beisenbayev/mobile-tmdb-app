@@ -15,7 +15,7 @@ class ErrorPage extends StatelessWidget {
       body: Center(
         child: Text(
           errorText,
-          style: TextStyleTheme.error,
+          style: TextThemeShelf.error,
         ),
       ),
     );
