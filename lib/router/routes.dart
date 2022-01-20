@@ -17,22 +17,25 @@ abstract class RouteData {
   }
 
   static Map<String, WidgetBuilder> routes = {
-    RouteAliasData.login: (context) {
-      return LoginPageProvider(
-        model: LoginPageModel(),
-        child: const LoginPage(),
-      );
-    },
     RouteAliasData.home: (context) => const HomePage(),
   };
 
   static onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RouteAliasData.login:
+        return MaterialPageRoute(
+          builder: (context) => LoginPageProvider(
+            model: LoginPageModel(),
+            child: const LoginPage(),
+          ),
+        );
+
       case RouteAliasData.movieInfo:
         final arguments = settings.arguments as int;
         return MaterialPageRoute(
           builder: (context) => MoviePage(id: arguments),
         );
+
       default:
         return MaterialPageRoute(
           settings: settings,
