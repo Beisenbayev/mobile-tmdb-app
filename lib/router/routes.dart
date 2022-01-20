@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/core/models/login_page_model.dart';
+import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/router/error_page.dart';
 import 'package:moovee_land/app/home/home_page.dart';
 import 'package:moovee_land/app/login/login_page.dart';
@@ -31,9 +32,12 @@ abstract class RouteData {
         );
 
       case RouteAliasData.movieInfo:
-        final arguments = settings.arguments as int;
+        final movieId = settings.arguments as int;
         return MaterialPageRoute(
-          builder: (context) => MoviePage(id: arguments),
+          builder: (context) => MoviePageProvider(
+            model: MoviePageModel(movieId),
+            child: const MoviePage(),
+          ),
         );
 
       default:

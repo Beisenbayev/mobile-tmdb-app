@@ -35,9 +35,22 @@ class RadialPercentWidget extends StatelessWidget {
           ),
         ),
         Center(
-          child: Text(
-            '${percent * 100}%',
-            style: textStyle,
+          child: RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: '${(percent * 100).ceil()}',
+                  style: textStyle,
+                ),
+                const TextSpan(
+                  text: '%',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 8,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],

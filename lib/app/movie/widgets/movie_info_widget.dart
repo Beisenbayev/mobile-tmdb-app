@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/modules/members_data.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
@@ -16,11 +17,13 @@ class MovieInfoWidget extends StatelessWidget {
       child: Column(
         children: <Widget>[
           _TopPosterWidget(),
+          const SizedBox(height: 16.0),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: PaddingConsts.screenHorizontal,
+            ),
             child: Column(
               children: <Widget>[
-                const SizedBox(height: 16.0),
                 _TitleWidget(),
                 const SizedBox(height: 16.0),
                 _UserScoreWidget(),
@@ -46,12 +49,13 @@ class _TopPosterWidget extends StatelessWidget {
     return Stack(
       children: <Widget>[
         const Image(
-          height: 225.0,
+          height: 200.0,
+          fit: BoxFit.cover,
           image: AssetImage('assets/images/topWallpaper.jpg'),
         ),
         Container(
           width: double.infinity,
-          height: 225.0,
+          height: 200.0,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
@@ -65,9 +69,9 @@ class _TopPosterWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 16,
-          left: 16,
-          bottom: 16,
+          top: 20,
+          left: PaddingConsts.screenHorizontal,
+          bottom: 20,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
@@ -89,6 +93,7 @@ class _TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       maxLines: 3,
+      textAlign: TextAlign.center,
       text: const TextSpan(
         children: [
           TextSpan(
@@ -97,7 +102,7 @@ class _TitleWidget extends StatelessWidget {
           ),
           TextSpan(
             text: '(2021)',
-            style: TextThemeShelf.mainWhite,
+            style: TextThemeShelf.subtitle,
           ),
         ],
       ),
@@ -142,20 +147,21 @@ class _UserScoreWidget extends StatelessWidget {
           color: Colors.white.withOpacity(0.3),
         ),
         TextButton(
-            onPressed: () {},
-            child: Row(
-              children: const <Widget>[
-                Icon(
-                  Icons.play_arrow,
-                  color: Colors.white,
-                ),
-                SizedBox(width: 6),
-                Text(
-                  'Play Trailer',
-                  style: TextThemeShelf.mainWhite,
-                ),
-              ],
-            ))
+          onPressed: () {},
+          child: Row(
+            children: const <Widget>[
+              Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+              ),
+              SizedBox(width: 6),
+              Text(
+                'Play Trailer',
+                style: TextThemeShelf.mainWhite,
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
@@ -231,6 +237,7 @@ class _MembersWidget extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Wrap(
+        spacing: 16,
         runSpacing: 16,
         children: data
             .map(
@@ -257,7 +264,7 @@ class _MemberProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 230.0,
+      width: 170.0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -268,7 +275,7 @@ class _MemberProfileWidget extends StatelessWidget {
           const SizedBox(height: 3),
           Text(
             position,
-            style: TextThemeShelf.mainWhite,
+            style: TextThemeShelf.subtitle,
           ),
         ],
       ),

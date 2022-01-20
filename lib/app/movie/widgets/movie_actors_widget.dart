@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/modules/actors_data.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
+import 'package:moovee_land/core/theme/widget_theme.dart';
 
 class MovieActorsWidget extends StatelessWidget {
   final List<Actor> _actors = ActorsCollection.actors;
@@ -9,24 +11,36 @@ class MovieActorsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.only(top: 10, bottom: 26),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'Top Billed Cast',
-              style: TextThemeShelf.itemTitle,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: PaddingConsts.screenHorizontal,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  'Top Billed Cast',
+                  style: TextThemeShelf.itemTitle,
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text('All'),
+                )
+              ],
             ),
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 10.0),
           SizedBox(
             height: 240,
             child: ListView.builder(
               itemCount: _actors.length,
               itemExtent: 130.0,
-              padding: const EdgeInsets.only(left: 10.0, right: 5.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
                 final actor = _actors[index];
@@ -39,17 +53,6 @@ class MovieActorsWidget extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Full Cast & Crew',
-                style: TextThemeShelf.itemTitle,
-              ),
-            ),
-          )
         ],
       ),
     );
@@ -65,14 +68,17 @@ class ActorCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
       clipBehavior: Clip.hardEdge,
-      elevation: 5,
+      decoration: WidgetThemeShelf.roundedCardTheme,
       child: Stack(
         children: <Widget>[
           Column(
             children: <Widget>[
               const Image(
+                width: double.infinity,
+                height: 135,
+                fit: BoxFit.cover,
                 image: AssetImage('assets/images/actorImage.jpg'),
               ),
               Padding(
@@ -83,17 +89,23 @@ class ActorCardWidget extends StatelessWidget {
                     Text(
                       data.fullName,
                       style: TextThemeShelf.mainBold,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 3),
                     Text(
                       data.character,
                       style: TextThemeShelf.main,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     if (data.episodeCount is int) ...[
                       const SizedBox(height: 3),
                       Text(
                         '${data.episodeCount} episodes',
                         style: TextThemeShelf.subtitle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       )
                     ]
                   ],

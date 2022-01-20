@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/core/modules/recommended_movies_data.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
+import 'package:moovee_land/core/theme/widget_theme.dart';
 
 class MovieRecommendationsWidget extends StatelessWidget {
   final List<RecommendedMovie> _recommendedMovies =
@@ -10,16 +11,8 @@ class MovieRecommendationsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Color.fromRGBO(215, 215, 215, 1),
-            width: 1,
-          ),
-        ),
-      ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -88,9 +81,9 @@ class RecommendedMovieCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
+    return Container(
       clipBehavior: Clip.hardEdge,
+      decoration: WidgetThemeShelf.roundedCardTheme,
       child: Stack(
         children: <Widget>[
           Column(

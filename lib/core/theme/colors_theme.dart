@@ -8,8 +8,8 @@ abstract class ColorThemeShelf {
   static const whiteBackground = Colors.white;
   static const blackForeground = Colors.black;
 
-  static const backgroundDark = Color.fromRGBO(27, 22, 26, 1.0);
-  static const backgroundDarker = Color.fromRGBO(24, 20, 23, 1.0);
+  static const backgroundDark = Color.fromRGBO(19, 19, 19, 1.0);
+  static const backgroundDarker = Color.fromRGBO(16, 16, 16, 1.0);
 
   static const radialPercentFill = Color.fromRGBO(8, 28, 34, 1.0);
   static const radialPercentFree = Color.fromRGBO(28, 63, 39, 1.0);

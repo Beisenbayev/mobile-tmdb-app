@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/modules/movie_keywords_data.dart';
 import 'package:moovee_land/core/theme/button_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
@@ -10,16 +11,8 @@ class MovieKeywordsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Color.fromRGBO(215, 215, 215, 1),
-            width: 1,
-          ),
-        ),
-      ),
+    return Padding(
+      padding: const EdgeInsets.all(PaddingConsts.screenHorizontal),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -53,8 +46,7 @@ class _KeywordButtonsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 5.0,
-      runSpacing: 5.0,
+      spacing: 10.0,
       children: keywords.map((item) {
         return MovieKeywordButtonWidget(data: item);
       }).toList(),

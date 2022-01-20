@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/modules/movie_discussions_data.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
+import 'package:moovee_land/core/theme/widget_theme.dart';
 
 class MovieDiscussionsWidget extends StatelessWidget {
   final List<Discussion> _discussions = DiscussionsCollection.discussions;
@@ -9,26 +11,20 @@ class MovieDiscussionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Color.fromRGBO(215, 215, 215, 1),
-            width: 1,
-          ),
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 6,
+        horizontal: PaddingConsts.screenHorizontal,
       ),
-      padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _TitleWidget(),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 4.0),
           _DiscussionsListWidget(
             discussions: _discussions,
           ),
-          const SizedBox(height: 16.0),
-          _DiscussionsPageButtonWidget(),
+          const SizedBox(height: 14),
         ],
       ),
     );
@@ -38,9 +34,19 @@ class MovieDiscussionsWidget extends StatelessWidget {
 class _TitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      'Socile',
-      style: TextThemeShelf.itemTitle,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Text(
+          'Discussions',
+          style: TextThemeShelf.itemTitle,
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Text('All'),
+        )
+      ],
     );
   }
 }
@@ -59,7 +65,7 @@ class _DiscussionsListWidget extends StatelessWidget {
       children: discussions.map((item) {
         return Container(
           height: 120.0,
-          padding: const EdgeInsets.symmetric(vertical: 3.0),
+          margin: const EdgeInsets.symmetric(vertical: 6),
           child: DiscussionsCardWidget(data: item),
         );
       }).toList(),
@@ -77,8 +83,9 @@ class DiscussionsCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
       clipBehavior: Clip.hardEdge,
+      decoration: WidgetThemeShelf.roundedCardTheme,
       child: Stack(
         children: <Widget>[
           Padding(
@@ -120,6 +127,8 @@ class DiscussionsCardWidget extends StatelessWidget {
                     ),
                     Expanded(
                       child: RichText(
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
                         text: TextSpan(
                           children: [
                             TextSpan(
@@ -146,19 +155,6 @@ class DiscussionsCardWidget extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _DiscussionsPageButtonWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {},
-      child: const Text(
-        'Go to Discussions',
-        style: TextThemeShelf.mainBold,
       ),
     );
   }
