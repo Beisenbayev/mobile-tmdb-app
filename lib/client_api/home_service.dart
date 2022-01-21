@@ -9,12 +9,12 @@ class HomeService {
     }
 
     final popularMovies = await ApiUtils.get<PopularMovies>(
-      path: '/movie/popular',
+      path: 'movie/popular',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,
         'language': 'en-US',
-        'page': 1,
+        //'page': 1,
       },
     );
     return popularMovies;

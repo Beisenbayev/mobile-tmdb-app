@@ -8,7 +8,7 @@ class ApiConfig {
   static const String imageUrl = 'https://image.tmdb.org/t/p/w500';
 }
 
-enum ApiExeptionsType { invalidApiKey }
+enum ApiExeptionsType { invalidApiKey, badRequest }
 
 class ApiExeption implements Exception {
   final ApiExeptionsType type;
@@ -27,7 +27,10 @@ class ApiUtils {
     final response = await request.close();
     if (response.statusCode == 401) {
       throw const ApiExeption(ApiExeptionsType.invalidApiKey);
+    } else if (response.statusCode == 404) {
+      throw const ApiExeption(ApiExeptionsType.badRequest);
     }
+
     final json = await response
         .transform(utf8.decoder)
         .toList()
@@ -66,6 +69,8 @@ class ApiUtils {
 
     return response;
   }
+
+  static String getImageUrl(String path) => ApiConfig.imageUrl + path;
 }
 
 class ApiDefaults {
