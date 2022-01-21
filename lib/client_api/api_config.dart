@@ -67,3 +67,9 @@ class ApiUtils {
     return response;
   }
 }
+
+class ApiDefaults {
+  static const Map<String, dynamic> defaultQueryParameters = {
+    'api_key': ApiConfig.apiKey,
+  };
+}

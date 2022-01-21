@@ -34,9 +34,7 @@ class AuthService {
     final token = await ApiUtils.get<String>(
       path: 'authentication/token/new',
       parser: (dynamic json) => json['request_token'] as String,
-      queryParameters: {
-        'api_key': ApiConfig.apiKey,
-      },
+      queryParameters: ApiDefaults.defaultQueryParameters,
     );
     return token;
   }
@@ -55,9 +53,7 @@ class AuthService {
       path: 'authentication/token/validate_with_login',
       parser: (dynamic json) => json['request_token'] as String,
       bodyParameters: parameters,
-      queryParameters: {
-        'api_key': ApiConfig.apiKey,
-      },
+      queryParameters: ApiDefaults.defaultQueryParameters,
     );
     return validToken;
   }
@@ -68,9 +64,7 @@ class AuthService {
       path: 'authentication/session/new',
       parser: (dynamic json) => json['session_id'] as String,
       bodyParameters: parameters,
-      queryParameters: {
-        'api_key': ApiConfig.apiKey,
-      },
+      queryParameters: ApiDefaults.defaultQueryParameters,
     );
     return sessionId;
   }
