@@ -8,20 +8,38 @@ class MoviesListModel extends ChangeNotifier {
   final _homeService = HomeService();
   final _timeFormat = DateFormat.yMMMMd().format;
   final List<Movie> _movies = [];
+  int _currentPageIndex = 0;
+  int _totalPageCount = 1;
+  bool _isLoadingInProgress = false;
 
   List<Movie> get movies => List.unmodifiable(_movies);
 
   MoviesListModel() {
+    _movies.clear();
     handleLoadMovies();
   }
 
   void handleLoadMovies() async {
-    _movies.clear();
+    if (_isLoadingInProgress || _currentPageIndex >= _totalPageCount) return;
+
+    _isLoadingInProgress = true;
+    final nextPageIndex = _currentPageIndex + 1;
+
     try {
-      final loadedMovies = await _homeService.getPopularMovies();
+      final loadedMovies = await _homeService.getPopularMovies(nextPageIndex);
+      _currentPageIndex = loadedMovies.page;
+      _totalPageCount = loadedMovies.totalPages;
       _movies.addAll(loadedMovies.movies);
-    } catch (_) {}
-    notifyListeners();
+      notifyListeners();
+    } catch (_) {
+    } finally {
+      _isLoadingInProgress = false;
+    }
+  }
+
+  void loadMoviesByIndex(int index) {
+    if (index < movies.length - 1) return;
+    handleLoadMovies();
   }
 
   String getImageName(String? path) {

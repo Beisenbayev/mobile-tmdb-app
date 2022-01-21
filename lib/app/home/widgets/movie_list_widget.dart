@@ -34,6 +34,8 @@ class MoviesListWidget extends StatelessWidget {
               itemExtent: 170,
               itemBuilder: (BuildContext context, int index) {
                 final movie = _model.movies[index];
+                _model.loadMoviesByIndex(index);
+
                 return MovieCardWidget(
                   movie: movie,
                   handleCardTap: (int id) => handleCardTap(context, id),
