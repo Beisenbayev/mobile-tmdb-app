@@ -1,47 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/client_api/entity/movie.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/modules/movies_data.dart';
+import 'package:moovee_land/core/models/movies_list_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:moovee_land/core/widgets/search_panel_widget.dart';
 import 'package:moovee_land/router/routes.dart';
 
-class MovieListWidget extends StatefulWidget {
-  const MovieListWidget({Key? key}) : super(key: key);
+class MoviesListWidget extends StatelessWidget {
+  const MoviesListWidget({Key? key}) : super(key: key);
 
-  @override
-  State<MovieListWidget> createState() => _MovieListWidgetState();
-}
-
-class _MovieListWidgetState extends State<MovieListWidget> {
-  final _movies = MoviesCollection.movies;
-  List<Movie> _searchedMovies = [];
-
-  void handleSearch(String text) {
-    setState(() {
-      if (text.isNotEmpty) {
-        _searchedMovies = _movies.where((element) {
-          return element.title.toLowerCase().contains(text.toLowerCase());
-        }).toList();
-      } else {
-        _searchedMovies = _movies;
-      }
-    });
-  }
-
-  void handleCardTap(id) {
+  void handleCardTap(BuildContext context, int id) {
     Navigator.of(context).pushNamed(RouteAliasData.movieInfo, arguments: id);
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    _searchedMovies = _movies;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final _model = MoviesListProvider.of(context)!.model;
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: PaddingConsts.screenVertical,
@@ -49,18 +25,22 @@ class _MovieListWidgetState extends State<MovieListWidget> {
       ),
       child: Column(
         children: [
-          SearchPanelWidget(searchHandler: handleSearch),
+          SearchPanelWidget(searchHandler: (String text) {}),
           const SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              itemCount: _searchedMovies.length,
+              itemCount: _model.movies.length,
               itemExtent: 170,
               itemBuilder: (BuildContext context, int index) {
-                final movie = _searchedMovies[index];
+                final movie = _model.movies[index];
+                _model.loadMoviesByIndex(index);
+
                 return MovieCardWidget(
                   movie: movie,
-                  handleCardTap: handleCardTap,
+                  handleCardTap: (int id) => handleCardTap(context, id),
+                  imageName: (String? path) => _model.getImageName(path),
+                  parseDate: (DateTime? date) => _model.parseDateTime(date),
                 );
               },
             ),
@@ -74,11 +54,15 @@ class _MovieListWidgetState extends State<MovieListWidget> {
 class MovieCardWidget extends StatelessWidget {
   final Movie movie;
   final void Function(int) handleCardTap;
+  final String Function(String?) imageName;
+  final String Function(DateTime?) parseDate;
 
   const MovieCardWidget({
     Key? key,
     required this.movie,
     required this.handleCardTap,
+    required this.imageName,
+    required this.parseDate,
   }) : super(key: key);
 
   @override
@@ -91,8 +75,11 @@ class MovieCardWidget extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Image(
-                image: AssetImage(movie.imageName),
+              Image.network(
+                imageName(movie.posterPath),
+                height: double.infinity,
+                width: 100,
+                fit: BoxFit.cover,
               ),
               const SizedBox(width: 15),
               Expanded(
@@ -108,14 +95,14 @@ class MovieCardWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 5.0),
                     Text(
-                      movie.date,
+                      parseDate(movie.releaseDate),
                       style: TextThemeShelf.subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 20.0),
                     Text(
-                      movie.description,
+                      movie.overview,
                       style: TextThemeShelf.main,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

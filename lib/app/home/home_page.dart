@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/app/home/widgets/movie_list_widget.dart';
+import 'package:moovee_land/core/models/movies_list_model.dart';
 import 'package:moovee_land/core/storage/session_storage.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,11 +14,16 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     const Text('News'),
-    const MovieListWidget(),
-    ElevatedButton(onPressed: () async {
-      final _sessionStorage = SessionStorage();
-      await _sessionStorage.setSessionId(null);
-    }, child: const Text('logout')),
+    MoviesListProvider(
+      model: MoviesListModel(),
+      child: const MoviesListWidget(),
+    ),
+    ElevatedButton(
+        onPressed: () async {
+          final _sessionStorage = SessionStorage();
+          await _sessionStorage.setSessionId(null);
+        },
+        child: const Text('logout')),
   ];
 
   void handleSelectItem(index) {
