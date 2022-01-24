@@ -8,6 +8,12 @@ abstract class TextThemeShelf {
     color: ColorThemeShelf.whiteForeground,
   );
 
+  static const TextStyle sectionTitle = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+    color: ColorThemeShelf.blackForeground,
+  );
+
   static const TextStyle itemTitle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w600,
