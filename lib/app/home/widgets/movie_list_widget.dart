@@ -25,7 +25,7 @@ class MoviesListWidget extends StatelessWidget {
       ),
       child: Column(
         children: [
-          SearchPanelWidget(searchHandler: (String text) {}),
+          SearchPanelWidget(searchHandler: _model.handleSearchMovies),
           const SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
@@ -67,6 +67,10 @@ class MovieCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final moviePoster = (movie.posterPath != null)
+        ? Image.network(imageName(movie.posterPath), fit: BoxFit.cover)
+        : Image.asset('assets/images/film-poster.png', fit: BoxFit.cover);
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       clipBehavior: Clip.hardEdge,
@@ -75,11 +79,10 @@ class MovieCardWidget extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-              Image.network(
-                imageName(movie.posterPath),
-                height: double.infinity,
+              SizedBox(
                 width: 100,
-                fit: BoxFit.cover,
+                height: double.infinity,
+                child: moviePoster,
               ),
               const SizedBox(width: 15),
               Expanded(
