@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/client_api/entity/movie.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/news_feed_model.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/radial_percent_widget.dart';
 import 'package:moovee_land/core/widgets/selector_panel_widget.dart';
+import 'package:moovee_land/router/routes.dart';
 
 class NewsFeedWidget extends StatelessWidget {
   const NewsFeedWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _model = NewsFeedProvider.of(context)!.model;
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(
         vertical: PaddingConsts.screenVertical,
@@ -18,20 +22,26 @@ class NewsFeedWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           _MoviesScrollerWidget(
             title: 'Movies',
-            moviesType: ['Latest', 'Popular', 'Top Rated', 'Upcoming'],
+            movies: _model.movies,
+            moviesType: _model.moviesTypes,
+            changeMoviesType: _model.handleChangeMoviesType,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           _MoviesScrollerWidget(
             title: 'Shows',
-            moviesType: ['Latest', 'Popular', 'Top Rated', 'Upcoming'],
+            movies: _model.movies,
+            moviesType: _model.showsTypes,
+            changeMoviesType: _model.handleChangeMoviesType,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           _MoviesScrollerWidget(
             title: 'Trending',
-            moviesType: ['Today', 'Week'],
+            movies: _model.movies,
+            moviesType: _model.trandingTypes,
+            changeMoviesType: _model.handleChangeMoviesType,
           ),
         ],
       ),
@@ -41,12 +51,16 @@ class NewsFeedWidget extends StatelessWidget {
 
 class _MoviesScrollerWidget extends StatefulWidget {
   final String title;
+  final List<Movie> movies;
   final List<String> moviesType;
+  final void Function(String) changeMoviesType;
 
   const _MoviesScrollerWidget({
     Key? key,
     required this.title,
+    required this.movies,
     required this.moviesType,
+    required this.changeMoviesType,
   }) : super(key: key);
 
   @override
@@ -58,6 +72,11 @@ class _MoviesScrollerWidgetState extends State<_MoviesScrollerWidget> {
 
   void _handleSelectItem(int index) {
     setState(() => _selectedIndex = index);
+    widget.changeMoviesType(widget.moviesType[index]);
+  }
+
+  void _handleCardTap(int id) {
+    Navigator.of(context).pushNamed(RouteAliasData.movieInfo, arguments: id);
   }
 
   @override
@@ -79,12 +98,12 @@ class _MoviesScrollerWidgetState extends State<_MoviesScrollerWidget> {
             SizedBox(
               height: 370,
               child: ListView.builder(
-                itemCount: 20,
+                itemCount: widget.movies.length,
                 itemExtent: 170.0,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
-                  final _movie = MovieFake();
+                  final _movie = widget.movies[index];
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -92,6 +111,7 @@ class _MoviesScrollerWidgetState extends State<_MoviesScrollerWidget> {
                       movie: _movie,
                       imageName: (String? path) => _model.getImageName(path),
                       parseDate: (DateTime? date) => _model.parseDateTime(date),
+                      handleCardTap: _handleCardTap,
                     ),
                   );
                 },
@@ -114,15 +134,17 @@ class _MoviesScrollerWidgetState extends State<_MoviesScrollerWidget> {
 }
 
 class ScrollMovieWidget extends StatelessWidget {
-  final MovieFake movie;
+  final Movie movie;
   final String Function(String?) imageName;
   final String Function(DateTime?) parseDate;
+  final void Function(int) handleCardTap;
 
   const ScrollMovieWidget({
     Key? key,
     required this.movie,
     required this.imageName,
     required this.parseDate,
+    required this.handleCardTap,
   }) : super(key: key);
 
   @override
@@ -137,7 +159,7 @@ class ScrollMovieWidget extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(6)),
           ),
           child: Image.network(
-            imageName(movie.image),
+            imageName(movie.posterPath),
             fit: BoxFit.cover,
           ),
         ),
@@ -154,7 +176,7 @@ class ScrollMovieWidget extends StatelessWidget {
                 width: 44,
                 height: 44,
                 child: RadialPercentWidget(
-                  percent: movie.rating,
+                  percent: movie.voteAverage,
                   activeLineColor: ColorThemeShelf.radialPercentActive,
                   freeLineColor: ColorThemeShelf.radialPercentFree,
                   fillColor: ColorThemeShelf.radialPercentFill,
@@ -171,7 +193,7 @@ class ScrollMovieWidget extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                parseDate(movie.date),
+                parseDate(movie.releaseDate),
                 style: TextThemeShelf.subtitle,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -184,17 +206,10 @@ class ScrollMovieWidget extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(6)),
           clipBehavior: Clip.hardEdge,
           child: InkWell(
-            onTap: () {},
+            onTap: () => handleCardTap(movie.id),
           ),
         ),
       ],
     );
   }
-}
-
-class MovieFake {
-  final String title = 'Harry Potter 20th Anniversary: Return to Hogwarts';
-  final DateTime date = DateTime.now();
-  final double rating = 99;
-  final String image = '/k2twTjSddgLc1oFFHVibfxp2kQV.jpg';
 }
