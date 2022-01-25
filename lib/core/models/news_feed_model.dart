@@ -26,6 +26,40 @@ class NewsFeedModel extends ChangeNotifier {
   List<String> get showsTypes => _showsTypes;
   List<String> get trandingTypes => _trandingTypes;
 
+  NewsFeedModel() {
+    handleChangeMoviesType('Top Rated');
+  }
+
+  Future<List<Movie>> _lodaMovies(String type) async {
+    List<Movie> movies = [];
+    switch (type) {
+      case 'Top Rated':
+        movies = (await _homeService.getTopRatedMovies(1)).movies;
+        break;
+      case 'Popular':
+        movies = (await _homeService.getPopularMovies(1)).movies;
+        break;
+      case 'Now Paying':
+        movies = (await _homeService.getNowPlayingMovies(1)).movies;
+        break;
+      case 'Upcoming':
+        movies = (await _homeService.getUpcomingMovies(1)).movies;
+        break;
+      default:
+        movies = [];
+        break;
+    }
+
+    return movies;
+  }
+
+  void handleChangeMoviesType(String type) async {
+    _movies.clear();
+    final moviesByType = await _lodaMovies(type);
+    _movies.addAll(moviesByType);
+    notifyListeners();
+  }
+
   String getImageName(String? path) {
     return (path != null) ? ApiUtils.getImageUrl(path) : '';
   }
