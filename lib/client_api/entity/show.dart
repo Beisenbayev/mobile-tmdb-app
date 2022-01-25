@@ -12,7 +12,7 @@ class Show {
   final String overview;
   @JsonKey(fromJson: _timeFromString)
   final DateTime? firstAirDate;
-  final List<String> originalCountry;
+  final List<String> originCountry;
   final List<int> genreIds;
   final String originalLanguage;
   final int voteCount;
@@ -27,7 +27,7 @@ class Show {
     required this.voteAverage,
     required this.overview,
     required this.firstAirDate,
-    required this.originalCountry,
+    required this.originCountry,
     required this.genreIds,
     required this.originalLanguage,
     required this.voteCount,

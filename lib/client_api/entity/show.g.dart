@@ -14,7 +14,7 @@ Show _$ShowFromJson(Map<String, dynamic> json) => Show(
       voteAverage: (json['vote_average'] as num).toDouble(),
       overview: json['overview'] as String,
       firstAirDate: Show._timeFromString(json['first_air_date'] as String?),
-      originalCountry: (json['original_country'] as List<dynamic>)
+      originCountry: (json['origin_country'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
       genreIds:
@@ -33,7 +33,7 @@ Map<String, dynamic> _$ShowToJson(Show instance) => <String, dynamic>{
       'vote_average': instance.voteAverage,
       'overview': instance.overview,
       'first_air_date': instance.firstAirDate?.toIso8601String(),
-      'original_country': instance.originalCountry,
+      'origin_country': instance.originCountry,
       'genre_ids': instance.genreIds,
       'original_language': instance.originalLanguage,
       'vote_count': instance.voteCount,
