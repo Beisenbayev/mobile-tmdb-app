@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entity/movie.dart';
+import 'package:moovee_land/client_api/entity/show.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/news_feed_model.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
@@ -23,21 +24,21 @@ class NewsFeedWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _MoviesScrollerWidget(
+          _MoviesScrollerWidget<Movie>(
             title: 'Movies',
             movies: _model.movies,
             moviesType: _model.moviesTypes,
             changeMoviesType: _model.handleChangeMoviesType,
           ),
           const SizedBox(height: 16),
-          _MoviesScrollerWidget(
+          _MoviesScrollerWidget<Show>(
             title: 'Shows',
-            movies: _model.movies,
+            movies: _model.shows,
             moviesType: _model.showsTypes,
-            changeMoviesType: _model.handleChangeMoviesType,
+            changeMoviesType: _model.handleChangeShowsType,
           ),
           const SizedBox(height: 16),
-          _MoviesScrollerWidget(
+          _MoviesScrollerWidget<Movie>(
             title: 'Trending',
             movies: _model.movies,
             moviesType: _model.trandingTypes,
@@ -49,9 +50,9 @@ class NewsFeedWidget extends StatelessWidget {
   }
 }
 
-class _MoviesScrollerWidget extends StatefulWidget {
+class _MoviesScrollerWidget<T> extends StatefulWidget {
   final String title;
-  final List<Movie> movies;
+  final List<T> movies;
   final List<String> moviesType;
   final void Function(String) changeMoviesType;
 
@@ -64,10 +65,10 @@ class _MoviesScrollerWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<_MoviesScrollerWidget> createState() => _MoviesScrollerWidgetState();
+  State<_MoviesScrollerWidget> createState() => _MoviesScrollerWidgetState<T>();
 }
 
-class _MoviesScrollerWidgetState extends State<_MoviesScrollerWidget> {
+class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
   int _selectedIndex = 0;
 
   void _handleSelectItem(int index) {
@@ -107,7 +108,7 @@ class _MoviesScrollerWidgetState extends State<_MoviesScrollerWidget> {
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: ScrollMovieWidget(
+                    child: ScrollMovieWidget<T>(
                       movie: _movie,
                       imageName: (String? path) => _model.getImageName(path),
                       parseDate: (DateTime? date) => _model.parseDateTime(date),
@@ -133,8 +134,8 @@ class _MoviesScrollerWidgetState extends State<_MoviesScrollerWidget> {
   }
 }
 
-class ScrollMovieWidget extends StatelessWidget {
-  final Movie movie;
+class ScrollMovieWidget<T> extends StatelessWidget {
+  final T movie;
   final String Function(String?) imageName;
   final String Function(DateTime?) parseDate;
   final void Function(int) handleCardTap;
@@ -149,6 +150,33 @@ class ScrollMovieWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? imageUrl;
+    String title = '';
+    double rating = 0;
+    DateTime? releaseDate;
+    int id = 0;
+
+    switch (T) {
+      case Movie:
+        imageUrl = (movie as Movie).posterPath;
+        title = (movie as Movie).title;
+        rating = (movie as Movie).voteAverage * 10;
+        releaseDate = (movie as Movie).releaseDate;
+        id = (movie as Movie).id;
+        break;
+      case Show:
+        imageUrl = (movie as Show).posterPath;
+        title = (movie as Show).name;
+        rating = (movie as Show).voteAverage * 10;
+        releaseDate = (movie as Show).firstAirDate;
+        id = (movie as Show).id;
+        break;
+    }
+
+    final moviePoster = (imageUrl != null)
+        ? Image.network(imageName(imageUrl), fit: BoxFit.cover)
+        : Image.asset('assets/images/film-poster.png', fit: BoxFit.cover);
+
     return Stack(
       children: [
         Container(
@@ -158,10 +186,7 @@ class ScrollMovieWidget extends StatelessWidget {
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(6)),
           ),
-          child: Image.network(
-            imageName(movie.posterPath),
-            fit: BoxFit.cover,
-          ),
+          child: moviePoster,
         ),
         Padding(
           padding: const EdgeInsets.only(
@@ -176,7 +201,7 @@ class ScrollMovieWidget extends StatelessWidget {
                 width: 44,
                 height: 44,
                 child: RadialPercentWidget(
-                  percent: movie.voteAverage,
+                  percent: rating,
                   activeLineColor: ColorThemeShelf.radialPercentActive,
                   freeLineColor: ColorThemeShelf.radialPercentFree,
                   fillColor: ColorThemeShelf.radialPercentFill,
@@ -186,14 +211,14 @@ class ScrollMovieWidget extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                movie.title,
+                title,
                 style: TextThemeShelf.mainBold,
                 maxLines: 4,
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 4),
               Text(
-                parseDate(movie.releaseDate),
+                parseDate(releaseDate),
                 style: TextThemeShelf.subtitle,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -206,7 +231,7 @@ class ScrollMovieWidget extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(6)),
           clipBehavior: Clip.hardEdge,
           child: InkWell(
-            onTap: () => handleCardTap(movie.id),
+            onTap: () => handleCardTap(id),
           ),
         ),
       ],

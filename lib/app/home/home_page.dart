@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/app/home/widgets/movie_list_widget.dart';
+import 'package:moovee_land/app/home/widgets/movies_list_widget.dart';
 import 'package:moovee_land/app/home/widgets/news_feed_widget.dart';
+import 'package:moovee_land/app/home/widgets/shows_list_widget.dart';
 import 'package:moovee_land/core/models/movies_list_model.dart';
 import 'package:moovee_land/core/models/news_feed_model.dart';
-import 'package:moovee_land/core/storage/session_storage.dart';
+import 'package:moovee_land/core/models/shows_list_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,12 +24,10 @@ class _HomePageState extends State<HomePage> {
       model: MoviesListModel(),
       child: const MoviesListWidget(),
     ),
-    ElevatedButton(
-        onPressed: () async {
-          final _sessionStorage = SessionStorage();
-          await _sessionStorage.setSessionId(null);
-        },
-        child: const Text('logout')),
+    ShowsListProvider(
+      model: ShowsListModel(),
+      child: const ShowsListWidget(),
+    ),
   ];
 
   void handleSelectItem(index) {
