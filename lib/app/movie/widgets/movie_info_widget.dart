@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
+import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/modules/members_data.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
@@ -46,12 +47,23 @@ class MovieInfoWidget extends StatelessWidget {
 class _TopPosterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _model = MoviePageProvider.of(context)!.model;
+    final _ditails = _model.ditails!;
+    final movieBackdrop = (_ditails.posterPath != null)
+        ? Image.network(_model.getImageName(_ditails.backdropPath),
+            fit: BoxFit.cover)
+        : Image.asset('assets/images/film-poster.png', fit: BoxFit.cover);
+    final moviePoster = (_ditails.posterPath != null)
+        ? Image.network(_model.getImageName(_ditails.posterPath),
+            fit: BoxFit.cover)
+        : Image.asset('assets/images/film-poster.png', fit: BoxFit.cover);
+
     return Stack(
       children: <Widget>[
-        const Image(
-          height: 200.0,
-          fit: BoxFit.cover,
-          image: AssetImage('assets/images/topWallpaper.jpg'),
+        SizedBox(
+          width: double.infinity,
+          height: 200,
+          child: movieBackdrop,
         ),
         Container(
           width: double.infinity,
@@ -77,10 +89,7 @@ class _TopPosterWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             clipBehavior: Clip.hardEdge,
-            child: const Image(
-              image: AssetImage('assets/images/topSubimage.jpg'),
-              fit: BoxFit.cover,
-            ),
+            child: moviePoster,
           ),
         )
       ],
