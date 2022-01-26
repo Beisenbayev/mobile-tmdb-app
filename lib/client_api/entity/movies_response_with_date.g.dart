@@ -27,3 +27,13 @@ Map<String, dynamic> _$MoviesResponseWithDateToJson(
       'total_results': instance.totalResults,
       'total_pages': instance.totalPages,
     };
+
+DateRange _$DateRangeFromJson(Map<String, dynamic> json) => DateRange(
+      maximum: json['maximum'] as String,
+      minimum: json['minimum'] as String,
+    );
+
+Map<String, dynamic> _$DateRangeToJson(DateRange instance) => <String, dynamic>{
+      'maximum': instance.maximum,
+      'minimum': instance.minimum,
+    };
