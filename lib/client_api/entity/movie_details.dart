@@ -18,7 +18,7 @@ class MovieDetails {
   final String? overview;
   final double popularity;
   final String? posterPath;
-  final List<ProductionCompanie> productionPompanies;
+  final List<ProductionCompanie> productionCompanies;
   final List<ProductionCountrie> productionCountries;
   @JsonKey(fromJson: EntityUtils.timeFromString)
   final DateTime? releaseDate;
@@ -45,7 +45,7 @@ class MovieDetails {
     required this.overview,
     required this.popularity,
     required this.posterPath,
-    required this.productionPompanies,
+    required this.productionCompanies,
     required this.productionCountries,
     required this.releaseDate,
     required this.revenue,
@@ -121,7 +121,7 @@ class ProductionCountrie {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class SpokenLanguage {
-  @JsonKey(name: 'iso_3166_1')
+  @JsonKey(name: 'iso_639_1')
   final String iso;
   final String name;
   SpokenLanguage({

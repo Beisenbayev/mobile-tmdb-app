@@ -206,7 +206,7 @@ class ScrollMovieWidget<T> extends StatelessWidget {
                   freeLineColor: ColorThemeShelf.radialPercentFree,
                   fillColor: ColorThemeShelf.radialPercentFill,
                   lineWidth: 3,
-                  textStyle: TextThemeShelf.mainBoldWhite,
+                  textStyle: TextThemeShelf.smallBoldWhite,
                 ),
               ),
               const SizedBox(height: 10),

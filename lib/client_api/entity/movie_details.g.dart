@@ -25,7 +25,7 @@ MovieDetails _$MovieDetailsFromJson(Map<String, dynamic> json) => MovieDetails(
       overview: json['overview'] as String?,
       popularity: (json['popularity'] as num).toDouble(),
       posterPath: json['poster_path'] as String?,
-      productionPompanies: (json['production_pompanies'] as List<dynamic>)
+      productionCompanies: (json['production_companies'] as List<dynamic>)
           .map((e) => ProductionCompanie.fromJson(e as Map<String, dynamic>))
           .toList(),
       productionCountries: (json['production_countries'] as List<dynamic>)
@@ -60,8 +60,8 @@ Map<String, dynamic> _$MovieDetailsToJson(MovieDetails instance) =>
       'overview': instance.overview,
       'popularity': instance.popularity,
       'poster_path': instance.posterPath,
-      'production_pompanies':
-          instance.productionPompanies.map((e) => e.toJson()).toList(),
+      'production_companies':
+          instance.productionCompanies.map((e) => e.toJson()).toList(),
       'production_countries':
           instance.productionCountries.map((e) => e.toJson()).toList(),
       'release_date': instance.releaseDate?.toIso8601String(),
@@ -124,12 +124,12 @@ Map<String, dynamic> _$ProductionCountrieToJson(ProductionCountrie instance) =>
 
 SpokenLanguage _$SpokenLanguageFromJson(Map<String, dynamic> json) =>
     SpokenLanguage(
-      iso: json['iso_3166_1'] as String,
+      iso: json['iso_639_1'] as String,
       name: json['name'] as String,
     );
 
 Map<String, dynamic> _$SpokenLanguageToJson(SpokenLanguage instance) =>
     <String, dynamic>{
-      'iso_3166_1': instance.iso,
+      'iso_639_1': instance.iso,
       'name': instance.name,
     };
