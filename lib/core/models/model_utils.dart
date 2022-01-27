@@ -19,6 +19,14 @@ class ModelUtils {
         : Image.asset('assets/images/film-backdrop.png', fit: BoxFit.cover);
   }
 
+  static Widget getActorImage(String? path) {
+    final imageUrl = (path != null) ? ApiUtils.getImageUrl(path) : '';
+
+    return (imageUrl.isNotEmpty)
+        ? Image.network(imageUrl, fit: BoxFit.cover)
+        : Image.asset('assets/images/cast-avatar.png', fit: BoxFit.cover);
+  }
+
   static String parseDateTime(DateTime? date, String timeFormat) {
     if (date == null) return '';
     return DateFormat(timeFormat).format(date);

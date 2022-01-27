@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/client_api/entity/movie_credits.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/modules/actors_data.dart';
+import 'package:moovee_land/core/models/model_utils.dart';
+import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 
 class MovieActorsWidget extends StatelessWidget {
-  final List<Actor> _actors = ActorsCollection.actors;
-  MovieActorsWidget({Key? key}) : super(key: key);
+  const MovieActorsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _credits = MoviePageProvider.of(context)!.model.credits;
+
+    if (_credits == null || _credits.cast.isEmpty) {
+      return const SizedBox.shrink();
+    }
+    final _actors = (_credits.cast.length > 15)
+        ? _credits.cast.sublist(0, 15)
+        : _credits.cast;
+
     return Padding(
       padding: const EdgeInsets.only(top: 10, bottom: 26),
       child: Column(
@@ -43,11 +53,10 @@ class MovieActorsWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
-                final actor = _actors[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
                   child: ActorCardWidget(
-                    data: actor,
+                    cast: _actors[index],
                   ),
                 );
               },
@@ -60,14 +69,16 @@ class MovieActorsWidget extends StatelessWidget {
 }
 
 class ActorCardWidget extends StatelessWidget {
-  final Actor data;
+  final Cast cast;
   const ActorCardWidget({
     Key? key,
-    required this.data,
+    required this.cast,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _avatar = ModelUtils.getActorImage(cast.profilePath);
+
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: WidgetThemeShelf.roundedCardTheme,
@@ -75,11 +86,10 @@ class ActorCardWidget extends StatelessWidget {
         children: <Widget>[
           Column(
             children: <Widget>[
-              const Image(
+              SizedBox(
                 width: double.infinity,
                 height: 135,
-                fit: BoxFit.cover,
-                image: AssetImage('assets/images/actorImage.jpg'),
+                child: _avatar,
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
@@ -87,27 +97,27 @@ class ActorCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data.fullName,
+                      cast.originalName,
                       style: TextThemeShelf.mainBold,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      data.character,
+                      cast.character,
                       style: TextThemeShelf.main,
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    if (data.episodeCount is int) ...[
-                      const SizedBox(height: 3),
-                      Text(
-                        '${data.episodeCount} episodes',
-                        style: TextThemeShelf.subtitle,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                    ]
+                    // if (cast.episodeCount is int) ...[
+                    //   const SizedBox(height: 3),
+                    //   Text(
+                    //     '${cast.episodeCount} episodes',
+                    //     style: TextThemeShelf.subtitle,
+                    //     maxLines: 1,
+                    //     overflow: TextOverflow.ellipsis,
+                    //   )
+                    // ]
                   ],
                 ),
               )

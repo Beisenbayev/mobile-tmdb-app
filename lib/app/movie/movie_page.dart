@@ -44,8 +44,8 @@ class _MoviePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        MovieInfoWidget(),
-        MovieActorsWidget(),
+        const MovieInfoWidget(),
+        const MovieActorsWidget(),
         const Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
         MovieDiscussionsWidget(),
         const Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),

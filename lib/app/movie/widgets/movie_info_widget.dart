@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/model_utils.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
-import 'package:moovee_land/core/modules/members_data.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/radial_percent_widget.dart';
 
 class MovieInfoWidget extends StatelessWidget {
-  final members = MembersCollection.members;
-
-  MovieInfoWidget({Key? key}) : super(key: key);
+  const MovieInfoWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,24 +15,24 @@ class MovieInfoWidget extends StatelessWidget {
       color: ColorThemeShelf.backgroundDark,
       child: Column(
         children: <Widget>[
-          _TopPosterWidget(),
+          const _TopPosterWidget(),
           const SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: PaddingConsts.screenHorizontal,
             ),
             child: Column(
-              children: <Widget>[
+              children: const <Widget>[
                 _TitleWidget(),
-                const SizedBox(height: 16.0),
+                SizedBox(height: 16.0),
                 _UserScoreWidget(),
-                const SizedBox(height: 16.0),
+                SizedBox(height: 16.0),
                 _GenreWidget(),
-                const SizedBox(height: 20.0),
+                SizedBox(height: 20.0),
                 _DescriptionWidget(),
-                const SizedBox(height: 30.0),
-                _MembersWidget(data: members),
-                const SizedBox(height: 16.0),
+                SizedBox(height: 30.0),
+                _MembersWidget(),
+                SizedBox(height: 26.0),
               ],
             ),
           ),
@@ -46,6 +43,8 @@ class MovieInfoWidget extends StatelessWidget {
 }
 
 class _TopPosterWidget extends StatelessWidget {
+  const _TopPosterWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final _model = MoviePageProvider.of(context)!.model;
@@ -93,6 +92,8 @@ class _TopPosterWidget extends StatelessWidget {
 }
 
 class _TitleWidget extends StatelessWidget {
+  const _TitleWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final _ditails = MoviePageProvider.of(context)!.model.ditails!;
@@ -118,6 +119,8 @@ class _TitleWidget extends StatelessWidget {
 }
 
 class _UserScoreWidget extends StatelessWidget {
+  const _UserScoreWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final _ditails = MoviePageProvider.of(context)!.model.ditails!;
@@ -177,6 +180,8 @@ class _UserScoreWidget extends StatelessWidget {
 }
 
 class _GenreWidget extends StatelessWidget {
+  const _GenreWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     String _info = '';
@@ -220,6 +225,8 @@ class _GenreWidget extends StatelessWidget {
 }
 
 class _DescriptionWidget extends StatelessWidget {
+  const _DescriptionWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final _ditails = MoviePageProvider.of(context)!.model.ditails!;
@@ -255,28 +262,28 @@ class _DescriptionWidget extends StatelessWidget {
 }
 
 class _MembersWidget extends StatelessWidget {
-  final List<Member> data;
-
-  const _MembersWidget({
-    Key? key,
-    required this.data,
-  }) : super(key: key);
+  const _MembersWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _credits = MoviePageProvider.of(context)!.model.credits;
+
+    if (_credits == null) return const SizedBox.shrink();
+    final _crew = (_credits.crew.length > 6)
+        ? _credits.crew.sublist(0, 6)
+        : _credits.crew;
+
     return SizedBox(
       width: double.infinity,
       child: Wrap(
         spacing: 16,
         runSpacing: 16,
-        children: data
-            .map(
-              (item) => _MemberProfileWidget(
-                fullName: item.fullName,
-                position: item.position,
-              ),
-            )
-            .toList(),
+        children: _crew.map((item) {
+          return _MemberProfileWidget(
+            fullName: item.originalName,
+            position: item.job,
+          );
+        }).toList(),
       ),
     );
   }
