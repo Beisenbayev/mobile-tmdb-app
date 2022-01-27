@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
+import 'package:moovee_land/core/models/model_utils.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/modules/members_data.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
@@ -49,14 +50,8 @@ class _TopPosterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final _model = MoviePageProvider.of(context)!.model;
     final _ditails = _model.ditails!;
-    final movieBackdrop = (_ditails.posterPath != null)
-        ? Image.network(_model.getImageName(_ditails.backdropPath),
-            fit: BoxFit.cover)
-        : Image.asset('assets/images/film-poster.png', fit: BoxFit.cover);
-    final moviePoster = (_ditails.posterPath != null)
-        ? Image.network(_model.getImageName(_ditails.posterPath),
-            fit: BoxFit.cover)
-        : Image.asset('assets/images/film-poster.png', fit: BoxFit.cover);
+    final movieBackdrop = ModelUtils.getBackdropImage(_ditails.backdropPath);
+    final moviePoster = ModelUtils.getPosterImage(_ditails.posterPath);
 
     return Stack(
       children: <Widget>[
@@ -100,17 +95,20 @@ class _TopPosterWidget extends StatelessWidget {
 class _TitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final _year = ModelUtils.parseDateTime(_ditails.releaseDate, 'y');
+
     return RichText(
       maxLines: 3,
       textAlign: TextAlign.center,
-      text: const TextSpan(
+      text: TextSpan(
         children: [
           TextSpan(
-            text: 'Shang-Chi and the Legend of the Ten Rings ',
+            text: _ditails.title,
             style: TextThemeShelf.itemTitleWhite,
           ),
           TextSpan(
-            text: '(2021)',
+            text: _year.isNotEmpty ? ' ($_year)' : '',
             style: TextThemeShelf.subtitle,
           ),
         ],
@@ -122,6 +120,8 @@ class _TitleWidget extends StatelessWidget {
 class _UserScoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -129,12 +129,12 @@ class _UserScoreWidget extends StatelessWidget {
         TextButton(
           onPressed: () {},
           child: Row(
-            children: const <Widget>[
+            children: <Widget>[
               SizedBox(
                 width: 55,
                 height: 55,
                 child: RadialPercentWidget(
-                  percent: 79,
+                  percent: (_ditails.voteAverage * 10),
                   activeLineColor: ColorThemeShelf.radialPercentActive,
                   freeLineColor: ColorThemeShelf.radialPercentFree,
                   fillColor: ColorThemeShelf.radialPercentFill,
@@ -142,8 +142,8 @@ class _UserScoreWidget extends StatelessWidget {
                   textStyle: TextThemeShelf.mainBoldWhite,
                 ),
               ),
-              SizedBox(width: 6),
-              Text(
+              const SizedBox(width: 6),
+              const Text(
                 'User Score',
                 style: TextThemeShelf.mainBoldWhite,
               )
@@ -179,6 +179,20 @@ class _UserScoreWidget extends StatelessWidget {
 class _GenreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String _info = '';
+    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final _date = ModelUtils.parseDateTime(_ditails.releaseDate, 'yMd');
+    if (_date.isNotEmpty) _info = _date;
+    final _country = _ditails.productionCountries.isNotEmpty
+        ? _ditails.productionCountries[0].iso
+        : '';
+    if (_country.replaceAll(' ', '').isNotEmpty) _info = '$_info ($_country)';
+    final _hours = ModelUtils.getHoursFromMinute(_ditails.runtime);
+    if (_hours.replaceAll(' ', '').isNotEmpty) _info = '$_info • $_hours';
+    final _genres =
+        _ditails.genres.map((ganre) => ganre.name).toList().join(', ');
+    if (_genres.isNotEmpty) _info = '$_info • $_genres';
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -193,15 +207,12 @@ class _GenreWidget extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const <Widget>[
+        children: <Widget>[
           Text(
-            '09/02/2021 (KZ) • 2h 12m',
+            _info,
             style: TextThemeShelf.mainWhite,
-          ),
-          Text(
-            'Action, Adventure, Fantasy',
-            style: TextThemeShelf.mainWhite,
-          ),
+            textAlign: TextAlign.center,
+          )
         ],
       ),
     );
@@ -211,23 +222,33 @@ class _GenreWidget extends StatelessWidget {
 class _DescriptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final tagline = (_ditails.tagline != null && _ditails.tagline!.isNotEmpty)
+        ? Column(
+            children: [
+              Text(_ditails.tagline!, style: TextThemeShelf.subtitleCursive),
+              const SizedBox(height: 12.0)
+            ],
+          )
+        : const SizedBox.shrink();
+
+    final overview =
+        (_ditails.overview != null && _ditails.overview!.isNotEmpty)
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Overview', style: TextThemeShelf.itemTitleWhite),
+                  const SizedBox(height: 10.0),
+                  Text(_ditails.overview!, style: TextThemeShelf.mainWhite),
+                ],
+              )
+            : const SizedBox.shrink();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget>[
-        Text(
-          'You can\'t outrun your destiny.',
-          style: TextThemeShelf.subtitleCursive,
-        ),
-        SizedBox(height: 12.0),
-        Text(
-          'Overview',
-          style: TextThemeShelf.itemTitleWhite,
-        ),
-        SizedBox(height: 10.0),
-        Text(
-          'Shang-Chi must confront the past he thought he left behind when he is drawn into the web of the mysterious Ten Rings organization.',
-          style: TextThemeShelf.mainWhite,
-        ),
+      children: <Widget>[
+        tagline,
+        overview,
       ],
     );
   }
