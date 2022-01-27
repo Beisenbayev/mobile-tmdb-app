@@ -83,8 +83,6 @@ class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final _model = NewsFeedProvider.of(context)!.model;
-
     return Stack(
       children: [
         Column(
@@ -111,7 +109,6 @@ class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: ScrollMovieWidget<T>(
                       movie: _movie,
-                      parseDate: (DateTime? date) => _model.parseDateTime(date),
                       handleCardTap: _handleCardTap,
                     ),
                   );
@@ -136,13 +133,11 @@ class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
 
 class ScrollMovieWidget<T> extends StatelessWidget {
   final T movie;
-  final String Function(DateTime?) parseDate;
   final void Function(int) handleCardTap;
 
   const ScrollMovieWidget({
     Key? key,
     required this.movie,
-    required this.parseDate,
     required this.handleCardTap,
   }) : super(key: key);
 
@@ -172,6 +167,7 @@ class ScrollMovieWidget<T> extends StatelessWidget {
     }
 
     final moviePoster = ModelUtils.getPosterImage(imageUrl);
+    final movieDate = ModelUtils.parseDateTime(releaseDate, 'yMMMd');
 
     return Stack(
       children: [
@@ -214,7 +210,7 @@ class ScrollMovieWidget<T> extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                parseDate(releaseDate),
+                movieDate,
                 style: TextThemeShelf.subtitle,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

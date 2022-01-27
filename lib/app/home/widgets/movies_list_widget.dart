@@ -40,7 +40,6 @@ class MoviesListWidget extends StatelessWidget {
                 return MovieCardWidget(
                   movie: movie,
                   handleCardTap: (int id) => handleCardTap(context, id),
-                  parseDate: (DateTime? date) => _model.parseDateTime(date),
                 );
               },
             ),
@@ -54,18 +53,17 @@ class MoviesListWidget extends StatelessWidget {
 class MovieCardWidget extends StatelessWidget {
   final Movie movie;
   final void Function(int) handleCardTap;
-  final String Function(DateTime?) parseDate;
 
   const MovieCardWidget({
     Key? key,
     required this.movie,
     required this.handleCardTap,
-    required this.parseDate,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final moviePoster = ModelUtils.getPosterImage(movie.posterPath);
+    final movieDate = ModelUtils.parseDateTime(movie.releaseDate, 'yMMMMd');
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -94,7 +92,7 @@ class MovieCardWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 5.0),
                     Text(
-                      parseDate(movie.releaseDate),
+                      movieDate,
                       style: TextThemeShelf.subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

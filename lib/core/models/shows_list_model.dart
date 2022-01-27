@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:moovee_land/client_api/api_config.dart';
 import 'package:moovee_land/client_api/entity/show.dart';
 import 'package:moovee_land/client_api/entity/shows_response.dart';
 import 'package:moovee_land/client_api/home_service.dart';
 
 class ShowsListModel extends ChangeNotifier {
   final _homeService = HomeService();
-  final _timeFormat = DateFormat.yMMMMd().format;
   final List<Show> _shows = [];
   int _currentPageIndex = 0;
   int _totalPageCount = 1;
@@ -68,10 +65,6 @@ class ShowsListModel extends ChangeNotifier {
   void loadShowsByIndex(int index) {
     if (index < _shows.length - 1) return;
     _loadNextPage();
-  }
-
-  String parseDateTime(DateTime? date) {
-    return (date != null) ? _timeFormat(date) : '';
   }
 }
 
