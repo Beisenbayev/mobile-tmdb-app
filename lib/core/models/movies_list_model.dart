@@ -70,10 +70,6 @@ class MoviesListModel extends ChangeNotifier {
     _loadNextPage();
   }
 
-  String getImageName(String? path) {
-    return (path != null) ? ApiUtils.getImageUrl(path) : '';
-  }
-
   String parseDateTime(DateTime? date) {
     return (date != null) ? _timeFormat(date) : '';
   }

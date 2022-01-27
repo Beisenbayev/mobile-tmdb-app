@@ -21,11 +21,7 @@ class MoviePageModel extends ChangeNotifier {
     _ditails = await _movieService.getMovieDetails(_movieId);
     notifyListeners();
   }
-
-  String getImageName(String? path) {
-    return (path != null) ? ApiUtils.getImageUrl(path) : '';
-  }
-
+  
   String parseDateTime(DateTime? date) {
     return (date != null) ? _timeFormat(date) : '';
   }
