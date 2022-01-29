@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/core/modules/recommended_movies_data.dart';
+import 'package:moovee_land/client_api/entity/movie.dart';
+import 'package:moovee_land/core/models/model_utils.dart';
+import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
+import 'package:moovee_land/router/routes.dart';
 
 class MovieRecommendationsWidget extends StatelessWidget {
-  final List<RecommendedMovie> _recommendedMovies =
-      RecommendedMoviesCollection.recommendedMovies;
-
-  MovieRecommendationsWidget({Key? key}) : super(key: key);
+  const MovieRecommendationsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _recommendations =
+        MoviePageProvider.of(context)!.model.recommendations;
+
+    if (_recommendations == null || _recommendations.movies.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: const <Widget>[
           _TitleWidget(),
-          const SizedBox(height: 16.0),
-          _HorizontalScrollMoviesWidget(
-            recommendedMovies: _recommendedMovies,
-          )
+          SizedBox(height: 16.0),
+          _HorizontalScrollMoviesWidget(),
         ],
       ),
     );
@@ -28,6 +33,10 @@ class MovieRecommendationsWidget extends StatelessWidget {
 }
 
 class _TitleWidget extends StatelessWidget {
+  const _TitleWidget({
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return const Padding(
@@ -41,28 +50,34 @@ class _TitleWidget extends StatelessWidget {
 }
 
 class _HorizontalScrollMoviesWidget extends StatelessWidget {
-  final List<RecommendedMovie> recommendedMovies;
+  const _HorizontalScrollMoviesWidget({Key? key}) : super(key: key);
 
-  const _HorizontalScrollMoviesWidget({
-    Key? key,
-    required this.recommendedMovies,
-  }) : super(key: key);
+  void _handleCardTap(BuildContext context, int id) {
+    Navigator.of(context).pushReplacementNamed(
+      RouteAliasData.movieInfo,
+      arguments: id,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final _movies =
+        MoviePageProvider.of(context)!.model.recommendations!.movies;
+
     return SizedBox(
-      height: 175.0,
+      height: 180.0,
       child: ListView.builder(
-        itemCount: recommendedMovies.length,
+        itemCount: _movies.length,
         itemExtent: 250.0,
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
-          final recommendedMovie = recommendedMovies[index];
+          final _recommendedMovie = _movies[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
             child: RecommendedMovieCardWidget(
-              data: recommendedMovie,
+              movie: _recommendedMovie,
+              handleTap: (int id) => _handleCardTap(context, id),
             ),
           );
         },
@@ -72,15 +87,19 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
 }
 
 class RecommendedMovieCardWidget extends StatelessWidget {
-  final RecommendedMovie data;
+  final Movie movie;
+  final void Function(int) handleTap;
 
   const RecommendedMovieCardWidget({
     Key? key,
-    required this.data,
+    required this.movie,
+    required this.handleTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final movieBackdrop = ModelUtils.getBackdropImage(movie.backdropPath);
+
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: WidgetThemeShelf.roundedCardTheme,
@@ -88,7 +107,15 @@ class RecommendedMovieCardWidget extends StatelessWidget {
         children: <Widget>[
           Column(
             children: <Widget>[
-              Image(image: AssetImage(data.imageName)),
+              Container(
+                width: double.infinity,
+                height: 140,
+                clipBehavior: Clip.hardEdge,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(6)),
+                ),
+                child: movieBackdrop,
+              ),
               const SizedBox(height: 6),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
@@ -97,7 +124,7 @@ class RecommendedMovieCardWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        data.title,
+                        movie.title,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextThemeShelf.main,
@@ -107,7 +134,7 @@ class RecommendedMovieCardWidget extends StatelessWidget {
                       width: 10,
                     ),
                     Text(
-                      '${data.userScore}%',
+                      '${(movie.voteAverage * 10).toInt()}%',
                       style: TextThemeShelf.main,
                     ),
                   ],
@@ -118,7 +145,7 @@ class RecommendedMovieCardWidget extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {},
+              onTap: () => handleTap(movie.id),
             ),
           ),
         ],
