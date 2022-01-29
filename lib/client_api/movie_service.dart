@@ -2,6 +2,7 @@ import 'package:moovee_land/client_api/api_config.dart';
 import 'package:moovee_land/client_api/entity/movie_credits.dart';
 import 'package:moovee_land/client_api/entity/movie_details.dart';
 import 'package:moovee_land/client_api/entity/movie_discussions.dart';
+import 'package:moovee_land/client_api/entity/movie_keywords.dart';
 import 'package:moovee_land/client_api/entity/movies_response.dart';
 
 class MovieService {
@@ -69,6 +70,20 @@ class MovieService {
         'api_key': ApiConfig.apiKey,
         'language': 'en-US',
       },
+    );
+    return response;
+  }
+
+  Future<MovieKeywords> getMovieKeywords(int movieId) async {
+    MovieKeywords parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return MovieKeywords.fromJson(jsonMap);
+    }
+
+    final response = await ApiUtils.get<MovieKeywords>(
+      path: 'movie/$movieId/keywords',
+      parser: parser,
+      queryParameters: ApiDefaults.defaultQueryParameters,
     );
     return response;
   }
