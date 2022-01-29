@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entity/movie_credits.dart';
 import 'package:moovee_land/client_api/entity/movie_discussions.dart';
 import 'package:moovee_land/client_api/entity/movie_keywords.dart';
+import 'package:moovee_land/client_api/entity/movie_videos.dart';
 import 'package:moovee_land/client_api/entity/movies_response.dart';
 import 'package:moovee_land/client_api/movie_service.dart';
 import 'package:moovee_land/client_api/entity/movie_details.dart';
@@ -15,6 +16,7 @@ class MoviePageModel extends ChangeNotifier {
   MoviesResponse? _recommendations;
   MovieKeywords? _keywords;
   MoviesResponse? _similarMovies;
+  MovieVideos? _videos;
 
   int get movieId => _movieId;
   MovieDetails? get ditails => _ditails;
@@ -23,6 +25,7 @@ class MoviePageModel extends ChangeNotifier {
   MoviesResponse? get recommendations => _recommendations;
   MovieKeywords? get keywordsResponse => _keywords;
   MoviesResponse? get similarMovies => _similarMovies;
+  MovieVideos? get videos => _videos;
 
   MoviePageModel(this._movieId) {
     _loadMovie();
@@ -35,6 +38,7 @@ class MoviePageModel extends ChangeNotifier {
     _recommendations = await _movieService.getMovieRecommendations(_movieId);
     _keywords = await _movieService.getMovieKeywords(_movieId);
     _similarMovies = await _movieService.getSimilarMovies(_movieId);
+    _videos = await _movieService.getMovieVideos(_movieId);
     notifyListeners();
   }
 }

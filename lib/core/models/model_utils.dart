@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moovee_land/client_api/api_config.dart';
+import 'package:moovee_land/client_api/entity/movie_videos.dart';
 
 class ModelUtils {
   static Widget getPosterImage(String? path) {
@@ -64,5 +65,25 @@ class ModelUtils {
     }
 
     return '\$' + cashFormat.split('').reversed.join();
+  }
+
+  static String getOfficialTrailerKey(List<Trailer> trailers) {
+    if (trailers.isEmpty) return '';
+
+    final _youTubeTrailers = trailers.where((item) {
+      return item.site == 'YouTube' && item.key.isNotEmpty;
+    }).toList();
+
+    final _officialTrailers = _youTubeTrailers.where((item) {
+      return item.official;
+    }).toList();
+
+    if (_officialTrailers.isNotEmpty) {
+      return _officialTrailers[0].key;
+    } else if (_youTubeTrailers.isNotEmpty) {
+      return _youTubeTrailers[0].key;
+    } else {
+      return '';
+    }
   }
 }

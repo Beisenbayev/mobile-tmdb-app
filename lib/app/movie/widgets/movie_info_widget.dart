@@ -5,6 +5,7 @@ import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/radial_percent_widget.dart';
+import 'package:moovee_land/router/routes.dart';
 
 class MovieInfoWidget extends StatelessWidget {
   const MovieInfoWidget({Key? key}) : super(key: key);
@@ -121,12 +122,32 @@ class _TitleWidget extends StatelessWidget {
 class _UserScoreWidget extends StatelessWidget {
   const _UserScoreWidget({Key? key}) : super(key: key);
 
+  void handleShowTrailer(BuildContext context, String key) {
+    Navigator.of(context).pushNamed(
+      RouteAliasData.movieTrailer,
+      arguments: key,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final _videos = MoviePageProvider.of(context)!.model.videos!;
+    final _videoKey = ModelUtils.getOfficialTrailerKey(_videos.trailers);
+    final _mainAlignment = _videoKey.isNotEmpty
+        ? MainAxisAlignment.spaceEvenly
+        : MainAxisAlignment.center;
+    final _playButton = _videoKey.isNotEmpty
+        ? _PlayTrailerButtonWidget(
+            handleOnTap: () => handleShowTrailer(context, _videoKey),
+          )
+        : const SizedBox.shrink();
+    final _dividerLine = _videoKey.isNotEmpty
+        ? Container(width: 1, height: 24, color: Colors.white.withOpacity(0.3))
+        : const SizedBox.shrink();
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: _mainAlignment,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         TextButton(
@@ -153,28 +174,38 @@ class _UserScoreWidget extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          width: 1,
-          height: 24,
-          color: Colors.white.withOpacity(0.3),
-        ),
-        TextButton(
-          onPressed: () {},
-          child: Row(
-            children: const <Widget>[
-              Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-              ),
-              SizedBox(width: 6),
-              Text(
-                'Play Trailer',
-                style: TextThemeShelf.mainWhite,
-              ),
-            ],
-          ),
-        )
+        _dividerLine,
+        _playButton,
       ],
+    );
+  }
+}
+
+class _PlayTrailerButtonWidget extends StatelessWidget {
+  final void Function() handleOnTap;
+
+  const _PlayTrailerButtonWidget({
+    Key? key,
+    required this.handleOnTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: handleOnTap,
+      child: Row(
+        children: const <Widget>[
+          Icon(
+            Icons.play_arrow,
+            color: Colors.white,
+          ),
+          SizedBox(width: 6),
+          Text(
+            'Play Trailer',
+            style: TextThemeShelf.mainWhite,
+          ),
+        ],
+      ),
     );
   }
 }
