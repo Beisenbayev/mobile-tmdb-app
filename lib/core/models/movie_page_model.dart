@@ -14,6 +14,7 @@ class MoviePageModel extends ChangeNotifier {
   MovieDiscussions? _discussions;
   MoviesResponse? _recommendations;
   MovieKeywords? _keywords;
+  MoviesResponse? _similarMovies;
 
   int get movieId => _movieId;
   MovieDetails? get ditails => _ditails;
@@ -21,6 +22,7 @@ class MoviePageModel extends ChangeNotifier {
   MovieDiscussions? get discussions => _discussions;
   MoviesResponse? get recommendations => _recommendations;
   MovieKeywords? get keywordsResponse => _keywords;
+  MoviesResponse? get similarMovies => _similarMovies;
 
   MoviePageModel(this._movieId) {
     _loadMovie();
@@ -32,6 +34,7 @@ class MoviePageModel extends ChangeNotifier {
     _discussions = await _movieService.getMovieDiscussions(_movieId);
     _recommendations = await _movieService.getMovieRecommendations(_movieId);
     _keywords = await _movieService.getMovieKeywords(_movieId);
+    _similarMovies = await _movieService.getSimilarMovies(_movieId);
     notifyListeners();
   }
 }

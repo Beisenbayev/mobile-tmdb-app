@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/app/movie/widgets/movie_actors_widget.dart';
-import 'package:moovee_land/app/movie/widgets/movie_contributors_widget.dart';
 import 'package:moovee_land/app/movie/widgets/movie_discussions_widget.dart';
 import 'package:moovee_land/app/movie/widgets/movie_facts_widget.dart';
 import 'package:moovee_land/app/movie/widgets/movie_info_widget.dart';
 import 'package:moovee_land/app/movie/widgets/movie_keywords_widget.dart';
 import 'package:moovee_land/app/movie/widgets/movie_recommendations_widget.dart';
+import 'package:moovee_land/app/movie/widgets/movie_similar_widget.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 
 class MoviePage extends StatelessWidget {
@@ -37,17 +37,17 @@ class _MoviePageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: <Widget>[
-        const MovieInfoWidget(),
-        const MovieActorsWidget(),
-        const Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
-        const MovieDiscussionsWidget(),
-        const Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
-        const MovieRecommendationsWidget(),
-        const MovieFactsWidget(),
+      children: const <Widget>[
+        MovieInfoWidget(),
+        MovieActorsWidget(),
+        Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
+        MovieDiscussionsWidget(),
+        Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
+        MovieRecommendationsWidget(),
+        MovieFactsWidget(),
         MovieKeywordsWidget(),
-        const Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
-        MovieContributorsWidget(),
+        Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
+        MovieSimilarWidget(),
       ],
     );
   }
