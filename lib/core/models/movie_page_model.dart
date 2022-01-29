@@ -20,7 +20,7 @@ class MoviePageModel extends ChangeNotifier {
   MovieCredits? get credits => _credits;
   MovieDiscussions? get discussions => _discussions;
   MoviesResponse? get recommendations => _recommendations;
-  MovieKeywords? get keywords => _keywords;
+  MovieKeywords? get keywordsResponse => _keywords;
 
   MoviePageModel(this._movieId) {
     _loadMovie();

@@ -1,24 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/client_api/entity/movie_keywords.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/modules/movie_keywords_data.dart';
+import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/button_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 
 class MovieKeywordsWidget extends StatelessWidget {
-  final List<Keyword> _keywords = KeywordsCollection.keywords;
-
-  MovieKeywordsWidget({Key? key}) : super(key: key);
+  const MovieKeywordsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _keywordsResponse =
+        MoviePageProvider.of(context)!.model.keywordsResponse;
+
+    if (_keywordsResponse == null || _keywordsResponse.keywords.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Padding(
       padding: const EdgeInsets.all(PaddingConsts.screenHorizontal),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: const <Widget>[
           _TitleWidget(),
-          const SizedBox(height: 8),
-          _KeywordButtonsWidget(keywords: _keywords),
+          SizedBox(height: 8),
+          _KeywordButtonsWidget(),
         ],
       ),
     );
@@ -26,6 +32,8 @@ class MovieKeywordsWidget extends StatelessWidget {
 }
 
 class _TitleWidget extends StatelessWidget {
+  const _TitleWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return const Text(
@@ -36,29 +44,28 @@ class _TitleWidget extends StatelessWidget {
 }
 
 class _KeywordButtonsWidget extends StatelessWidget {
-  final List<Keyword> keywords;
-
-  const _KeywordButtonsWidget({
-    Key? key,
-    required this.keywords,
-  }) : super(key: key);
+  const _KeywordButtonsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _keywordsResponse =
+        MoviePageProvider.of(context)!.model.keywordsResponse!;
+
     return Wrap(
       spacing: 10.0,
-      children: keywords.map((item) {
-        return MovieKeywordButtonWidget(data: item);
+      children: _keywordsResponse.keywords.map((item) {
+        return MovieKeywordButtonWidget(keyword: item);
       }).toList(),
     );
   }
 }
 
 class MovieKeywordButtonWidget extends StatelessWidget {
-  final Keyword data;
+  final Keyword keyword;
+
   const MovieKeywordButtonWidget({
     Key? key,
-    required this.data,
+    required this.keyword,
   }) : super(key: key);
 
   @override
@@ -66,7 +73,7 @@ class MovieKeywordButtonWidget extends StatelessWidget {
     return OutlinedButton(
       onPressed: () {},
       style: ButtonThemeShelf.outlinedGrayButton,
-      child: Text(data.title),
+      child: Text(keyword.name),
     );
   }
 }
