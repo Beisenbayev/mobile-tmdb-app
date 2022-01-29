@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:moovee_land/client_api/api_config.dart';
 import 'package:moovee_land/client_api/entity/movie.dart';
 import 'package:moovee_land/client_api/entity/movies_response.dart';
 import 'package:moovee_land/client_api/home_service.dart';
 
 class MoviesListModel extends ChangeNotifier {
   final _homeService = HomeService();
-  final _timeFormat = DateFormat.yMMMMd().format;
   final List<Movie> _movies = [];
   int _currentPageIndex = 0;
   int _totalPageCount = 1;
@@ -68,14 +65,6 @@ class MoviesListModel extends ChangeNotifier {
   void loadMoviesByIndex(int index) {
     if (index < movies.length - 1) return;
     _loadNextPage();
-  }
-
-  String getImageName(String? path) {
-    return (path != null) ? ApiUtils.getImageUrl(path) : '';
-  }
-
-  String parseDateTime(DateTime? date) {
-    return (date != null) ? _timeFormat(date) : '';
   }
 }
 

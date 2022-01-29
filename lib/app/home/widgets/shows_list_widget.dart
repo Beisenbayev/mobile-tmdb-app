@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entity/show.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
+import 'package:moovee_land/core/models/model_utils.dart';
 import 'package:moovee_land/core/models/shows_list_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
@@ -39,8 +40,6 @@ class ShowsListWidget extends StatelessWidget {
                 return ShowCardWidget(
                   show: _show,
                   handleCardTap: (int id) => handleCardTap(context, id),
-                  imageName: (String? path) => _model.getImageName(path),
-                  parseDate: (DateTime? date) => _model.parseDateTime(date),
                 );
               },
             ),
@@ -54,22 +53,17 @@ class ShowsListWidget extends StatelessWidget {
 class ShowCardWidget extends StatelessWidget {
   final Show show;
   final void Function(int) handleCardTap;
-  final String Function(String?) imageName;
-  final String Function(DateTime?) parseDate;
 
   const ShowCardWidget({
     Key? key,
     required this.show,
     required this.handleCardTap,
-    required this.imageName,
-    required this.parseDate,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final moviePoster = (show.posterPath != null)
-        ? Image.network(imageName(show.posterPath), fit: BoxFit.cover)
-        : Image.asset('assets/images/film-poster.png', fit: BoxFit.cover);
+    final showPoster = ModelUtils.getPosterImage(show.posterPath);
+    final showDate = ModelUtils.parseDateTime(show.firstAirDate, 'yMMMMd');
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -82,7 +76,7 @@ class ShowCardWidget extends StatelessWidget {
               SizedBox(
                 width: 100,
                 height: double.infinity,
-                child: moviePoster,
+                child: showPoster,
               ),
               const SizedBox(width: 15),
               Expanded(
@@ -98,7 +92,7 @@ class ShowCardWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 5.0),
                     Text(
-                      parseDate(show.firstAirDate),
+                      showDate,
                       style: TextThemeShelf.subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

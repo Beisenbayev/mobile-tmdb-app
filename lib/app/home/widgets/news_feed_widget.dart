@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entity/movie.dart';
 import 'package:moovee_land/client_api/entity/show.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
+import 'package:moovee_land/core/models/model_utils.dart';
 import 'package:moovee_land/core/models/news_feed_model.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
@@ -82,8 +83,6 @@ class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final _model = NewsFeedProvider.of(context)!.model;
-
     return Stack(
       children: [
         Column(
@@ -110,8 +109,6 @@ class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: ScrollMovieWidget<T>(
                       movie: _movie,
-                      imageName: (String? path) => _model.getImageName(path),
-                      parseDate: (DateTime? date) => _model.parseDateTime(date),
                       handleCardTap: _handleCardTap,
                     ),
                   );
@@ -136,15 +133,11 @@ class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
 
 class ScrollMovieWidget<T> extends StatelessWidget {
   final T movie;
-  final String Function(String?) imageName;
-  final String Function(DateTime?) parseDate;
   final void Function(int) handleCardTap;
 
   const ScrollMovieWidget({
     Key? key,
     required this.movie,
-    required this.imageName,
-    required this.parseDate,
     required this.handleCardTap,
   }) : super(key: key);
 
@@ -173,9 +166,8 @@ class ScrollMovieWidget<T> extends StatelessWidget {
         break;
     }
 
-    final moviePoster = (imageUrl != null)
-        ? Image.network(imageName(imageUrl), fit: BoxFit.cover)
-        : Image.asset('assets/images/film-poster.png', fit: BoxFit.cover);
+    final moviePoster = ModelUtils.getPosterImage(imageUrl);
+    final movieDate = ModelUtils.parseDateTime(releaseDate, 'yMMMd');
 
     return Stack(
       children: [
@@ -206,7 +198,7 @@ class ScrollMovieWidget<T> extends StatelessWidget {
                   freeLineColor: ColorThemeShelf.radialPercentFree,
                   fillColor: ColorThemeShelf.radialPercentFill,
                   lineWidth: 3,
-                  textStyle: TextThemeShelf.mainBoldWhite,
+                  textStyle: TextThemeShelf.smallBoldWhite,
                 ),
               ),
               const SizedBox(height: 10),
@@ -218,7 +210,7 @@ class ScrollMovieWidget<T> extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                parseDate(releaseDate),
+                movieDate,
                 style: TextThemeShelf.subtitle,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

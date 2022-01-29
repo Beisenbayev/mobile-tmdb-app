@@ -6,15 +6,14 @@ import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:moovee_land/router/routes.dart';
 
-class MovieRecommendationsWidget extends StatelessWidget {
-  const MovieRecommendationsWidget({Key? key}) : super(key: key);
+class MovieSimilarWidget extends StatelessWidget {
+  const MovieSimilarWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _recommendations =
-        MoviePageProvider.of(context)!.model.recommendations;
+    final _similarMovies = MoviePageProvider.of(context)!.model.similarMovies;
 
-    if (_recommendations == null || _recommendations.movies.isEmpty) {
+    if (_similarMovies == null || _similarMovies.movies.isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -42,7 +41,7 @@ class _TitleWidget extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.0),
       child: Text(
-        'Recommendations',
+        'Similar Movies',
         style: TextThemeShelf.itemTitle,
       ),
     );
@@ -61,8 +60,7 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _movies =
-        MoviePageProvider.of(context)!.model.recommendations!.movies;
+    final _movies = MoviePageProvider.of(context)!.model.similarMovies!.movies;
 
     return SizedBox(
       height: 180.0,
@@ -72,11 +70,11 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         scrollDirection: Axis.horizontal,
         itemBuilder: (BuildContext context, int index) {
-          final _recommendedMovie = _movies[index];
+          final _similarMovie = _movies[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: RecommendedMovieCardWidget(
-              movie: _recommendedMovie,
+            child: SimilarMovieCardWidget(
+              movie: _similarMovie,
               handleTap: (int id) => _handleCardTap(context, id),
             ),
           );
@@ -86,11 +84,11 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
   }
 }
 
-class RecommendedMovieCardWidget extends StatelessWidget {
+class SimilarMovieCardWidget extends StatelessWidget {
   final Movie movie;
   final void Function(int) handleTap;
 
-  const RecommendedMovieCardWidget({
+  const SimilarMovieCardWidget({
     Key? key,
     required this.movie,
     required this.handleTap,

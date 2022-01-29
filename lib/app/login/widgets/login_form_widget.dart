@@ -8,7 +8,6 @@ class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({Key? key}) : super(key: key);
 
   void _handleResetPassword() {
-    print('reset password');
   }
 
   @override

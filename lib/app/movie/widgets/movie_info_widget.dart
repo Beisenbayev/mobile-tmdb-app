@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/modules/members_data.dart';
+import 'package:moovee_land/core/models/model_utils.dart';
+import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/radial_percent_widget.dart';
+import 'package:moovee_land/router/routes.dart';
 
 class MovieInfoWidget extends StatelessWidget {
-  final members = MembersCollection.members;
-
-  MovieInfoWidget({Key? key}) : super(key: key);
+  const MovieInfoWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +16,24 @@ class MovieInfoWidget extends StatelessWidget {
       color: ColorThemeShelf.backgroundDark,
       child: Column(
         children: <Widget>[
-          _TopPosterWidget(),
+          const _TopPosterWidget(),
           const SizedBox(height: 16.0),
           Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: PaddingConsts.screenHorizontal,
             ),
             child: Column(
-              children: <Widget>[
+              children: const <Widget>[
                 _TitleWidget(),
-                const SizedBox(height: 16.0),
+                SizedBox(height: 16.0),
                 _UserScoreWidget(),
-                const SizedBox(height: 16.0),
+                SizedBox(height: 16.0),
                 _GenreWidget(),
-                const SizedBox(height: 20.0),
+                SizedBox(height: 20.0),
                 _DescriptionWidget(),
-                const SizedBox(height: 30.0),
-                _MembersWidget(data: members),
-                const SizedBox(height: 16.0),
+                SizedBox(height: 30.0),
+                _MembersWidget(),
+                SizedBox(height: 26.0),
               ],
             ),
           ),
@@ -44,14 +44,21 @@ class MovieInfoWidget extends StatelessWidget {
 }
 
 class _TopPosterWidget extends StatelessWidget {
+  const _TopPosterWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final _model = MoviePageProvider.of(context)!.model;
+    final _ditails = _model.ditails!;
+    final movieBackdrop = ModelUtils.getBackdropImage(_ditails.backdropPath);
+    final moviePoster = ModelUtils.getPosterImage(_ditails.posterPath);
+
     return Stack(
       children: <Widget>[
-        const Image(
-          height: 200.0,
-          fit: BoxFit.cover,
-          image: AssetImage('assets/images/topWallpaper.jpg'),
+        SizedBox(
+          width: double.infinity,
+          height: 200,
+          child: movieBackdrop,
         ),
         Container(
           width: double.infinity,
@@ -77,10 +84,7 @@ class _TopPosterWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             clipBehavior: Clip.hardEdge,
-            child: const Image(
-              image: AssetImage('assets/images/topSubimage.jpg'),
-              fit: BoxFit.cover,
-            ),
+            child: moviePoster,
           ),
         )
       ],
@@ -89,19 +93,24 @@ class _TopPosterWidget extends StatelessWidget {
 }
 
 class _TitleWidget extends StatelessWidget {
+  const _TitleWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final _year = ModelUtils.parseDateTime(_ditails.releaseDate, 'y');
+
     return RichText(
       maxLines: 3,
       textAlign: TextAlign.center,
-      text: const TextSpan(
+      text: TextSpan(
         children: [
           TextSpan(
-            text: 'Shang-Chi and the Legend of the Ten Rings ',
+            text: _ditails.title,
             style: TextThemeShelf.itemTitleWhite,
           ),
           TextSpan(
-            text: '(2021)',
+            text: _year.isNotEmpty ? ' ($_year)' : '',
             style: TextThemeShelf.subtitle,
           ),
         ],
@@ -111,21 +120,45 @@ class _TitleWidget extends StatelessWidget {
 }
 
 class _UserScoreWidget extends StatelessWidget {
+  const _UserScoreWidget({Key? key}) : super(key: key);
+
+  void handleShowTrailer(BuildContext context, String key) {
+    Navigator.of(context).pushNamed(
+      RouteAliasData.movieTrailer,
+      arguments: key,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final _videos = MoviePageProvider.of(context)!.model.videos!;
+    final _videoKey = ModelUtils.getOfficialTrailerKey(_videos.trailers);
+    final _mainAlignment = _videoKey.isNotEmpty
+        ? MainAxisAlignment.spaceEvenly
+        : MainAxisAlignment.center;
+    final _playButton = _videoKey.isNotEmpty
+        ? _PlayTrailerButtonWidget(
+            handleOnTap: () => handleShowTrailer(context, _videoKey),
+          )
+        : const SizedBox.shrink();
+    final _dividerLine = _videoKey.isNotEmpty
+        ? Container(width: 1, height: 24, color: Colors.white.withOpacity(0.3))
+        : const SizedBox.shrink();
+
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: _mainAlignment,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         TextButton(
           onPressed: () {},
           child: Row(
-            children: const <Widget>[
+            children: <Widget>[
               SizedBox(
                 width: 55,
                 height: 55,
                 child: RadialPercentWidget(
-                  percent: 79,
+                  percent: (_ditails.voteAverage * 10),
                   activeLineColor: ColorThemeShelf.radialPercentActive,
                   freeLineColor: ColorThemeShelf.radialPercentFree,
                   fillColor: ColorThemeShelf.radialPercentFill,
@@ -133,43 +166,69 @@ class _UserScoreWidget extends StatelessWidget {
                   textStyle: TextThemeShelf.mainBoldWhite,
                 ),
               ),
-              SizedBox(width: 6),
-              Text(
+              const SizedBox(width: 6),
+              const Text(
                 'User Score',
                 style: TextThemeShelf.mainBoldWhite,
               )
             ],
           ),
         ),
-        Container(
-          width: 1,
-          height: 24,
-          color: Colors.white.withOpacity(0.3),
-        ),
-        TextButton(
-          onPressed: () {},
-          child: Row(
-            children: const <Widget>[
-              Icon(
-                Icons.play_arrow,
-                color: Colors.white,
-              ),
-              SizedBox(width: 6),
-              Text(
-                'Play Trailer',
-                style: TextThemeShelf.mainWhite,
-              ),
-            ],
-          ),
-        )
+        _dividerLine,
+        _playButton,
       ],
     );
   }
 }
 
-class _GenreWidget extends StatelessWidget {
+class _PlayTrailerButtonWidget extends StatelessWidget {
+  final void Function() handleOnTap;
+
+  const _PlayTrailerButtonWidget({
+    Key? key,
+    required this.handleOnTap,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: handleOnTap,
+      child: Row(
+        children: const <Widget>[
+          Icon(
+            Icons.play_arrow,
+            color: Colors.white,
+          ),
+          SizedBox(width: 6),
+          Text(
+            'Play Trailer',
+            style: TextThemeShelf.mainWhite,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _GenreWidget extends StatelessWidget {
+  const _GenreWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String _info = '';
+    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final _date = ModelUtils.parseDateTime(_ditails.releaseDate, 'yMd');
+    if (_date.isNotEmpty) _info = _date;
+    final _country = _ditails.productionCountries.isNotEmpty
+        ? _ditails.productionCountries[0].iso
+        : '';
+    if (_country.replaceAll(' ', '').isNotEmpty) _info = '$_info ($_country)';
+    final _hours = ModelUtils.getHoursFromMinute(_ditails.runtime);
+    if (_hours.replaceAll(' ', '').isNotEmpty) _info = '$_info • $_hours';
+    final _genres =
+        _ditails.genres.map((ganre) => ganre.name).toList().join(', ');
+    if (_genres.isNotEmpty) _info = '$_info • $_genres';
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -184,15 +243,12 @@ class _GenreWidget extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const <Widget>[
+        children: <Widget>[
           Text(
-            '09/02/2021 (KZ) • 2h 12m',
+            _info,
             style: TextThemeShelf.mainWhite,
-          ),
-          Text(
-            'Action, Adventure, Fantasy',
-            style: TextThemeShelf.mainWhite,
-          ),
+            textAlign: TextAlign.center,
+          )
         ],
       ),
     );
@@ -200,53 +256,65 @@ class _GenreWidget extends StatelessWidget {
 }
 
 class _DescriptionWidget extends StatelessWidget {
+  const _DescriptionWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final tagline = (_ditails.tagline != null && _ditails.tagline!.isNotEmpty)
+        ? Column(
+            children: [
+              Text(_ditails.tagline!, style: TextThemeShelf.subtitleCursive),
+              const SizedBox(height: 12.0)
+            ],
+          )
+        : const SizedBox.shrink();
+
+    final overview =
+        (_ditails.overview != null && _ditails.overview!.isNotEmpty)
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Overview', style: TextThemeShelf.itemTitleWhite),
+                  const SizedBox(height: 10.0),
+                  Text(_ditails.overview!, style: TextThemeShelf.mainWhite),
+                ],
+              )
+            : const SizedBox.shrink();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const <Widget>[
-        Text(
-          'You can\'t outrun your destiny.',
-          style: TextThemeShelf.subtitleCursive,
-        ),
-        SizedBox(height: 12.0),
-        Text(
-          'Overview',
-          style: TextThemeShelf.itemTitleWhite,
-        ),
-        SizedBox(height: 10.0),
-        Text(
-          'Shang-Chi must confront the past he thought he left behind when he is drawn into the web of the mysterious Ten Rings organization.',
-          style: TextThemeShelf.mainWhite,
-        ),
+      children: <Widget>[
+        tagline,
+        overview,
       ],
     );
   }
 }
 
 class _MembersWidget extends StatelessWidget {
-  final List<Member> data;
-
-  const _MembersWidget({
-    Key? key,
-    required this.data,
-  }) : super(key: key);
+  const _MembersWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _credits = MoviePageProvider.of(context)!.model.credits;
+
+    if (_credits == null) return const SizedBox.shrink();
+    final _crew = (_credits.crew.length > 6)
+        ? _credits.crew.sublist(0, 6)
+        : _credits.crew;
+
     return SizedBox(
       width: double.infinity,
       child: Wrap(
         spacing: 16,
         runSpacing: 16,
-        children: data
-            .map(
-              (item) => _MemberProfileWidget(
-                fullName: item.fullName,
-                position: item.position,
-              ),
-            )
-            .toList(),
+        children: _crew.map((item) {
+          return _MemberProfileWidget(
+            fullName: item.originalName,
+            position: item.job,
+          );
+        }).toList(),
       ),
     );
   }

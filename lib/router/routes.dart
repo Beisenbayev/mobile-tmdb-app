@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/app/movie_trailer/movie_trailer_page.dart';
 import 'package:moovee_land/core/models/login_page_model.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/router/error_page.dart';
@@ -10,6 +11,7 @@ class RouteAliasData {
   static const String login = 'login';
   static const String home = 'home';
   static const String movieInfo = 'home/movie';
+  static const String movieTrailer = 'home/movie/trailer';
 }
 
 abstract class RouteData {
@@ -38,6 +40,12 @@ abstract class RouteData {
             model: MoviePageModel(movieId),
             child: const MoviePage(),
           ),
+        );
+
+      case RouteAliasData.movieTrailer:
+        final youTubeKey = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => MovieTrailerPage(youTubeKey),
         );
 
       default:

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:moovee_land/client_api/api_config.dart';
 import 'package:moovee_land/client_api/entity/movie.dart';
 import 'package:moovee_land/client_api/entity/show.dart';
 import 'package:moovee_land/client_api/home_service.dart';
 
 class NewsFeedModel extends ChangeNotifier {
   final _homeService = HomeService();
-  final _timeFormat = DateFormat.yMMMd().format;
 
   final List<String> _moviesTypes =
       List.unmodifiable(['Top Rated', 'Popular', 'Now Paying', 'Upcoming']);
@@ -90,14 +87,6 @@ class NewsFeedModel extends ChangeNotifier {
     final showsByType = await _loadShows(type);
     _shows.addAll(showsByType);
     notifyListeners();
-  }
-
-  String getImageName(String? path) {
-    return (path != null) ? ApiUtils.getImageUrl(path) : '';
-  }
-
-  String parseDateTime(DateTime? date) {
-    return (date != null) ? _timeFormat(date) : '';
   }
 }
 
