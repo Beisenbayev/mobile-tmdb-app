@@ -10,8 +10,8 @@ MovieDiscussions _$MovieDiscussionsFromJson(Map<String, dynamic> json) =>
     MovieDiscussions(
       id: json['id'] as int,
       page: json['page'] as int,
-      discussions: (json['results'] as List<dynamic>)
-          .map((e) => Result.fromJson(e as Map<String, dynamic>))
+      reviews: (json['results'] as List<dynamic>)
+          .map((e) => Discussion.fromJson(e as Map<String, dynamic>))
           .toList(),
       totalPages: json['total_pages'] as int,
       totalResults: json['total_results'] as int,
@@ -21,12 +21,12 @@ Map<String, dynamic> _$MovieDiscussionsToJson(MovieDiscussions instance) =>
     <String, dynamic>{
       'id': instance.id,
       'page': instance.page,
-      'results': instance.discussions.map((e) => e.toJson()).toList(),
+      'results': instance.reviews.map((e) => e.toJson()).toList(),
       'total_pages': instance.totalPages,
       'total_results': instance.totalResults,
     };
 
-Result _$ResultFromJson(Map<String, dynamic> json) => Result(
+Discussion _$DiscussionFromJson(Map<String, dynamic> json) => Discussion(
       author: json['author'] as String,
       authorDetails: AuthorDetails.fromJson(
           json['author_details'] as Map<String, dynamic>),
@@ -37,7 +37,8 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
       url: json['url'] as String,
     );
 
-Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
+Map<String, dynamic> _$DiscussionToJson(Discussion instance) =>
+    <String, dynamic>{
       'author': instance.author,
       'author_details': instance.authorDetails.toJson(),
       'content': instance.content,
@@ -52,7 +53,7 @@ AuthorDetails _$AuthorDetailsFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       username: json['username'] as String,
       avatarPath: json['avatar_path'] as String?,
-      rating: json['rating'] as int?,
+      rating: (json['rating'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$AuthorDetailsToJson(AuthorDetails instance) =>

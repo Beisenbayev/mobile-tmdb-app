@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/client_api/entity/movie_discussions.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/modules/movie_discussions_data.dart';
+import 'package:moovee_land/core/models/model_utils.dart';
+import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 
 class MovieDiscussionsWidget extends StatelessWidget {
-  final List<Discussion> _discussions = DiscussionsCollection.discussions;
-
-  MovieDiscussionsWidget({Key? key}) : super(key: key);
+  const MovieDiscussionsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _discussions = MoviePageProvider.of(context)!.model.discussions;
+
+    if (_discussions == null || _discussions.reviews.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 6,
@@ -18,13 +24,11 @@ class MovieDiscussionsWidget extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: const <Widget>[
           _TitleWidget(),
-          const SizedBox(height: 4.0),
-          _DiscussionsListWidget(
-            discussions: _discussions,
-          ),
-          const SizedBox(height: 14),
+          SizedBox(height: 4.0),
+          _DiscussionsListWidget(),
+          SizedBox(height: 14),
         ],
       ),
     );
@@ -32,6 +36,8 @@ class MovieDiscussionsWidget extends StatelessWidget {
 }
 
 class _TitleWidget extends StatelessWidget {
+  const _TitleWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -52,21 +58,21 @@ class _TitleWidget extends StatelessWidget {
 }
 
 class _DiscussionsListWidget extends StatelessWidget {
-  final List<Discussion> discussions;
-
-  const _DiscussionsListWidget({
-    Key? key,
-    required this.discussions,
-  }) : super(key: key);
+  const _DiscussionsListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _discussions = MoviePageProvider.of(context)!.model.discussions!;
+    final _reviews = (_discussions.reviews.length > 2)
+        ? _discussions.reviews.sublist(0, 2)
+        : _discussions.reviews;
+
     return Column(
-      children: discussions.map((item) {
+      children: _reviews.map((item) {
         return Container(
-          height: 120.0,
+          height: 255.0,
           margin: const EdgeInsets.symmetric(vertical: 6),
-          child: DiscussionsCardWidget(data: item),
+          child: DiscussionsCardWidget(discussion: item),
         );
       }).toList(),
     );
@@ -74,15 +80,26 @@ class _DiscussionsListWidget extends StatelessWidget {
 }
 
 class DiscussionsCardWidget extends StatelessWidget {
-  final Discussion data;
+  final Discussion discussion;
 
   const DiscussionsCardWidget({
     Key? key,
-    required this.data,
+    required this.discussion,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _avatar =
+        ModelUtils.getSecuredActorImage(discussion.authorDetails.avatarPath);
+    final _date = ModelUtils.parseDateTime(discussion.createdAt, 'yMMMMd');
+    final _ratingWidget = (discussion.authorDetails.rating != null)
+        ? _ReviewerRatingWidget(
+            rating: discussion.authorDetails.rating!.toStringAsFixed(0))
+        : const SizedBox.shrink();
+    final _username = discussion.author.isNotEmpty
+        ? discussion.author
+        : discussion.authorDetails.username;
+
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: WidgetThemeShelf.roundedCardTheme,
@@ -94,56 +111,47 @@ class DiscussionsCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image(image: AssetImage(data.imageName)),
+                    Container(
+                      width: 64,
+                      height: 64,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: _avatar,
                     ),
-                    const SizedBox(width: 10.0),
+                    const SizedBox(width: 16.0),
                     Expanded(
-                      child: Text(
-                        data.title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextThemeShelf.main,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'A review by $_username',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextThemeShelf.itemTitle,
+                          ),
+                          _ratingWidget,
+                          const SizedBox(height: 10),
+                          Text(
+                            'Written by $_username on $_date',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextThemeShelf.subtitle,
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 3.0),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text(
-                        data.type,
-                        style: TextThemeShelf.small,
-                      ),
-                    ),
-                    Expanded(
-                      child: Text(
-                        '${data.repliesCount}',
-                        style: TextThemeShelf.small,
-                      ),
-                    ),
-                    Expanded(
-                      child: RichText(
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '${data.date} by ',
-                              style: TextThemeShelf.small,
-                            ),
-                            TextSpan(
-                              text: data.username,
-                              style: TextThemeShelf.smallBold,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                const SizedBox(height: 16.0),
+                Text(
+                  discussion.content,
+                  maxLines: 5,
+                  style: TextThemeShelf.main,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
@@ -155,6 +163,48 @@ class DiscussionsCardWidget extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ReviewerRatingWidget extends StatelessWidget {
+  final String rating;
+
+  const _ReviewerRatingWidget({
+    Key? key,
+    required this.rating,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 60,
+      height: 24,
+      margin: const EdgeInsets.only(top: 10),
+      decoration: const BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.all(
+          Radius.circular(6),
+        ),
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.star_rate_rounded,
+              size: 14,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 3),
+            Text(
+              rating,
+              style: TextThemeShelf.smallWhite,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -8,13 +8,13 @@ class MovieDiscussions {
   final int id;
   final int page;
   @JsonKey(name: 'results')
-  final List<Result> discussions;
+  final List<Discussion> reviews;
   final int totalPages;
   final int totalResults;
   MovieDiscussions({
     required this.id,
     required this.page,
-    required this.discussions,
+    required this.reviews,
     required this.totalPages,
     required this.totalResults,
   });
@@ -25,7 +25,7 @@ class MovieDiscussions {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
-class Result {
+class Discussion {
   final String author;
   final AuthorDetails authorDetails;
   final String content;
@@ -35,7 +35,7 @@ class Result {
   @JsonKey(fromJson: EntityUtils.timeFromString)
   final DateTime? updatedAt;
   final String url;
-  Result({
+  Discussion({
     required this.author,
     required this.authorDetails,
     required this.content,
@@ -45,8 +45,9 @@ class Result {
     required this.url,
   });
 
-  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
-  Map<String, dynamic> toJson() => _$ResultToJson(this);
+  factory Discussion.fromJson(Map<String, dynamic> json) =>
+      _$DiscussionFromJson(json);
+  Map<String, dynamic> toJson() => _$DiscussionToJson(this);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -54,7 +55,7 @@ class AuthorDetails {
   final String name;
   final String username;
   final String? avatarPath;
-  final int? rating;
+  final double? rating;
   AuthorDetails({
     required this.name,
     required this.username,

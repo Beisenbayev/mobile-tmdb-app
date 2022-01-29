@@ -16,21 +16,15 @@ class MoviePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _model = MoviePageProvider.of(context)!.model;
-
-    if (_model.ditails == null) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('MooVee'),
-        ),
-        body: const Center(child: CircularProgressIndicator()),
-      );
-    }
+    final _body = (_model.ditails == null)
+        ? const Center(child: CircularProgressIndicator())
+        : const _MoviePageBody();
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('MooVee'),
       ),
-      body: const _MoviePageBody(),
+      body: _body,
     );
   }
 }
@@ -47,7 +41,7 @@ class _MoviePageBody extends StatelessWidget {
         const MovieInfoWidget(),
         const MovieActorsWidget(),
         const Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
-        MovieDiscussionsWidget(),
+        const MovieDiscussionsWidget(),
         const Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
         MovieRecommendationsWidget(),
         MovieFactsWidget(),

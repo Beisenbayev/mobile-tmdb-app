@@ -27,6 +27,18 @@ class ModelUtils {
         : Image.asset('assets/images/cast-avatar.png', fit: BoxFit.cover);
   }
 
+  static Widget getSecuredActorImage(String? path) {
+    if (path != null && path.substring(0, 6) == '/https') {
+      return Image.network(path.substring(1), fit: BoxFit.cover);
+    }
+
+    final imageUrl = (path != null) ? ApiUtils.getImageUrl(path) : '';
+
+    return (imageUrl.isNotEmpty)
+        ? Image.network(imageUrl, fit: BoxFit.cover)
+        : Image.asset('assets/images/cast-avatar.png', fit: BoxFit.cover);
+  }
+
   static String parseDateTime(DateTime? date, String timeFormat) {
     if (date == null) return '';
     return DateFormat(timeFormat).format(date);
