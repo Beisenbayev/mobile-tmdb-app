@@ -51,4 +51,18 @@ class ModelUtils {
     final String leftMinutes = (minutes % 60 != 0) ? '${minutes % 60}m' : '';
     return '$hours $leftMinutes';
   }
+
+  static String getCashFormatFromInt(int? number) {
+    if (number == null) return '';
+
+    final String cash = number.toString();
+    String cashFormat = '';
+    for (int i = cash.length - 1, j = 1; i >= 0; i--, j++) {
+      cashFormat += number.toString()[i];
+
+      if (j % 3 == 0 && j != cash.length) cashFormat += ',';
+    }
+
+    return '\$' + cashFormat.split('').reversed.join();
+  }
 }
