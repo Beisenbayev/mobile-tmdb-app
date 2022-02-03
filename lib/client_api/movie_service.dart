@@ -182,4 +182,32 @@ class MovieService {
     );
     return response;
   }
+
+  Future<PostResponse> addMovieToWatchlist({
+    required int accountId,
+    required String sessionId,
+    required int mediaId,
+    required MediaType mediaType,
+    required bool isInWatchlist,
+  }) async {
+    PostResponse parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return PostResponse.fromJson(jsonMap);
+    }
+
+    final response = await ApiUtils.post<PostResponse>(
+      path: '/account/$accountId/watchlist',
+      parser: parser,
+      queryParameters: <String, dynamic>{
+        'api_key': ApiConfig.apiKey,
+        'session_id': sessionId,
+      },
+      bodyParameters: <String, dynamic>{
+        'media_type': mediaType.asString(),
+        'media_id': mediaId,
+        'watchlist': isInWatchlist,
+      },
+    );
+    return response;
+  }
 }

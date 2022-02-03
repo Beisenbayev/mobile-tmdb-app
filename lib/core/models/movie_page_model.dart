@@ -21,6 +21,7 @@ class MoviePageModel extends ChangeNotifier {
   MoviesResponse? _similarMovies;
   MovieVideos? _videos;
   bool _isFavorite = false;
+  bool _isInWatchlist = false;
 
   int get movieId => _movieId;
   MovieDetails? get ditails => _ditails;
@@ -32,6 +33,7 @@ class MoviePageModel extends ChangeNotifier {
   MoviesResponse? get similarMovies => _similarMovies;
   MovieVideos? get videos => _videos;
   bool get isFavorite => _isFavorite;
+  bool get isInWatchlist => _isInWatchlist;
 
   MoviePageModel(this._movieId) {
     _loadMovie();
@@ -59,6 +61,7 @@ class MoviePageModel extends ChangeNotifier {
     if (_accountStates == null) return;
 
     _isFavorite = _accountStates!.favorite;
+    _isInWatchlist = _accountStates!.watchlist;
   }
 
   void markMovieAsFavorite() async {
@@ -73,6 +76,23 @@ class MoviePageModel extends ChangeNotifier {
       mediaId: movieId,
       mediaType: MediaType.movie,
       favorite: !_isFavorite,
+    );
+    await _loadAccountStates(_sessionId);
+    notifyListeners();
+  }
+
+  void addMovieToWatchlist() async {
+    final _accountId = await _sessionStorage.getUserId();
+    final _sessionId = await _sessionStorage.getSessionId();
+
+    if (_accountId == null || _sessionId == null) return;
+
+    await _movieService.addMovieToWatchlist(
+      accountId: _accountId,
+      sessionId: _sessionId,
+      mediaId: movieId,
+      mediaType: MediaType.movie,
+      isInWatchlist: !_isInWatchlist,
     );
     await _loadAccountStates(_sessionId);
     notifyListeners();

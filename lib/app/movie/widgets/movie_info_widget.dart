@@ -5,6 +5,7 @@ import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/radial_percent_widget.dart';
+import 'package:moovee_land/core/widgets/rounded_icon_button.dart';
 import 'package:moovee_land/router/routes.dart';
 
 class MovieInfoWidget extends StatelessWidget {
@@ -55,8 +56,13 @@ class _TopPosterWidget extends StatelessWidget {
     final _favoriteIcon = _model.isFavorite
         ? const Icon(Icons.favorite_rounded)
         : const Icon(Icons.favorite_outline_rounded);
-    final _favoriteColor =
-        _model.isFavorite ? Colors.redAccent[400] : Colors.white;
+    final _favoriteColor = _model.isFavorite ? Colors.red : Colors.white;
+    final _watchlistIcon = _model.isInWatchlist
+        ? const Icon(Icons.bookmark_rounded)
+        : const Icon(Icons.bookmark_add_outlined);
+    final _watchlistColor = _model.isInWatchlist
+        ? ColorThemeShelf.radialPercentActive
+        : Colors.white;
 
     return Stack(
       children: <Widget>[
@@ -95,23 +101,19 @@ class _TopPosterWidget extends StatelessWidget {
         Positioned(
           top: 20,
           right: PaddingConsts.screenHorizontal,
-          child: Container(
-            width: 40,
-            height: 40,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-              color: ColorThemeShelf.mainBackground,
-            ),
-            child: Center(
-              child: IconButton(
-                iconSize: 18,
-                padding: const EdgeInsets.all(0),
-                color: _favoriteColor,
-                splashRadius: 15,
-                onPressed: _model.markMovieAsFavorite,
-                icon: _favoriteIcon,
-              ),
-            ),
+          child: RoundedIconButton(
+            icon: _favoriteIcon,
+            color: _favoriteColor,
+            onTap: _model.markMovieAsFavorite,
+          ),
+        ),
+        Positioned(
+          bottom: 20,
+          right: PaddingConsts.screenHorizontal,
+          child: RoundedIconButton(
+            icon: _watchlistIcon,
+            color: _watchlistColor,
+            onTap: _model.addMovieToWatchlist,
           ),
         ),
       ],
