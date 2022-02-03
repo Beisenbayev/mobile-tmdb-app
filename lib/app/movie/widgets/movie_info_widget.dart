@@ -50,15 +50,20 @@ class _TopPosterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final _model = MoviePageProvider.of(context)!.model;
     final _ditails = _model.ditails!;
-    final movieBackdrop = ModelUtils.getBackdropImage(_ditails.backdropPath);
-    final moviePoster = ModelUtils.getPosterImage(_ditails.posterPath);
+    final _movieBackdrop = ModelUtils.getBackdropImage(_ditails.backdropPath);
+    final _moviePoster = ModelUtils.getPosterImage(_ditails.posterPath);
+    final _favoriteIcon = _model.isFavorite
+        ? const Icon(Icons.favorite_rounded)
+        : const Icon(Icons.favorite_outline_rounded);
+    final _favoriteColor =
+        _model.isFavorite ? Colors.redAccent[400] : Colors.white;
 
     return Stack(
       children: <Widget>[
         SizedBox(
           width: double.infinity,
           height: 200,
-          child: movieBackdrop,
+          child: _movieBackdrop,
         ),
         Container(
           width: double.infinity,
@@ -84,9 +89,31 @@ class _TopPosterWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             clipBehavior: Clip.hardEdge,
-            child: moviePoster,
+            child: _moviePoster,
           ),
-        )
+        ),
+        Positioned(
+          top: 20,
+          right: PaddingConsts.screenHorizontal,
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(100)),
+              color: ColorThemeShelf.mainBackground,
+            ),
+            child: Center(
+              child: IconButton(
+                iconSize: 18,
+                padding: const EdgeInsets.all(0),
+                color: _favoriteColor,
+                splashRadius: 15,
+                onPressed: _model.markMovieAsFavorite,
+                icon: _favoriteIcon,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
