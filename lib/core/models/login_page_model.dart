@@ -30,7 +30,10 @@ class LoginPageModel extends ChangeNotifier {
     try {
       final sessionId =
           await _authService.auth(username: login, password: password);
-      _sessionStorage.setSessionId(sessionId);
+      final userDetails = await _authService.getUserDetails(sessionId);
+      await _sessionStorage.setSessionId(sessionId);
+      await _sessionStorage.setUserId(userDetails.id);
+
       Navigator.of(context).pushReplacementNamed(RouteAliasData.home);
     } on AuthExeption catch (error) {
       switch (error.type) {

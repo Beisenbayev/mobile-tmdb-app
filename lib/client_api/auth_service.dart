@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:moovee_land/client_api/api_config.dart';
+import 'package:moovee_land/client_api/entity/user/user_details.dart';
 
 enum AuthExeptionsType { network, auth, other }
 
@@ -27,6 +28,23 @@ class AuthService {
     } catch (_) {
       throw const AuthExeption(AuthExeptionsType.other);
     }
+  }
+
+  Future<UserDetails> getUserDetails(String sessionId) async {
+    UserDetails parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return UserDetails.fromJson(jsonMap);
+    }
+
+    final response = await ApiUtils.get<UserDetails>(
+      path: 'account',
+      parser: parser,
+      queryParameters: <String, dynamic>{
+        'api_key': ApiConfig.apiKey,
+        'session_id': sessionId,
+      },
+    );
+    return response;
   }
 
   Future<String> _createToken() async {
