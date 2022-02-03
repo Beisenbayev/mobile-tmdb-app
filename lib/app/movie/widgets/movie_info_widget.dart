@@ -5,6 +5,7 @@ import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/radial_percent_widget.dart';
+import 'package:moovee_land/core/widgets/rounded_icon_button.dart';
 import 'package:moovee_land/router/routes.dart';
 
 class MovieInfoWidget extends StatelessWidget {
@@ -50,15 +51,25 @@ class _TopPosterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final _model = MoviePageProvider.of(context)!.model;
     final _ditails = _model.ditails!;
-    final movieBackdrop = ModelUtils.getBackdropImage(_ditails.backdropPath);
-    final moviePoster = ModelUtils.getPosterImage(_ditails.posterPath);
+    final _movieBackdrop = ModelUtils.getBackdropImage(_ditails.backdropPath);
+    final _moviePoster = ModelUtils.getPosterImage(_ditails.posterPath);
+    final _favoriteIcon = _model.isFavorite
+        ? const Icon(Icons.favorite_rounded)
+        : const Icon(Icons.favorite_outline_rounded);
+    final _favoriteColor = _model.isFavorite ? Colors.red : Colors.white;
+    final _watchlistIcon = _model.isInWatchlist
+        ? const Icon(Icons.bookmark_rounded)
+        : const Icon(Icons.bookmark_add_outlined);
+    final _watchlistColor = _model.isInWatchlist
+        ? ColorThemeShelf.radialPercentActive
+        : Colors.white;
 
     return Stack(
       children: <Widget>[
         SizedBox(
           width: double.infinity,
           height: 200,
-          child: movieBackdrop,
+          child: _movieBackdrop,
         ),
         Container(
           width: double.infinity,
@@ -84,9 +95,27 @@ class _TopPosterWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(6),
             ),
             clipBehavior: Clip.hardEdge,
-            child: moviePoster,
+            child: _moviePoster,
           ),
-        )
+        ),
+        Positioned(
+          top: 20,
+          right: PaddingConsts.screenHorizontal,
+          child: RoundedIconButton(
+            icon: _favoriteIcon,
+            color: _favoriteColor,
+            onTap: _model.markMovieAsFavorite,
+          ),
+        ),
+        Positioned(
+          bottom: 20,
+          right: PaddingConsts.screenHorizontal,
+          child: RoundedIconButton(
+            icon: _watchlistIcon,
+            color: _watchlistColor,
+            onTap: _model.addMovieToWatchlist,
+          ),
+        ),
       ],
     );
   }

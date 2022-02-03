@@ -133,3 +133,19 @@ Map<String, dynamic> _$SpokenLanguageToJson(SpokenLanguage instance) =>
       'iso_639_1': instance.iso,
       'name': instance.name,
     };
+
+MovieAccountStates _$MovieAccountStatesFromJson(Map<String, dynamic> json) =>
+    MovieAccountStates(
+      id: json['id'] as int,
+      favorite: json['favorite'] as bool,
+      rated: json['rated'] as bool,
+      watchlist: json['watchlist'] as bool,
+    );
+
+Map<String, dynamic> _$MovieAccountStatesToJson(MovieAccountStates instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'favorite': instance.favorite,
+      'rated': instance.rated,
+      'watchlist': instance.watchlist,
+    };

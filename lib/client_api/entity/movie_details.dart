@@ -133,3 +133,21 @@ class SpokenLanguage {
       _$SpokenLanguageFromJson(json);
   Map<String, dynamic> toJson() => _$SpokenLanguageToJson(this);
 }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class MovieAccountStates {
+  final int id;
+  final bool favorite;
+  final bool rated;
+  final bool watchlist;
+  MovieAccountStates({
+    required this.id,
+    required this.favorite,
+    required this.rated,
+    required this.watchlist,
+  });
+
+  factory MovieAccountStates.fromJson(Map<String, dynamic> json) =>
+      _$MovieAccountStatesFromJson(json);
+  Map<String, dynamic> toJson() => _$MovieAccountStatesToJson(this);
+}
