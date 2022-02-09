@@ -5,13 +5,14 @@ import 'package:moovee_land/core/models/model_utils.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
+import 'package:provider/provider.dart';
 
 class MovieActorsWidget extends StatelessWidget {
   const MovieActorsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _credits = MoviePageProvider.of(context)!.model.credits;
+    final _credits = Provider.of<MoviePageModel>(context).credits;
 
     if (_credits == null || _credits.cast.isEmpty) {
       return const SizedBox.shrink();

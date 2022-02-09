@@ -5,6 +5,7 @@ import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:moovee_land/router/routes.dart';
+import 'package:provider/provider.dart';
 
 class MovieRecommendationsWidget extends StatelessWidget {
   const MovieRecommendationsWidget({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class MovieRecommendationsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _recommendations =
-        MoviePageProvider.of(context)!.model.recommendations;
+        Provider.of<MoviePageModel>(context).recommendations;
 
     if (_recommendations == null || _recommendations.movies.isEmpty) {
       return const SizedBox.shrink();
@@ -62,7 +63,7 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _movies =
-        MoviePageProvider.of(context)!.model.recommendations!.movies;
+        Provider.of<MoviePageModel>(context).recommendations!.movies;
 
     return SizedBox(
       height: 180.0,

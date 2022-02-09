@@ -3,13 +3,14 @@ import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/model_utils.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
+import 'package:provider/provider.dart';
 
 class MovieFactsWidget extends StatelessWidget {
   const MovieFactsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final _ditails = Provider.of<MoviePageModel>(context).ditails!;
     final _budget = ModelUtils.getCashFormatFromInt(_ditails.budget);
     final _revenue = ModelUtils.getCashFormatFromInt(_ditails.revenue);
 

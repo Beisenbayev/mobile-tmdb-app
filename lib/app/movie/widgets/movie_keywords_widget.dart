@@ -4,6 +4,7 @@ import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/button_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
+import 'package:provider/provider.dart';
 
 class MovieKeywordsWidget extends StatelessWidget {
   const MovieKeywordsWidget({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class MovieKeywordsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _keywordsResponse =
-        MoviePageProvider.of(context)!.model.keywordsResponse;
+        Provider.of<MoviePageModel>(context).keywordsResponse;
 
     if (_keywordsResponse == null || _keywordsResponse.keywords.isEmpty) {
       return const SizedBox.shrink();
@@ -49,7 +50,7 @@ class _KeywordButtonsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _keywordsResponse =
-        MoviePageProvider.of(context)!.model.keywordsResponse!;
+        Provider.of<MoviePageModel>(context).keywordsResponse!;
 
     return Wrap(
       spacing: 10.0,
