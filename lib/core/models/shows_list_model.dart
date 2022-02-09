@@ -67,22 +67,3 @@ class ShowsListModel extends ChangeNotifier {
     _loadNextPage();
   }
 }
-
-class ShowsListProvider extends InheritedNotifier {
-  final ShowsListModel model;
-
-  const ShowsListProvider({
-    Key? key,
-    required child,
-    required this.model,
-  }) : super(key: key, child: child, notifier: model);
-
-  static ShowsListProvider? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ShowsListProvider>();
-  }
-
-  @override
-  bool updateShouldNotify(ShowsListProvider oldWidget) {
-    return true;
-  }
-}
