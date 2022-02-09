@@ -5,13 +5,14 @@ import 'package:moovee_land/core/models/model_utils.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
+import 'package:provider/provider.dart';
 
 class MovieDiscussionsWidget extends StatelessWidget {
   const MovieDiscussionsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _discussions = MoviePageProvider.of(context)!.model.discussions;
+    final _discussions = Provider.of<MoviePageModel>(context).discussions;
 
     if (_discussions == null || _discussions.reviews.isEmpty) {
       return const SizedBox.shrink();
@@ -62,7 +63,7 @@ class _DiscussionsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _discussions = MoviePageProvider.of(context)!.model.discussions!;
+    final _discussions = Provider.of<MoviePageModel>(context).discussions!;
     final _reviews = (_discussions.reviews.length > 2)
         ? _discussions.reviews.sublist(0, 2)
         : _discussions.reviews;

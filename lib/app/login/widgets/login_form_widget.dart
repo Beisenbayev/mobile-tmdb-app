@@ -3,16 +3,16 @@ import 'package:moovee_land/core/models/login_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/form_theme.dart';
 import 'package:moovee_land/core/theme/button_theme.dart';
+import 'package:provider/provider.dart';
 
 class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({Key? key}) : super(key: key);
 
-  void _handleResetPassword() {
-  }
+  void _handleResetPassword() {}
 
   @override
   Widget build(BuildContext context) {
-    final model = LoginPageProvider.of(context)!.model;
+    final model = Provider.of<LoginPageModel>(context);
 
     final buttonOnPressed =
         model.isSubmitting ? null : () => model.handleAuth(context);

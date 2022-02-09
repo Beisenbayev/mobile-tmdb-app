@@ -7,6 +7,7 @@ import 'package:moovee_land/app/movie/widgets/movie_keywords_widget.dart';
 import 'package:moovee_land/app/movie/widgets/movie_recommendations_widget.dart';
 import 'package:moovee_land/app/movie/widgets/movie_similar_widget.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
+import 'package:provider/provider.dart';
 
 class MoviePage extends StatelessWidget {
   const MoviePage({
@@ -15,7 +16,7 @@ class MoviePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = MoviePageProvider.of(context)!.model;
+    final _model = Provider.of<MoviePageModel>(context);
     final _body = (_model.ditails == null)
         ? const Center(child: CircularProgressIndicator())
         : const _MoviePageBody();

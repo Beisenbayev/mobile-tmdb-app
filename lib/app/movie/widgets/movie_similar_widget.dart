@@ -5,13 +5,14 @@ import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:moovee_land/router/routes.dart';
+import 'package:provider/provider.dart';
 
 class MovieSimilarWidget extends StatelessWidget {
   const MovieSimilarWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _similarMovies = MoviePageProvider.of(context)!.model.similarMovies;
+    final _similarMovies = Provider.of<MoviePageModel>(context).similarMovies;
 
     if (_similarMovies == null || _similarMovies.movies.isEmpty) {
       return const SizedBox.shrink();
@@ -60,7 +61,7 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _movies = MoviePageProvider.of(context)!.model.similarMovies!.movies;
+    final _movies = Provider.of<MoviePageModel>(context).similarMovies!.movies;
 
     return SizedBox(
       height: 180.0,

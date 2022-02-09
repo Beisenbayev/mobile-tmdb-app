@@ -89,22 +89,3 @@ class NewsFeedModel extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-class NewsFeedProvider extends InheritedNotifier {
-  final NewsFeedModel model;
-
-  const NewsFeedProvider({
-    Key? key,
-    required child,
-    required this.model,
-  }) : super(key: key, child: child, notifier: model);
-
-  static NewsFeedProvider? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<NewsFeedProvider>();
-  }
-
-  @override
-  bool updateShouldNotify(NewsFeedProvider oldWidget) {
-    return true;
-  }
-}

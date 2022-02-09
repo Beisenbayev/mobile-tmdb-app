@@ -67,22 +67,3 @@ class MoviesListModel extends ChangeNotifier {
     _loadNextPage();
   }
 }
-
-class MoviesListProvider extends InheritedNotifier {
-  final MoviesListModel model;
-
-  const MoviesListProvider({
-    Key? key,
-    required child,
-    required this.model,
-  }) : super(key: key, child: child, notifier: model);
-
-  static MoviesListProvider? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<MoviesListProvider>();
-  }
-
-  @override
-  bool updateShouldNotify(MoviesListProvider oldWidget) {
-    return true;
-  }
-}

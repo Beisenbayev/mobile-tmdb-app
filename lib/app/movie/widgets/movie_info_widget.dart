@@ -7,6 +7,7 @@ import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/radial_percent_widget.dart';
 import 'package:moovee_land/core/widgets/rounded_icon_button.dart';
 import 'package:moovee_land/router/routes.dart';
+import 'package:provider/provider.dart';
 
 class MovieInfoWidget extends StatelessWidget {
   const MovieInfoWidget({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class _TopPosterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = MoviePageProvider.of(context)!.model;
+    final _model = Provider.of<MoviePageModel>(context);
     final _ditails = _model.ditails!;
     final _movieBackdrop = ModelUtils.getBackdropImage(_ditails.backdropPath);
     final _moviePoster = ModelUtils.getPosterImage(_ditails.posterPath);
@@ -126,7 +127,7 @@ class _TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final _ditails = Provider.of<MoviePageModel>(context).ditails!;
     final _year = ModelUtils.parseDateTime(_ditails.releaseDate, 'y');
 
     return RichText(
@@ -160,8 +161,8 @@ class _UserScoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
-    final _videos = MoviePageProvider.of(context)!.model.videos!;
+    final _ditails = Provider.of<MoviePageModel>(context).ditails!;
+    final _videos = Provider.of<MoviePageModel>(context).videos!;
     final _videoKey = ModelUtils.getOfficialTrailerKey(_videos.trailers);
     final _mainAlignment = _videoKey.isNotEmpty
         ? MainAxisAlignment.spaceEvenly
@@ -245,7 +246,7 @@ class _GenreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _info = '';
-    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final _ditails = Provider.of<MoviePageModel>(context).ditails!;
     final _date = ModelUtils.parseDateTime(_ditails.releaseDate, 'yMd');
     if (_date.isNotEmpty) _info = _date;
     final _country = _ditails.productionCountries.isNotEmpty
@@ -289,7 +290,7 @@ class _DescriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = MoviePageProvider.of(context)!.model.ditails!;
+    final _ditails = Provider.of<MoviePageModel>(context).ditails!;
     final tagline = (_ditails.tagline != null && _ditails.tagline!.isNotEmpty)
         ? Column(
             children: [
@@ -326,7 +327,7 @@ class _MembersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _credits = MoviePageProvider.of(context)!.model.credits;
+    final _credits = Provider.of<MoviePageModel>(context).credits;
 
     if (_credits == null) return const SizedBox.shrink();
     final _crew = (_credits.crew.length > 6)
