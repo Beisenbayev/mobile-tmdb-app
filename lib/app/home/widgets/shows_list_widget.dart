@@ -7,6 +7,7 @@ import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:moovee_land/core/widgets/search_panel_widget.dart';
 import 'package:moovee_land/router/routes.dart';
+import 'package:provider/provider.dart';
 
 class ShowsListWidget extends StatelessWidget {
   const ShowsListWidget({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class ShowsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = ShowsListProvider.of(context)!.model;
+    final _model = Provider.of<ShowsListModel>(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(

@@ -5,6 +5,7 @@ import 'package:moovee_land/app/home/widgets/shows_list_widget.dart';
 import 'package:moovee_land/core/models/movies_list_model.dart';
 import 'package:moovee_land/core/models/news_feed_model.dart';
 import 'package:moovee_land/core/models/shows_list_model.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,16 +17,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
-    NewsFeedProvider(
-      model: NewsFeedModel(),
+    ChangeNotifierProvider(
+      create: (context) => NewsFeedModel(),
       child: const NewsFeedWidget(),
     ),
-    MoviesListProvider(
-      model: MoviesListModel(),
+    ChangeNotifierProvider(
+      create: (context) => MoviesListModel(),
       child: const MoviesListWidget(),
     ),
-    ShowsListProvider(
-      model: ShowsListModel(),
+    ChangeNotifierProvider(
+      create: (context) => ShowsListModel(),
       child: const ShowsListWidget(),
     ),
   ];

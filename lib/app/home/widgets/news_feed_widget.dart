@@ -9,13 +9,14 @@ import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/radial_percent_widget.dart';
 import 'package:moovee_land/core/widgets/selector_panel_widget.dart';
 import 'package:moovee_land/router/routes.dart';
+import 'package:provider/provider.dart';
 
 class NewsFeedWidget extends StatelessWidget {
   const NewsFeedWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _model = NewsFeedProvider.of(context)!.model;
+    final _model = Provider.of<NewsFeedModel>(context);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(

@@ -6,6 +6,7 @@ import 'package:moovee_land/router/error_page.dart';
 import 'package:moovee_land/app/home/home_page.dart';
 import 'package:moovee_land/app/login/login_page.dart';
 import 'package:moovee_land/app/movie/movie_page.dart';
+import 'package:provider/provider.dart';
 
 class RouteAliasData {
   static const String login = 'login';
@@ -27,8 +28,8 @@ abstract class RouteData {
     switch (settings.name) {
       case RouteAliasData.login:
         return MaterialPageRoute(
-          builder: (context) => LoginPageProvider(
-            model: LoginPageModel(),
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => LoginPageModel(),
             child: const LoginPage(),
           ),
         );
@@ -36,8 +37,8 @@ abstract class RouteData {
       case RouteAliasData.movieInfo:
         final movieId = settings.arguments as int;
         return MaterialPageRoute(
-          builder: (context) => MoviePageProvider(
-            model: MoviePageModel(movieId),
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => MoviePageModel(movieId),
             child: const MoviePage(),
           ),
         );
