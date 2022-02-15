@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moovee_land/client_api/api_config.dart';
-import 'package:moovee_land/client_api/entity/movie_videos.dart';
+import 'package:moovee_land/client_api/entities/movie/movie_videos.dart';
 
 class ModelUtils {
   static Widget getPosterImage(String? path) {

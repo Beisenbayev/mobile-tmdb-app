@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entity/movie_keywords.dart';
+import 'package:moovee_land/client_api/entities/movie/movie_keywords.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/button_theme.dart';

@@ -1,11 +1,11 @@
 import 'package:moovee_land/client_api/api_config.dart';
-import 'package:moovee_land/client_api/entity/additional/post_response.dart';
-import 'package:moovee_land/client_api/entity/movie_credits.dart';
-import 'package:moovee_land/client_api/entity/movie_details.dart';
-import 'package:moovee_land/client_api/entity/movie_discussions.dart';
-import 'package:moovee_land/client_api/entity/movie_keywords.dart';
-import 'package:moovee_land/client_api/entity/movie_videos.dart';
-import 'package:moovee_land/client_api/entity/movies_response.dart';
+import 'package:moovee_land/client_api/entities/additional/post_response.dart';
+import 'package:moovee_land/client_api/entities/movie/movie_credits.dart';
+import 'package:moovee_land/client_api/entities/movie/movie_details.dart';
+import 'package:moovee_land/client_api/entities/movie/movie_discussions.dart';
+import 'package:moovee_land/client_api/entities/movie/movie_keywords.dart';
+import 'package:moovee_land/client_api/entities/movie/movie_videos.dart';
+import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
 
 enum MediaType { movie, tv }
 

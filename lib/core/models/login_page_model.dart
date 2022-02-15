@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/auth_service.dart';
+import 'package:moovee_land/client_api/services/auth_service.dart';
 import 'package:moovee_land/core/storage/session_storage.dart';
 //import 'package:moovee_land/client_api/web/auth_web_service.dart';
 import 'package:moovee_land/router/routes.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entity/movie.dart';
+import 'package:moovee_land/client_api/entities/movie/movie.dart';
 import 'package:moovee_land/core/models/model_utils.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';

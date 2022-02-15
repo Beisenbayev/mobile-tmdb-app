@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entity/movie.dart';
-import 'package:moovee_land/client_api/entity/movies_response.dart';
-import 'package:moovee_land/client_api/home_service.dart';
+import 'package:moovee_land/client_api/entities/movie/movie.dart';
+import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
+import 'package:moovee_land/client_api/services/home_service.dart';
 
 class MoviesListModel extends ChangeNotifier {
   final _homeService = HomeService();

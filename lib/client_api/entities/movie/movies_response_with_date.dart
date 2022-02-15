@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:moovee_land/client_api/entity/movie.dart';
+import 'package:moovee_land/client_api/entities/movie/movie.dart';
 
 part 'movies_response_with_date.g.dart';
 

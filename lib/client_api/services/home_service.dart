@@ -1,7 +1,7 @@
 import 'package:moovee_land/client_api/api_config.dart';
-import 'package:moovee_land/client_api/entity/movies_response.dart';
-import 'package:moovee_land/client_api/entity/movies_response_with_date.dart';
-import 'package:moovee_land/client_api/entity/shows_response.dart';
+import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
+import 'package:moovee_land/client_api/entities/movie/movies_response_with_date.dart';
+import 'package:moovee_land/client_api/entities/show/shows_response.dart';
 
 class HomeService {
   Future<MoviesResponse> getPopularMovies(int index) async {

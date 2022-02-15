@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:moovee_land/client_api/api_config.dart';
-import 'package:moovee_land/client_api/entity/user/user_details.dart';
+import 'package:moovee_land/client_api/entities/user/user_details.dart';
 
 enum AuthExeptionsType { network, auth, other }
 
