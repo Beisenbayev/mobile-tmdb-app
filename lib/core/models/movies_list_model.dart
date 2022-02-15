@@ -3,54 +3,46 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/movie/movie.dart';
 import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
 import 'package:moovee_land/client_api/services/home_service.dart';
+import 'package:moovee_land/core/models/model_utils.dart';
 
 class MoviesListModel extends ChangeNotifier {
   final _homeService = HomeService();
+  late final Paginator<Movie> _moviesPaginator;
   final List<Movie> _movies = [];
-  int _currentPageIndex = 0;
-  int _totalPageCount = 1;
-  bool _isLoadingInProgress = false;
   String? _searchQuery;
   Timer? _searchTimer;
 
   List<Movie> get movies => List.unmodifiable(_movies);
 
   MoviesListModel() {
+    _moviesPaginator = Paginator<Movie>((int index) async {
+      late final MoviesResponse response;
+      final String query = _searchQuery ?? '';
+      if (query.isEmpty) {
+        response = await _homeService.getPopularMovies(index);
+      } else {
+        response = await _homeService.searchMovies(index, query);
+      }
+
+      return PaginatorResult(
+        data: response.movies,
+        currentPage: response.page,
+        totalPages: response.totalPages,
+      );
+    });
     _resetSettings();
   }
 
+  Future<void> _loadMovies() async {
+    await _moviesPaginator.loadNextPage();
+    _movies.addAll(_moviesPaginator.data);
+    notifyListeners();
+  }
+
   Future<void> _resetSettings() async {
-    _currentPageIndex = 0;
-    _totalPageCount = 1;
+    _moviesPaginator.reset();
     _movies.clear();
-    await _loadNextPage();
-  }
-
-  Future<MoviesResponse> _loadMovies(int index) async {
-    final String query = _searchQuery ?? '';
-    if (query.isEmpty) {
-      return await _homeService.getPopularMovies(index);
-    } else {
-      return await _homeService.searchMovies(index, query);
-    }
-  }
-
-  Future<void> _loadNextPage() async {
-    if (_isLoadingInProgress || _currentPageIndex >= _totalPageCount) return;
-
-    _isLoadingInProgress = true;
-    final nextPageIndex = _currentPageIndex + 1;
-
-    try {
-      final loadedMovies = await _loadMovies(nextPageIndex);
-      _currentPageIndex = loadedMovies.page;
-      _totalPageCount = loadedMovies.totalPages;
-      _movies.addAll(loadedMovies.movies);
-      notifyListeners();
-    } catch (_) {
-    } finally {
-      _isLoadingInProgress = false;
-    }
+    await _loadMovies();
   }
 
   void handleSearchMovies(String text) async {
@@ -62,8 +54,8 @@ class MoviesListModel extends ChangeNotifier {
     });
   }
 
-  void loadMoviesByIndex(int index) {
+  void loadMoviesByIndex(int index) async {
     if (index < movies.length - 1) return;
-    _loadNextPage();
+    await _loadMovies();
   }
 }
