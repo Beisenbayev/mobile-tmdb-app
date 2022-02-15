@@ -3,54 +3,46 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/show/show.dart';
 import 'package:moovee_land/client_api/entities/show/shows_response.dart';
 import 'package:moovee_land/client_api/services/home_service.dart';
+import 'package:moovee_land/core/models/model_utils.dart';
 
 class ShowsListModel extends ChangeNotifier {
   final _homeService = HomeService();
+  late final Paginator<Show> _showsPaginator;
   final List<Show> _shows = [];
-  int _currentPageIndex = 0;
-  int _totalPageCount = 1;
-  bool _isLoadingInProgress = false;
   String? _searchQuery;
   Timer? _searchTimer;
 
   List<Show> get shows => List.unmodifiable(_shows);
 
   ShowsListModel() {
+    _showsPaginator = Paginator<Show>((int index) async {
+      late final ShowsResponse response;
+      final String query = _searchQuery ?? '';
+      if (query.isEmpty) {
+        response = await _homeService.getPopularShows(index);
+      } else {
+        response = await _homeService.searchShows(index, query);
+      }
+
+      return PaginatorResult(
+        data: response.shows,
+        currentPage: response.page,
+        totalPages: response.totalPages,
+      );
+    });
     _resetSettings();
   }
 
+  Future<void> _loadShows() async {
+    await _showsPaginator.loadNextPage();
+    _shows.addAll(_showsPaginator.data);
+    notifyListeners();
+  }
+
   Future<void> _resetSettings() async {
-    _currentPageIndex = 0;
-    _totalPageCount = 1;
+    _showsPaginator.reset();
     _shows.clear();
-    await _loadNextPage();
-  }
-
-  Future<ShowsResponse> _loadShows(int index) async {
-    final String query = _searchQuery ?? '';
-    if (query.isEmpty) {
-      return await _homeService.getPopularShows(index);
-    } else {
-      return await _homeService.searchShows(index, query);
-    }
-  }
-
-  Future<void> _loadNextPage() async {
-    if (_isLoadingInProgress || _currentPageIndex >= _totalPageCount) return;
-
-    _isLoadingInProgress = true;
-    final nextPageIndex = _currentPageIndex + 1;
-
-    try {
-      final loadedShows = await _loadShows(nextPageIndex);
-      _currentPageIndex = loadedShows.page;
-      _totalPageCount = loadedShows.totalPages;
-      _shows.addAll(loadedShows.shows);
-      notifyListeners();
-    } catch (_) {
-    } finally {
-      _isLoadingInProgress = false;
-    }
+    await _loadShows();
   }
 
   void handleSearchShows(String text) async {
@@ -62,8 +54,8 @@ class ShowsListModel extends ChangeNotifier {
     });
   }
 
-  void loadShowsByIndex(int index) {
+  void loadShowsByIndex(int index) async {
     if (index < _shows.length - 1) return;
-    _loadNextPage();
+    await _loadShows();
   }
 }
