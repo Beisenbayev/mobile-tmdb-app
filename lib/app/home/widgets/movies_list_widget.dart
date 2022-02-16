@@ -18,7 +18,8 @@ class MoviesListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<MoviesListModel>(context);
+    final _movies = context.select((MoviesListModel model) => model.movies);
+    final _model = context.read<MoviesListModel>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -32,10 +33,10 @@ class MoviesListWidget extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              itemCount: _model.movies.length,
+              itemCount: _movies.length,
               itemExtent: 170,
               itemBuilder: (BuildContext context, int index) {
-                final movie = _model.movies[index];
+                final movie = _movies[index];
                 _model.loadMoviesByIndex(index);
 
                 return MovieCardWidget(

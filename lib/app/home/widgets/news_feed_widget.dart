@@ -16,7 +16,7 @@ class NewsFeedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<NewsFeedModel>(context);
+    final _model = context.watch<NewsFeedModel>();
 
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(

@@ -18,7 +18,8 @@ class ShowsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<ShowsListModel>(context);
+    final _shows = context.select((ShowsListModel model) => model.shows);
+    final _model = context.read<ShowsListModel>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -32,10 +33,10 @@ class ShowsListWidget extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              itemCount: _model.shows.length,
+              itemCount: _shows.length,
               itemExtent: 170,
               itemBuilder: (BuildContext context, int index) {
-                final _show = _model.shows[index];
+                final _show = _shows[index];
                 _model.loadShowsByIndex(index);
 
                 return ShowCardWidget(

@@ -121,6 +121,7 @@ class Paginator<T> {
       final result = await _loader(nextPageIndex);
       _currentPageIndex = result.currentPage;
       _totalPageCount = result.totalPages;
+      _data.clear();
       _data.addAll(result.data);
     } catch (_) {
     } finally {
