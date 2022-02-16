@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/movie/movie.dart';
 import 'package:moovee_land/client_api/entities/show/show.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/models/model_utils.dart';
+import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/news_feed_model.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/movie/movie.dart';
 import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
 import 'package:moovee_land/client_api/services/home_service.dart';
-import 'package:moovee_land/core/models/model_utils.dart';
+import 'package:moovee_land/core/models/utils/model_utils.dart';
 
 class MoviesListModel extends ChangeNotifier {
   final _homeService = HomeService();
