@@ -12,7 +12,7 @@ class MovieActorsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _credits = Provider.of<MoviePageModel>(context).credits;
+    final _credits = context.select((MoviePageModel model) => model.credits);
 
     if (_credits == null || _credits.cast.isEmpty) {
       return const SizedBox.shrink();

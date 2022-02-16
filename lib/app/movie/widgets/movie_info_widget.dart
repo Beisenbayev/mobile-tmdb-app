@@ -50,20 +50,24 @@ class _TopPosterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<MoviePageModel>(context);
-    final _ditails = _model.ditails!;
+    final _model = context.read<MoviePageModel>();
+    final _ditails = context.select((MoviePageModel model) => model.ditails!);
+    final _isFavorite =
+        context.select((MoviePageModel model) => model.isFavorite);
+    final _isInWatchlist =
+        context.select((MoviePageModel model) => model.isInWatchlist);
+
     final _movieBackdrop = ModelUtils.getBackdropImage(_ditails.backdropPath);
     final _moviePoster = ModelUtils.getPosterImage(_ditails.posterPath);
-    final _favoriteIcon = _model.isFavorite
+    final _favoriteIcon = _isFavorite
         ? const Icon(Icons.favorite_rounded)
         : const Icon(Icons.favorite_outline_rounded);
-    final _favoriteColor = _model.isFavorite ? Colors.red : Colors.white;
-    final _watchlistIcon = _model.isInWatchlist
+    final _favoriteColor = _isFavorite ? Colors.red : Colors.white;
+    final _watchlistIcon = _isInWatchlist
         ? const Icon(Icons.bookmark_rounded)
         : const Icon(Icons.bookmark_add_outlined);
-    final _watchlistColor = _model.isInWatchlist
-        ? ColorThemeShelf.radialPercentActive
-        : Colors.white;
+    final _watchlistColor =
+        _isInWatchlist ? ColorThemeShelf.radialPercentActive : Colors.white;
 
     return Stack(
       children: <Widget>[
@@ -127,7 +131,7 @@ class _TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = Provider.of<MoviePageModel>(context).ditails!;
+    final _ditails = context.select((MoviePageModel model) => model.ditails!);
     final _year = ModelUtils.parseDateTime(_ditails.releaseDate, 'y');
 
     return RichText(
@@ -158,8 +162,8 @@ class _UserScoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = Provider.of<MoviePageModel>(context).ditails!;
-    final _videos = Provider.of<MoviePageModel>(context).videos!;
+    final _ditails = context.select((MoviePageModel model) => model.ditails!);
+    final _videos = context.select((MoviePageModel model) => model.videos!);
     final _videoKey = ModelUtils.getOfficialTrailerKey(_videos.trailers);
     final _mainAlignment = _videoKey.isNotEmpty
         ? MainAxisAlignment.spaceEvenly
@@ -243,7 +247,7 @@ class _GenreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _info = '';
-    final _ditails = Provider.of<MoviePageModel>(context).ditails!;
+    final _ditails = context.select((MoviePageModel model) => model.ditails!);
     final _date = ModelUtils.parseDateTime(_ditails.releaseDate, 'yMd');
     if (_date.isNotEmpty) _info = _date;
     final _country = _ditails.productionCountries.isNotEmpty
@@ -287,7 +291,7 @@ class _DescriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = Provider.of<MoviePageModel>(context).ditails!;
+    final _ditails = context.select((MoviePageModel model) => model.ditails!);
     final tagline = (_ditails.tagline != null && _ditails.tagline!.isNotEmpty)
         ? Column(
             children: [
@@ -324,7 +328,7 @@ class _MembersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _credits = Provider.of<MoviePageModel>(context).credits;
+    final _credits = context.select((MoviePageModel model) => model.credits);
 
     if (_credits == null) return const SizedBox.shrink();
     final _crew = (_credits.crew.length > 6)

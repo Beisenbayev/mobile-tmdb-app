@@ -16,8 +16,8 @@ class MoviePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<MoviePageModel>(context);
-    final _body = (_model.ditails == null)
+    final _ditails = context.select((MoviePageModel model) => model.ditails);
+    final _body = (_ditails == null)
         ? const Center(child: CircularProgressIndicator())
         : const _MoviePageBody();
 
@@ -37,19 +37,22 @@ class _MoviePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: const <Widget>[
-        MovieInfoWidget(),
-        MovieActorsWidget(),
-        Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
-        MovieDiscussionsWidget(),
-        Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
-        MovieRecommendationsWidget(),
-        MovieFactsWidget(),
-        MovieKeywordsWidget(),
-        Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
-        MovieSimilarWidget(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const <Widget>[
+          MovieInfoWidget(),
+          MovieActorsWidget(),
+          Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
+          MovieDiscussionsWidget(),
+          Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
+          MovieRecommendationsWidget(),
+          MovieFactsWidget(),
+          MovieKeywordsWidget(),
+          Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
+          MovieSimilarWidget(),
+        ],
+      ),
     );
   }
 }

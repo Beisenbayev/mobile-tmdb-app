@@ -12,7 +12,8 @@ class MovieDiscussionsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _discussions = Provider.of<MoviePageModel>(context).discussions;
+    final _discussions =
+        context.select((MoviePageModel model) => model.discussions);
 
     if (_discussions == null || _discussions.reviews.isEmpty) {
       return const SizedBox.shrink();
@@ -63,7 +64,8 @@ class _DiscussionsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _discussions = Provider.of<MoviePageModel>(context).discussions!;
+    final _discussions =
+        context.select((MoviePageModel model) => model.discussions!);
     final _reviews = (_discussions.reviews.length > 2)
         ? _discussions.reviews.sublist(0, 2)
         : _discussions.reviews;

@@ -12,7 +12,7 @@ class MovieKeywordsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _keywordsResponse =
-        Provider.of<MoviePageModel>(context).keywordsResponse;
+        context.select((MoviePageModel model) => model.keywordsResponse);
 
     if (_keywordsResponse == null || _keywordsResponse.keywords.isEmpty) {
       return const SizedBox.shrink();
@@ -50,7 +50,7 @@ class _KeywordButtonsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _keywordsResponse =
-        Provider.of<MoviePageModel>(context).keywordsResponse!;
+        context.select((MoviePageModel model) => model.keywordsResponse!);
 
     return Wrap(
       spacing: 10.0,

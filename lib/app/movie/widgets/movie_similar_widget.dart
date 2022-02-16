@@ -12,7 +12,8 @@ class MovieSimilarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _similarMovies = Provider.of<MoviePageModel>(context).similarMovies;
+    final _similarMovies =
+        context.select((MoviePageModel model) => model.similarMovies);
 
     if (_similarMovies == null || _similarMovies.movies.isEmpty) {
       return const SizedBox.shrink();
@@ -58,7 +59,8 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _movies = Provider.of<MoviePageModel>(context).similarMovies!.movies;
+    final _movies =
+        context.select((MoviePageModel model) => model.similarMovies!.movies);
 
     return SizedBox(
       height: 180.0,

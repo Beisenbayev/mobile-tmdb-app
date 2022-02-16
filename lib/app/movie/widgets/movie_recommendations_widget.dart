@@ -13,7 +13,7 @@ class MovieRecommendationsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _recommendations =
-        Provider.of<MoviePageModel>(context).recommendations;
+        context.select((MoviePageModel model) => model.recommendations);
 
     if (_recommendations == null || _recommendations.movies.isEmpty) {
       return const SizedBox.shrink();
@@ -60,7 +60,7 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _movies =
-        Provider.of<MoviePageModel>(context).recommendations!.movies;
+        context.select((MoviePageModel model) => model.recommendations!.movies);
 
     return SizedBox(
       height: 180.0,

@@ -10,7 +10,7 @@ class MovieFactsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = Provider.of<MoviePageModel>(context).ditails!;
+    final _ditails = context.select((MoviePageModel model) => model.ditails!);
     final _budget = ModelUtils.getCashFormatFromInt(_ditails.budget);
     final _revenue = ModelUtils.getCashFormatFromInt(_ditails.revenue);
 

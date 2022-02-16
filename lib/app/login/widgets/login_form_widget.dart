@@ -12,7 +12,7 @@ class LoginFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<LoginPageModel>(context);
+    final model = context.watch<LoginPageModel>();
 
     final buttonOnPressed =
         model.isSubmitting ? null : () => model.handleAuth(context);
