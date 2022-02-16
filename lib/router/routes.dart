@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/app/movie_trailer/movie_trailer_page.dart';
-import 'package:moovee_land/core/models/into_page_model.dart';
 import 'package:moovee_land/core/models/login_page_model.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/router/error_page.dart';
@@ -22,19 +21,12 @@ abstract class RouteData {
   static String initialRoute = RouteAliasData.intro;
 
   static Map<String, WidgetBuilder> routes = {
+    RouteAliasData.intro: (context) => const IntroPage(),
     RouteAliasData.home: (context) => const HomePage(),
   };
 
   static MaterialPageRoute onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case RouteAliasData.intro:
-        return MaterialPageRoute(
-          builder: (context) => ChangeNotifierProvider(
-            create: (context) => IntroPageModel(),
-            child: const IntroPage(),
-          ),
-        );
-
       case RouteAliasData.login:
         return MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider(
