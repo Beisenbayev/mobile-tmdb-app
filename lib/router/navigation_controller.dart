@@ -16,11 +16,17 @@ class NavigationController {
         .pushNamedAndRemoveUntil(RouteAliasData.home, (route) => false);
   }
 
-  static void goToMoviePage(BuildContext context) {
-    Navigator.of(context).pushNamed(RouteAliasData.movieInfo);
+  static void goToMoviePage(BuildContext context, int id) {
+    Navigator.of(context).pushNamed(RouteAliasData.movieInfo, arguments: id);
   }
 
-  static void goToTrailerPage(BuildContext context) {
-    Navigator.of(context).pushNamed(RouteAliasData.movieTrailer);
+  static void replaceMoviePage(BuildContext context, int id) {
+    Navigator.of(context)
+        .pushReplacementNamed(RouteAliasData.movieInfo, arguments: id);
+  }
+
+  static void goToTrailerPage(BuildContext context, String key) {
+    Navigator.of(context)
+        .pushNamed(RouteAliasData.movieTrailer, arguments: key);
   }
 }

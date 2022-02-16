@@ -4,7 +4,7 @@ import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
-import 'package:moovee_land/router/routes.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
 class MovieRecommendationsWidget extends StatelessWidget {
@@ -54,10 +54,7 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
   const _HorizontalScrollMoviesWidget({Key? key}) : super(key: key);
 
   void _handleCardTap(BuildContext context, int id) {
-    Navigator.of(context).pushReplacementNamed(
-      RouteAliasData.movieInfo,
-      arguments: id,
-    );
+    NavigationController.replaceMoviePage(context, id);
   }
 
   @override

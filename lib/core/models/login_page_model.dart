@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/services/auth_service.dart';
 import 'package:moovee_land/core/storage/session_storage.dart';
-import 'package:moovee_land/router/routes.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 
 class LoginPageModel extends ChangeNotifier {
   final _authService = AuthService();
@@ -33,7 +33,7 @@ class LoginPageModel extends ChangeNotifier {
       await _sessionStorage.setSessionId(sessionId);
       await _sessionStorage.setUserId(userDetails.id);
 
-      Navigator.of(context).pushReplacementNamed(RouteAliasData.home);
+      NavigationController.goToHomePage(context);
     } on AuthExeption catch (error) {
       switch (error.type) {
         case AuthExeptionsType.network:

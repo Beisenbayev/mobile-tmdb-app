@@ -8,7 +8,7 @@ import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/radial_percent_widget.dart';
 import 'package:moovee_land/core/widgets/selector_panel_widget.dart';
-import 'package:moovee_land/router/routes.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
 class NewsFeedWidget extends StatelessWidget {
@@ -79,7 +79,7 @@ class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
   }
 
   void _handleCardTap(int id) {
-    Navigator.of(context).pushNamed(RouteAliasData.movieInfo, arguments: id);
+    NavigationController.goToMoviePage(context, id);
   }
 
   @override

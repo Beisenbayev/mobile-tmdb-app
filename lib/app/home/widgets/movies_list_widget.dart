@@ -6,14 +6,14 @@ import 'package:moovee_land/core/models/movies_list_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:moovee_land/core/widgets/search_panel_widget.dart';
-import 'package:moovee_land/router/routes.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
 class MoviesListWidget extends StatelessWidget {
   const MoviesListWidget({Key? key}) : super(key: key);
 
   void handleCardTap(BuildContext context, int id) {
-    Navigator.of(context).pushNamed(RouteAliasData.movieInfo, arguments: id);
+    NavigationController.goToMoviePage(context, id);
   }
 
   @override

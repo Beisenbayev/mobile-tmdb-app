@@ -6,7 +6,7 @@ import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/radial_percent_widget.dart';
 import 'package:moovee_land/core/widgets/rounded_icon_button.dart';
-import 'package:moovee_land/router/routes.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
 class MovieInfoWidget extends StatelessWidget {
@@ -153,10 +153,7 @@ class _UserScoreWidget extends StatelessWidget {
   const _UserScoreWidget({Key? key}) : super(key: key);
 
   void handleShowTrailer(BuildContext context, String key) {
-    Navigator.of(context).pushNamed(
-      RouteAliasData.movieTrailer,
-      arguments: key,
-    );
+    NavigationController.goToTrailerPage(context, key);
   }
 
   @override
