@@ -8,13 +8,14 @@ part of 'show_details.dart';
 
 ShowDetails _$ShowDetailsFromJson(Map<String, dynamic> json) => ShowDetails(
       backdropPath: json['backdrop_path'] as String?,
-      createdBy: (json['created_by'] as List<dynamic>)
-          .map((e) => CreatedBy.fromJson(e as Map<String, dynamic>))
+      createdBy: (json['created_by'] as List<dynamic>?)
+          ?.map((e) => CreatedBy.fromJson(e as Map<String, dynamic>))
           .toList(),
       episodeRunTime: (json['episode_run_time'] as List<dynamic>)
           .map((e) => e as int)
           .toList(),
-      firstAirDate: json['first_air_date'] as String,
+      firstAirDate:
+          EntityUtils.timeFromString(json['first_air_date'] as String?),
       genres: (json['genres'] as List<dynamic>)
           .map((e) => Genre.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -41,7 +42,7 @@ ShowDetails _$ShowDetailsFromJson(Map<String, dynamic> json) => ShowDetails(
           .toList(),
       originalLanguage: json['original_language'] as String,
       originalName: json['original_name'] as String,
-      overview: json['overview'] as String,
+      overview: json['overview'] as String?,
       popularity: (json['popularity'] as num).toDouble(),
       posterPath: json['poster_path'] as String?,
       productionCompanies: (json['production_companies'] as List<dynamic>)
@@ -57,7 +58,7 @@ ShowDetails _$ShowDetailsFromJson(Map<String, dynamic> json) => ShowDetails(
           .map((e) => SpokenLanguage.fromJson(e as Map<String, dynamic>))
           .toList(),
       status: json['status'] as String,
-      tagline: json['tagline'] as String,
+      tagline: json['tagline'] as String?,
       type: json['type'] as String,
       voteAverage: (json['vote_average'] as num).toDouble(),
       voteCount: json['vote_count'] as int,
@@ -66,9 +67,9 @@ ShowDetails _$ShowDetailsFromJson(Map<String, dynamic> json) => ShowDetails(
 Map<String, dynamic> _$ShowDetailsToJson(ShowDetails instance) =>
     <String, dynamic>{
       'backdrop_path': instance.backdropPath,
-      'created_by': instance.createdBy.map((e) => e.toJson()).toList(),
+      'created_by': instance.createdBy?.map((e) => e.toJson()).toList(),
       'episode_run_time': instance.episodeRunTime,
-      'first_air_date': instance.firstAirDate,
+      'first_air_date': instance.firstAirDate?.toIso8601String(),
       'genres': instance.genres.map((e) => e.toJson()).toList(),
       'homepage': instance.homepage,
       'id': instance.id,
@@ -193,13 +194,13 @@ Map<String, dynamic> _$ProductionCompanyToJson(ProductionCompany instance) =>
 
 ProductionCountry _$ProductionCountryFromJson(Map<String, dynamic> json) =>
     ProductionCountry(
-      iso31661: json['iso31661'] as String,
+      iso31661: json['iso_3166_1'] as String,
       name: json['name'] as String,
     );
 
 Map<String, dynamic> _$ProductionCountryToJson(ProductionCountry instance) =>
     <String, dynamic>{
-      'iso31661': instance.iso31661,
+      'iso_3166_1': instance.iso31661,
       'name': instance.name,
     };
 
@@ -226,13 +227,29 @@ Map<String, dynamic> _$SeasonToJson(Season instance) => <String, dynamic>{
 SpokenLanguage _$SpokenLanguageFromJson(Map<String, dynamic> json) =>
     SpokenLanguage(
       englishName: json['english_name'] as String,
-      iso6391: json['iso6391'] as String,
+      iso6391: json['iso_639_1'] as String,
       name: json['name'] as String,
     );
 
 Map<String, dynamic> _$SpokenLanguageToJson(SpokenLanguage instance) =>
     <String, dynamic>{
       'english_name': instance.englishName,
-      'iso6391': instance.iso6391,
+      'iso_639_1': instance.iso6391,
       'name': instance.name,
+    };
+
+ShowAccountStates _$ShowAccountStatesFromJson(Map<String, dynamic> json) =>
+    ShowAccountStates(
+      id: json['id'] as int,
+      favorite: json['favorite'] as bool,
+      rated: json['rated'] as bool,
+      watchlist: json['watchlist'] as bool,
+    );
+
+Map<String, dynamic> _$ShowAccountStatesToJson(ShowAccountStates instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'favorite': instance.favorite,
+      'rated': instance.rated,
+      'watchlist': instance.watchlist,
     };

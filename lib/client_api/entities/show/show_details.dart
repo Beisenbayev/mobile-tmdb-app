@@ -1,13 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:moovee_land/client_api/entities/entity_utils.dart';
 
 part 'show_details.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class ShowDetails {
   final String? backdropPath;
-  final List<CreatedBy> createdBy;
+  final List<CreatedBy>? createdBy;
   final List<int> episodeRunTime;
-  final String firstAirDate;
+  @JsonKey(fromJson: EntityUtils.timeFromString)
+  final DateTime? firstAirDate;
   final List<Genre> genres;
   final String homepage;
   final int id;
@@ -23,7 +25,7 @@ class ShowDetails {
   final List<String> originCountry;
   final String originalLanguage;
   final String originalName;
-  final String overview;
+  final String? overview;
   final double popularity;
   final String? posterPath;
   final List<ProductionCompany> productionCompanies;
@@ -31,7 +33,7 @@ class ShowDetails {
   final List<Season> seasons;
   final List<SpokenLanguage> spokenLanguages;
   final String status;
-  final String tagline;
+  final String? tagline;
   final String type;
   final double voteAverage;
   final int voteCount;
@@ -184,6 +186,7 @@ class ProductionCompany {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class ProductionCountry {
+  @JsonKey(name: 'iso_3166_1')
   final String iso31661;
   final String name;
   ProductionCountry({
@@ -222,6 +225,7 @@ class Season {
 @JsonSerializable(fieldRename: FieldRename.snake)
 class SpokenLanguage {
   final String englishName;
+  @JsonKey(name: 'iso_639_1')
   final String iso6391;
   final String name;
   SpokenLanguage({
@@ -233,4 +237,22 @@ class SpokenLanguage {
   factory SpokenLanguage.fromJson(Map<String, dynamic> json) =>
       _$SpokenLanguageFromJson(json);
   Map<String, dynamic> toJson() => _$SpokenLanguageToJson(this);
+}
+
+@JsonSerializable(fieldRename: FieldRename.snake)
+class ShowAccountStates {
+  final int id;
+  final bool favorite;
+  final bool rated;
+  final bool watchlist;
+  ShowAccountStates({
+    required this.id,
+    required this.favorite,
+    required this.rated,
+    required this.watchlist,
+  });
+
+  factory ShowAccountStates.fromJson(Map<String, dynamic> json) =>
+      _$ShowAccountStatesFromJson(json);
+  Map<String, dynamic> toJson() => _$ShowAccountStatesToJson(this);
 }
