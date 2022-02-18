@@ -1,10 +1,10 @@
 import 'package:moovee_land/client_api/api_config.dart';
 import 'package:moovee_land/client_api/entities/additional/post_response.dart';
-import 'package:moovee_land/client_api/entities/movie/movie_credits.dart';
+import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_details.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_discussions.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_keywords.dart';
-import 'package:moovee_land/client_api/entities/movie/movie_videos.dart';
+import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
 
 enum MediaType { movie, tv }
@@ -56,13 +56,13 @@ class MovieService {
     return response;
   }
 
-  Future<MovieCredits> getMovieCredits(int movieId) async {
-    MovieCredits parser(dynamic json) {
+  Future<MediaCredits> getMovieCredits(int movieId) async {
+    MediaCredits parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MovieCredits.fromJson(jsonMap);
+      return MediaCredits.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MovieCredits>(
+    final response = await ApiUtils.get<MediaCredits>(
       path: 'movie/$movieId/credits',
       parser: parser,
       queryParameters: <String, dynamic>{
@@ -138,13 +138,13 @@ class MovieService {
     return response;
   }
 
-  Future<MovieVideos> getMovieVideos(int movieId) async {
-    MovieVideos parser(dynamic json) {
+  Future<MediaVideos> getMovieVideos(int movieId) async {
+    MediaVideos parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MovieVideos.fromJson(jsonMap);
+      return MediaVideos.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MovieVideos>(
+    final response = await ApiUtils.get<MediaVideos>(
       path: 'movie/$movieId/videos',
       parser: parser,
       queryParameters: <String, dynamic>{

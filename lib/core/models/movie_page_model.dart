@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entities/movie/movie_credits.dart';
+import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_discussions.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_keywords.dart';
-import 'package:moovee_land/client_api/entities/movie/movie_videos.dart';
+import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
 import 'package:moovee_land/client_api/services/movie_service.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_details.dart';
@@ -14,24 +14,24 @@ class MoviePageModel extends ChangeNotifier {
   final int _movieId;
   MovieDetails? _ditails;
   MovieAccountStates? _accountStates;
-  MovieCredits? _credits;
+  MediaCredits? _credits;
   MovieDiscussions? _discussions;
   MoviesResponse? _recommendations;
   MovieKeywords? _keywords;
   MoviesResponse? _similarMovies;
-  MovieVideos? _videos;
+  MediaVideos? _videos;
   bool _isFavorite = false;
   bool _isInWatchlist = false;
 
   int get movieId => _movieId;
   MovieDetails? get ditails => _ditails;
   MovieAccountStates? get account => _accountStates;
-  MovieCredits? get credits => _credits;
+  MediaCredits? get credits => _credits;
   MovieDiscussions? get discussions => _discussions;
   MoviesResponse? get recommendations => _recommendations;
   MovieKeywords? get keywordsResponse => _keywords;
   MoviesResponse? get similarMovies => _similarMovies;
-  MovieVideos? get videos => _videos;
+  MediaVideos? get videos => _videos;
   bool get isFavorite => _isFavorite;
   bool get isInWatchlist => _isInWatchlist;
 

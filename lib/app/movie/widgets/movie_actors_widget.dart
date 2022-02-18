@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entities/movie/movie_credits.dart';
+import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';

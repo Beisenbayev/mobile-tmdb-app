@@ -1,21 +1,21 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:moovee_land/client_api/entities/entity_utils.dart';
 
-part 'movie_videos.g.dart';
+part 'media_videos.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
-class MovieVideos {
+class MediaVideos {
   final int id;
   @JsonKey(name: 'results')
   final List<Trailer> trailers;
-  MovieVideos({
+  MediaVideos({
     required this.id,
     required this.trailers,
   });
 
-  factory MovieVideos.fromJson(Map<String, dynamic> json) =>
-      _$MovieVideosFromJson(json);
-  Map<String, dynamic> toJson() => _$MovieVideosToJson(this);
+  factory MediaVideos.fromJson(Map<String, dynamic> json) =>
+      _$MediaVideosFromJson(json);
+  Map<String, dynamic> toJson() => _$MediaVideosToJson(this);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
