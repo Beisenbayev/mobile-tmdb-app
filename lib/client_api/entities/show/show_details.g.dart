@@ -24,7 +24,7 @@ ShowDetails _$ShowDetailsFromJson(Map<String, dynamic> json) => ShowDetails(
       inProduction: json['in_production'] as bool,
       languages:
           (json['languages'] as List<dynamic>).map((e) => e as String).toList(),
-      lastAirDate: json['last_air_date'] as String,
+      lastAirDate: EntityUtils.timeFromString(json['last_air_date'] as String?),
       lastEpisodeToAir: LastEpisodeToAir.fromJson(
           json['last_episode_to_air'] as Map<String, dynamic>),
       name: json['name'] as String,
@@ -75,7 +75,7 @@ Map<String, dynamic> _$ShowDetailsToJson(ShowDetails instance) =>
       'id': instance.id,
       'in_production': instance.inProduction,
       'languages': instance.languages,
-      'last_air_date': instance.lastAirDate,
+      'last_air_date': instance.lastAirDate?.toIso8601String(),
       'last_episode_to_air': instance.lastEpisodeToAir.toJson(),
       'name': instance.name,
       'next_episode_to_air': instance.nextEpisodeToAir?.toJson(),
@@ -130,7 +130,7 @@ Map<String, dynamic> _$GenreToJson(Genre instance) => <String, dynamic>{
 
 LastEpisodeToAir _$LastEpisodeToAirFromJson(Map<String, dynamic> json) =>
     LastEpisodeToAir(
-      airDate: json['air_date'] as String,
+      airDate: EntityUtils.timeFromString(json['air_date'] as String?),
       episodeNumber: json['episode_number'] as int,
       id: json['id'] as int,
       name: json['name'] as String,
@@ -144,7 +144,7 @@ LastEpisodeToAir _$LastEpisodeToAirFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$LastEpisodeToAirToJson(LastEpisodeToAir instance) =>
     <String, dynamic>{
-      'air_date': instance.airDate,
+      'air_date': instance.airDate?.toIso8601String(),
       'episode_number': instance.episodeNumber,
       'id': instance.id,
       'name': instance.name,
@@ -205,17 +205,17 @@ Map<String, dynamic> _$ProductionCountryToJson(ProductionCountry instance) =>
     };
 
 Season _$SeasonFromJson(Map<String, dynamic> json) => Season(
-      airDate: json['air_date'] as String,
+      airDate: EntityUtils.timeFromString(json['air_date'] as String?),
       episodeCount: json['episode_count'] as int,
       id: json['id'] as int,
       name: json['name'] as String,
       overview: json['overview'] as String,
-      posterPath: json['poster_path'] as String,
+      posterPath: json['poster_path'] as String?,
       seasonNumber: json['season_number'] as int,
     );
 
 Map<String, dynamic> _$SeasonToJson(Season instance) => <String, dynamic>{
-      'air_date': instance.airDate,
+      'air_date': instance.airDate?.toIso8601String(),
       'episode_count': instance.episodeCount,
       'id': instance.id,
       'name': instance.name,

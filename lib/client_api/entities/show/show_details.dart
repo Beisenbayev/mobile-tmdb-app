@@ -15,7 +15,8 @@ class ShowDetails {
   final int id;
   final bool inProduction;
   final List<String> languages;
-  final String lastAirDate;
+  @JsonKey(fromJson: EntityUtils.timeFromString)
+  final DateTime? lastAirDate;
   final LastEpisodeToAir lastEpisodeToAir;
   final String name;
   final NextEpisodeToAir? nextEpisodeToAir;
@@ -111,7 +112,8 @@ class Genre {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class LastEpisodeToAir {
-  final String airDate;
+  @JsonKey(fromJson: EntityUtils.timeFromString)
+  final DateTime? airDate;
   final int episodeNumber;
   final int id;
   final String name;
@@ -201,12 +203,13 @@ class ProductionCountry {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Season {
-  final String airDate;
+  @JsonKey(fromJson: EntityUtils.timeFromString)
+  final DateTime? airDate;
   final int episodeCount;
   final int id;
   final String name;
   final String overview;
-  final String posterPath;
+  final String? posterPath;
   final int seasonNumber;
   Season({
     required this.airDate,
