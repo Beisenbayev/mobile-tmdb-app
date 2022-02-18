@@ -26,60 +26,59 @@ class NewsFeedWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _MoviesScrollerWidget<Movie>(
-            title: 'Movies',
-            movies: _model.movies,
-            moviesType: _model.moviesTypes,
-            changeMoviesType: _model.handleChangeMoviesType,
-          ),
+          _MediaScrollerWidget<Movie>(
+              title: 'Movies',
+              mediaItems: _model.movies,
+              mediaTypes: _model.moviesTypes,
+              changeMediaType: _model.handleChangeMoviesType,
+              openMediaPage: NavigationController.goToMoviePage),
           const SizedBox(height: 16),
-          _MoviesScrollerWidget<Show>(
+          _MediaScrollerWidget<Show>(
             title: 'Shows',
-            movies: _model.shows,
-            moviesType: _model.showsTypes,
-            changeMoviesType: _model.handleChangeShowsType,
+            mediaItems: _model.shows,
+            mediaTypes: _model.showsTypes,
+            changeMediaType: _model.handleChangeShowsType,
+            openMediaPage: NavigationController.goToShowPage,
           ),
           const SizedBox(height: 16),
-          _MoviesScrollerWidget<Movie>(
-            title: 'Trending',
-            movies: _model.movies,
-            moviesType: _model.trandingTypes,
-            changeMoviesType: _model.handleChangeMoviesType,
-          ),
+          _MediaScrollerWidget<Movie>(
+              title: 'Trending',
+              mediaItems: _model.movies,
+              mediaTypes: _model.trandingTypes,
+              changeMediaType: _model.handleChangeMoviesType,
+              openMediaPage: NavigationController.goToMoviePage),
         ],
       ),
     );
   }
 }
 
-class _MoviesScrollerWidget<T> extends StatefulWidget {
+class _MediaScrollerWidget<T> extends StatefulWidget {
   final String title;
-  final List<T> movies;
-  final List<String> moviesType;
-  final void Function(String) changeMoviesType;
+  final List<T> mediaItems;
+  final List<String> mediaTypes;
+  final void Function(String) changeMediaType;
+  final void Function(BuildContext, int) openMediaPage;
 
-  const _MoviesScrollerWidget({
+  const _MediaScrollerWidget({
     Key? key,
     required this.title,
-    required this.movies,
-    required this.moviesType,
-    required this.changeMoviesType,
+    required this.mediaItems,
+    required this.mediaTypes,
+    required this.changeMediaType,
+    required this.openMediaPage,
   }) : super(key: key);
 
   @override
-  State<_MoviesScrollerWidget> createState() => _MoviesScrollerWidgetState<T>();
+  State<_MediaScrollerWidget> createState() => _MediaScrollerWidgetState<T>();
 }
 
-class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
+class _MediaScrollerWidgetState<T> extends State<_MediaScrollerWidget> {
   int _selectedIndex = 0;
 
   void _handleSelectItem(int index) {
     setState(() => _selectedIndex = index);
-    widget.changeMoviesType(widget.moviesType[index]);
-  }
-
-  void _handleCardTap(int id) {
-    NavigationController.goToMoviePage(context, id);
+    widget.changeMediaType(widget.mediaTypes[index]);
   }
 
   @override
@@ -99,18 +98,19 @@ class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
             SizedBox(
               height: 370,
               child: ListView.builder(
-                itemCount: widget.movies.length,
+                itemCount: widget.mediaItems.length,
                 itemExtent: 170.0,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
-                  final _movie = widget.movies[index];
+                  final _movie = widget.mediaItems[index];
 
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: ScrollMovieWidget<T>(
                       movie: _movie,
-                      handleCardTap: _handleCardTap,
+                      handleCardTap: (int id) =>
+                          widget.openMediaPage(context, id),
                     ),
                   );
                 },
@@ -122,7 +122,7 @@ class _MoviesScrollerWidgetState<T> extends State<_MoviesScrollerWidget> {
           top: 0,
           right: PaddingConsts.screenHorizontal,
           child: SelectorPanelWidget(
-            items: widget.moviesType,
+            items: widget.mediaTypes,
             selectedIndex: _selectedIndex,
             handleSelectItem: _handleSelectItem,
           ),

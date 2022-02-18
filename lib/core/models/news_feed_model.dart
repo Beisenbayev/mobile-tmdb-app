@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/movie/movie.dart';
 import 'package:moovee_land/client_api/entities/show/show.dart';
 import 'package:moovee_land/client_api/services/home_service.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 
 class NewsFeedModel extends ChangeNotifier {
   final _homeService = HomeService();
