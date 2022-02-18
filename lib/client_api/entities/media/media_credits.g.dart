@@ -32,7 +32,7 @@ Cast _$CastFromJson(Map<String, dynamic> json) => Cast(
       originalName: json['original_name'] as String,
       popularity: (json['popularity'] as num).toDouble(),
       profilePath: json['profile_path'] as String?,
-      castId: json['cast_id'] as int,
+      castId: json['cast_id'] as int?,
       character: json['character'] as String,
       creditId: json['credit_id'] as String,
       order: json['order'] as int,

@@ -4,6 +4,7 @@ import 'package:moovee_land/client_api/entities/movie/movie_discussions.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
+import 'package:moovee_land/client_api/services/media_service.dart';
 import 'package:moovee_land/client_api/services/movie_service.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_details.dart';
 import 'package:moovee_land/core/storage/session_storage.dart';
@@ -11,6 +12,7 @@ import 'package:moovee_land/core/storage/session_storage.dart';
 class MoviePageModel extends ChangeNotifier {
   final _sessionStorage = SessionStorage();
   final _movieService = MovieService();
+  final _mediaService = MediaService();
   final int _movieId;
   MovieDetails? _ditails;
   MovieAccountStates? _accountStates;
@@ -70,7 +72,7 @@ class MoviePageModel extends ChangeNotifier {
 
     if (_accountId == null || _sessionId == null) return;
 
-    await _movieService.markMediaAsFavorite(
+    await _mediaService.markMediaAsFavorite(
       accountId: _accountId,
       sessionId: _sessionId,
       mediaId: movieId,
@@ -87,7 +89,7 @@ class MoviePageModel extends ChangeNotifier {
 
     if (_accountId == null || _sessionId == null) return;
 
-    await _movieService.addMovieToWatchlist(
+    await _mediaService.addMediaToWatchlist(
       accountId: _accountId,
       sessionId: _sessionId,
       mediaId: movieId,

@@ -109,7 +109,7 @@ class _TopPosterWidget extends StatelessWidget {
           child: RoundedIconButton(
             icon: _favoriteIcon,
             color: _favoriteColor,
-            onTap: _model.markMovieAsFavorite,
+            onTap: _model.markShowAsFavorite,
           ),
         ),
         Positioned(
@@ -118,7 +118,7 @@ class _TopPosterWidget extends StatelessWidget {
           child: RoundedIconButton(
             icon: _watchlistIcon,
             color: _watchlistColor,
-            onTap: _model.addMovieToWatchlist,
+            onTap: _model.addShowToWatchlist,
           ),
         ),
       ],
@@ -163,9 +163,8 @@ class _UserScoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _ditails = context.select((ShowPageModel model) => model.ditails!);
-    //final _videos = context.select((ShowPageModel model) => model.videos!);
-    const _videoKey = '';
-    //ModelUtils.getOfficialTrailerKey(_videos.trailers);
+    final _videos = context.select((ShowPageModel model) => model.videos!);
+    final _videoKey = ModelUtils.getOfficialTrailerKey(_videos.trailers);
     final _mainAlignment = _videoKey.isNotEmpty
         ? MainAxisAlignment.spaceEvenly
         : MainAxisAlignment.center;
@@ -329,8 +328,7 @@ class _MembersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _credits = null;
-    //context.select((ShowPageModel model) => model.credits);
+    final _credits = context.select((ShowPageModel model) => model.credits);
 
     if (_credits == null) return const SizedBox.shrink();
     final _crew = (_credits.crew.length > 6)
