@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
-import 'package:moovee_land/core/models/movie_page_model.dart';
+import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:provider/provider.dart';
 
-class MovieDiscussionsWidget extends StatelessWidget {
-  const MovieDiscussionsWidget({Key? key}) : super(key: key);
+class ShowDiscussionsWidget extends StatelessWidget {
+  const ShowDiscussionsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _discussions =
-        context.select((MoviePageModel model) => model.discussions);
+        context.select((ShowPageModel model) => model.discussions);
 
     if (_discussions == null || _discussions.reviews.isEmpty) {
       return const SizedBox.shrink();
@@ -65,7 +65,7 @@ class _DiscussionsListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _discussions =
-        context.select((MoviePageModel model) => model.discussions!);
+        context.select((ShowPageModel model) => model.discussions!);
     final _reviews = (_discussions.reviews.length > 2)
         ? _discussions.reviews.sublist(0, 2)
         : _discussions.reviews;

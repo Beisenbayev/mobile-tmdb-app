@@ -1,7 +1,7 @@
 import 'package:moovee_land/client_api/api_config.dart';
 import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_details.dart';
-import 'package:moovee_land/client_api/entities/movie/movie_discussions.dart';
+import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
@@ -59,13 +59,13 @@ class MovieService {
     return response;
   }
 
-  Future<MovieDiscussions> getMovieDiscussions(int movieId) async {
-    MovieDiscussions parser(dynamic json) {
+  Future<MediaDiscussions> getMovieDiscussions(int movieId) async {
+    MediaDiscussions parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MovieDiscussions.fromJson(jsonMap);
+      return MediaDiscussions.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MovieDiscussions>(
+    final response = await ApiUtils.get<MediaDiscussions>(
       path: 'movie/$movieId/reviews',
       parser: parser,
       queryParameters: <String, dynamic>{

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/media/media_credits.dart';
+import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
 import 'package:moovee_land/client_api/services/media_service.dart';
@@ -14,7 +15,7 @@ class ShowPageModel extends ChangeNotifier {
   ShowDetails? _ditails;
   ShowAccountStates? _accountStates;
   MediaCredits? _credits;
-  // MovieDiscussions? _discussions;
+  MediaDiscussions? _discussions;
   // MoviesResponse? _recommendations;
   // MovieKeywords? _keywords;
   // MoviesResponse? _similarShows;
@@ -26,7 +27,7 @@ class ShowPageModel extends ChangeNotifier {
   ShowDetails? get ditails => _ditails;
   ShowAccountStates? get account => _accountStates;
   MediaCredits? get credits => _credits;
-  // MovieDiscussions? get discussions => _discussions;
+  MediaDiscussions? get discussions => _discussions;
   // MoviesResponse? get recommendations => _recommendations;
   // MovieKeywords? get keywordsResponse => _keywords;
   // MoviesResponse? get similarShows => _similarShows;
@@ -46,7 +47,7 @@ class ShowPageModel extends ChangeNotifier {
       await _loadAccountStates(_sessionId);
     }
     _credits = await _showService.getShowCredits(_showId);
-    // _discussions = await _showService.getMovieDiscussions(_showId);
+    _discussions = await _showService.getShowDiscussions(_showId);
     // _recommendations = await _showService.getMovieRecommendations(_showId);
     // _keywords = await _showService.getMovieKeywords(_showId);
     // _similarMovies = await _showService.getSimilarMovies(_showId);

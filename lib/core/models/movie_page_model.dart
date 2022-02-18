@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/media/media_credits.dart';
-import 'package:moovee_land/client_api/entities/movie/movie_discussions.dart';
+import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/movie/movie_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
@@ -17,7 +17,7 @@ class MoviePageModel extends ChangeNotifier {
   MovieDetails? _ditails;
   MovieAccountStates? _accountStates;
   MediaCredits? _credits;
-  MovieDiscussions? _discussions;
+  MediaDiscussions? _discussions;
   MoviesResponse? _recommendations;
   MovieKeywords? _keywords;
   MoviesResponse? _similarMovies;
@@ -29,7 +29,7 @@ class MoviePageModel extends ChangeNotifier {
   MovieDetails? get ditails => _ditails;
   MovieAccountStates? get account => _accountStates;
   MediaCredits? get credits => _credits;
-  MovieDiscussions? get discussions => _discussions;
+  MediaDiscussions? get discussions => _discussions;
   MoviesResponse? get recommendations => _recommendations;
   MovieKeywords? get keywordsResponse => _keywords;
   MoviesResponse? get similarMovies => _similarMovies;
