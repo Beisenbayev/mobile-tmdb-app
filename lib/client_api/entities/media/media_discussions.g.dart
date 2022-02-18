@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'movie_discussions.dart';
+part of 'media_discussions.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MovieDiscussions _$MovieDiscussionsFromJson(Map<String, dynamic> json) =>
-    MovieDiscussions(
+MediaDiscussions _$MediaDiscussionsFromJson(Map<String, dynamic> json) =>
+    MediaDiscussions(
       id: json['id'] as int,
       page: json['page'] as int,
       reviews: (json['results'] as List<dynamic>)
@@ -17,7 +17,7 @@ MovieDiscussions _$MovieDiscussionsFromJson(Map<String, dynamic> json) =>
       totalResults: json['total_results'] as int,
     );
 
-Map<String, dynamic> _$MovieDiscussionsToJson(MovieDiscussions instance) =>
+Map<String, dynamic> _$MediaDiscussionsToJson(MediaDiscussions instance) =>
     <String, dynamic>{
       'id': instance.id,
       'page': instance.page,
