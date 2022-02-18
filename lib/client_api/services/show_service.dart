@@ -1,19 +1,7 @@
 import 'package:moovee_land/client_api/api_config.dart';
-import 'package:moovee_land/client_api/entities/additional/post_response.dart';
+import 'package:moovee_land/client_api/entities/media/media_credits.dart';
+import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
-
-enum MediaType { movie, tv }
-
-extension MediaTypeAsString on MediaType {
-  asString() {
-    switch (this) {
-      case MediaType.movie:
-        return 'movie';
-      case MediaType.tv:
-        return 'tv';
-    }
-  }
-}
 
 class ShowService {
   Future<ShowDetails> getShowDetails(int showId) async {
@@ -51,31 +39,31 @@ class ShowService {
     return response;
   }
 
-  // Future<MovieCredits> getMovieCredits(int movieId) async {
-  //   MovieCredits parser(dynamic json) {
-  //     final jsonMap = json as Map<String, dynamic>;
-  //     return MovieCredits.fromJson(jsonMap);
-  //   }
+  Future<MediaCredits> getShowCredits(int showId) async {
+    MediaCredits parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return MediaCredits.fromJson(jsonMap);
+    }
 
-  //   final response = await ApiUtils.get<MovieCredits>(
-  //     path: 'movie/$movieId/credits',
-  //     parser: parser,
-  //     queryParameters: <String, dynamic>{
-  //       'api_key': ApiConfig.apiKey,
-  //       'language': 'en-US',
-  //     },
-  //   );
-  //   return response;
-  // }
+    final response = await ApiUtils.get<MediaCredits>(
+      path: 'tv/$showId/credits',
+      parser: parser,
+      queryParameters: <String, dynamic>{
+        'api_key': ApiConfig.apiKey,
+        'language': 'en-US',
+      },
+    );
+    return response;
+  }
 
-  // Future<MovieDiscussions> getMovieDiscussions(int movieId) async {
+  // Future<MovieDiscussions> getMovieDiscussions(int showId) async {
   //   MovieDiscussions parser(dynamic json) {
   //     final jsonMap = json as Map<String, dynamic>;
   //     return MovieDiscussions.fromJson(jsonMap);
   //   }
 
   //   final response = await ApiUtils.get<MovieDiscussions>(
-  //     path: 'movie/$movieId/reviews',
+  //     path: 'movie/$showId/reviews',
   //     parser: parser,
   //     queryParameters: <String, dynamic>{
   //       'api_key': ApiConfig.apiKey,
@@ -85,14 +73,14 @@ class ShowService {
   //   return response;
   // }
 
-  // Future<MoviesResponse> getMovieRecommendations(int movieId) async {
+  // Future<MoviesResponse> getMovieRecommendations(int showId) async {
   //   MoviesResponse parser(dynamic json) {
   //     final jsonMap = json as Map<String, dynamic>;
   //     return MoviesResponse.fromJson(jsonMap);
   //   }
 
   //   final response = await ApiUtils.get<MoviesResponse>(
-  //     path: 'movie/$movieId/recommendations',
+  //     path: 'movie/$showId/recommendations',
   //     parser: parser,
   //     queryParameters: <String, dynamic>{
   //       'api_key': ApiConfig.apiKey,
@@ -102,28 +90,28 @@ class ShowService {
   //   return response;
   // }
 
-  // Future<MovieKeywords> getMovieKeywords(int movieId) async {
+  // Future<MovieKeywords> getMovieKeywords(int showId) async {
   //   MovieKeywords parser(dynamic json) {
   //     final jsonMap = json as Map<String, dynamic>;
   //     return MovieKeywords.fromJson(jsonMap);
   //   }
 
   //   final response = await ApiUtils.get<MovieKeywords>(
-  //     path: 'movie/$movieId/keywords',
+  //     path: 'movie/$showId/keywords',
   //     parser: parser,
   //     queryParameters: ApiDefaults.defaultQueryParameters,
   //   );
   //   return response;
   // }
 
-  // Future<MoviesResponse> getSimilarMovies(int movieId) async {
+  // Future<MoviesResponse> getSimilarMovies(int showId) async {
   //   MoviesResponse parser(dynamic json) {
   //     final jsonMap = json as Map<String, dynamic>;
   //     return MoviesResponse.fromJson(jsonMap);
   //   }
 
   //   final response = await ApiUtils.get<MoviesResponse>(
-  //     path: 'movie/$movieId/similar',
+  //     path: 'movie/$showId/similar',
   //     parser: parser,
   //     queryParameters: <String, dynamic>{
   //       'api_key': ApiConfig.apiKey,
@@ -133,74 +121,18 @@ class ShowService {
   //   return response;
   // }
 
-  // Future<MovieVideos> getMovieVideos(int movieId) async {
-  //   MovieVideos parser(dynamic json) {
-  //     final jsonMap = json as Map<String, dynamic>;
-  //     return MovieVideos.fromJson(jsonMap);
-  //   }
-
-  //   final response = await ApiUtils.get<MovieVideos>(
-  //     path: 'movie/$movieId/videos',
-  //     parser: parser,
-  //     queryParameters: <String, dynamic>{
-  //       'api_key': ApiConfig.apiKey,
-  //       'language': 'en-US',
-  //     },
-  //   );
-  //   return response;
-  // }
-
-  Future<PostResponse> markShowAsFavorite({
-    required int accountId,
-    required String sessionId,
-    required int showId,
-    required MediaType mediaType,
-    required bool favorite,
-  }) async {
-    PostResponse parser(dynamic json) {
+  Future<MediaVideos> getShowVideos(int showId) async {
+    MediaVideos parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return PostResponse.fromJson(jsonMap);
+      return MediaVideos.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.post<PostResponse>(
-      path: '/account/$accountId/favorite',
+    final response = await ApiUtils.get<MediaVideos>(
+      path: 'tv/$showId/videos',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,
-        'session_id': sessionId,
-      },
-      bodyParameters: <String, dynamic>{
-        'media_type': mediaType.asString(),
-        'media_id': showId,
-        'favorite': favorite,
-      },
-    );
-    return response;
-  }
-
-  Future<PostResponse> addShowToWatchlist({
-    required int accountId,
-    required String sessionId,
-    required int showId,
-    required MediaType mediaType,
-    required bool isInWatchlist,
-  }) async {
-    PostResponse parser(dynamic json) {
-      final jsonMap = json as Map<String, dynamic>;
-      return PostResponse.fromJson(jsonMap);
-    }
-
-    final response = await ApiUtils.post<PostResponse>(
-      path: '/account/$accountId/watchlist',
-      parser: parser,
-      queryParameters: <String, dynamic>{
-        'api_key': ApiConfig.apiKey,
-        'session_id': sessionId,
-      },
-      bodyParameters: <String, dynamic>{
-        'media_type': mediaType.asString(),
-        'media_id': showId,
-        'watchlist': isInWatchlist,
+        'language': 'en-US',
       },
     );
     return response;
