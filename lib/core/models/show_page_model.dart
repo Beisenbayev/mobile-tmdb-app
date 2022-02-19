@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/media/media_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
