@@ -1,8 +1,8 @@
 import 'package:moovee_land/client_api/api_config.dart';
-import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/media/media_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
+import 'package:moovee_land/client_api/entities/show/show_aggregate_credits.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
 import 'package:moovee_land/client_api/entities/show/shows_response.dart';
 
@@ -42,14 +42,14 @@ class ShowService {
     return response;
   }
 
-  Future<MediaCredits> getShowCredits(int showId) async {
-    MediaCredits parser(dynamic json) {
+  Future<ShowAggregateCredits> getShowCredits(int showId) async {
+    ShowAggregateCredits parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MediaCredits.fromJson(jsonMap);
+      return ShowAggregateCredits.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MediaCredits>(
-      path: 'tv/$showId/credits',
+    final response = await ApiUtils.get<ShowAggregateCredits>(
+      path: 'tv/$showId/aggregate_credits',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entities/media/media_credits.dart';
+import 'package:moovee_land/client_api/entities/show/show_aggregate_credits.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
@@ -47,7 +47,7 @@ class ShowActorsWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           SizedBox(
-            height: 260,
+            height: 280,
             child: ListView.builder(
               itemCount: _actors.length,
               itemExtent: 130.0,
@@ -79,6 +79,7 @@ class ActorCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _avatar = ModelUtils.getActorImage(cast.profilePath);
+    final _character = ModelUtils.getCastCharacterName(cast.roles);
 
     return Container(
       clipBehavior: Clip.hardEdge,
@@ -105,20 +106,18 @@ class ActorCardWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      cast.character,
+                      _character,
                       style: TextThemeShelf.main,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    // if (cast.episodeCount is int) ...[
-                    //   const SizedBox(height: 3),
-                    //   Text(
-                    //     '${cast.episodeCount} episodes',
-                    //     style: TextThemeShelf.subtitle,
-                    //     maxLines: 1,
-                    //     overflow: TextOverflow.ellipsis,
-                    //   )
-                    // ]
+                    const SizedBox(height: 3),
+                    Text(
+                      '${cast.totalEpisodeCount} episodes',
+                      style: TextThemeShelf.subtitle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )
                   ],
                 ),
               )

@@ -341,9 +341,11 @@ class _MembersWidget extends StatelessWidget {
         spacing: 16,
         runSpacing: 16,
         children: _crew.map((item) {
+          final _jobTitle = ModelUtils.getCrewJobTitle(item.jobs);
+
           return _MemberProfileWidget(
             fullName: item.originalName,
-            position: item.job,
+            position: _jobTitle,
           );
         }).toList(),
       ),

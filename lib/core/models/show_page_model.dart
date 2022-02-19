@@ -3,6 +3,7 @@ import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/media/media_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
+import 'package:moovee_land/client_api/entities/show/show_aggregate_credits.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
 import 'package:moovee_land/client_api/entities/show/shows_response.dart';
 import 'package:moovee_land/client_api/services/media_service.dart';
@@ -16,7 +17,7 @@ class ShowPageModel extends ChangeNotifier {
   final int _showId;
   ShowDetails? _ditails;
   ShowAccountStates? _accountStates;
-  MediaCredits? _credits;
+  ShowAggregateCredits? _credits;
   MediaDiscussions? _discussions;
   ShowsResponse? _recommendations;
   MediaKeywords? _keywords;
@@ -28,7 +29,7 @@ class ShowPageModel extends ChangeNotifier {
   int get showId => _showId;
   ShowDetails? get ditails => _ditails;
   ShowAccountStates? get account => _accountStates;
-  MediaCredits? get credits => _credits;
+  ShowAggregateCredits? get credits => _credits;
   MediaDiscussions? get discussions => _discussions;
   ShowsResponse? get recommendations => _recommendations;
   MediaKeywords? get keywordsResponse => _keywords;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moovee_land/client_api/api_config.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
+import 'package:moovee_land/client_api/entities/show/show_aggregate_credits.dart';
 
 class ModelUtils {
   static Widget getPosterImage(String? path) {
@@ -85,6 +86,16 @@ class ModelUtils {
     } else {
       return '';
     }
+  }
+
+  static String getCrewJobTitle(List<Job> jobs) {
+    if (jobs.isEmpty) return '';
+    return jobs[0].job;
+  }
+
+  static String getCastCharacterName(List<Role> roles) {
+    if (roles.isEmpty) return '';
+    return roles[0].character;
   }
 }
 
