@@ -1,20 +1,20 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'movie_keywords.g.dart';
+part 'media_keywords.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
-class MovieKeywords {
+class MediaKeywords {
   final int id;
   final List<Keyword> keywords;
 
-  MovieKeywords({
+  MediaKeywords({
     required this.id,
     required this.keywords,
   });
 
-  factory MovieKeywords.fromJson(Map<String, dynamic> json) =>
-      _$MovieKeywordsFromJson(json);
-  Map<String, dynamic> toJson() => _$MovieKeywordsToJson(this);
+  factory MediaKeywords.fromJson(Map<String, dynamic> json) =>
+      _$MediaKeywordsFromJson(json);
+  Map<String, dynamic> toJson() => _$MediaKeywordsToJson(this);
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
