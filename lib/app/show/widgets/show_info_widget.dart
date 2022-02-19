@@ -254,7 +254,9 @@ class _GenreWidget extends StatelessWidget {
         ? _ditails.productionCountries[0].iso31661
         : '';
     if (_country.replaceAll(' ', '').isNotEmpty) _info = '$_info ($_country)';
-    final _hours = ModelUtils.getHoursFromMinute(_ditails.episodeRunTime[0]);
+    final _hours = _ditails.episodeRunTime.isNotEmpty
+        ? ModelUtils.getHoursFromMinute(_ditails.episodeRunTime[0])
+        : '';
     if (_hours.replaceAll(' ', '').isNotEmpty) _info = '$_info • $_hours';
     final _genres =
         _ditails.genres.map((ganre) => ganre.name).toList().join(', ');
