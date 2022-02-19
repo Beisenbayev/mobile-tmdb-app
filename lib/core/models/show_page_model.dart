@@ -19,7 +19,7 @@ class ShowPageModel extends ChangeNotifier {
   ShowAggregateCredits? _credits;
   MediaDiscussions? _discussions;
   ShowsResponse? _recommendations;
-  MediaKeywords? _keywords;
+  ShowKeywords? _keywords;
   ShowsResponse? _similarShows;
   MediaVideos? _videos;
   bool _isFavorite = false;
@@ -31,7 +31,7 @@ class ShowPageModel extends ChangeNotifier {
   ShowAggregateCredits? get credits => _credits;
   MediaDiscussions? get discussions => _discussions;
   ShowsResponse? get recommendations => _recommendations;
-  MediaKeywords? get keywordsResponse => _keywords;
+  ShowKeywords? get keywordsResponse => _keywords;
   ShowsResponse? get similarShows => _similarShows;
   MediaVideos? get videos => _videos;
   bool get isFavorite => _isFavorite;

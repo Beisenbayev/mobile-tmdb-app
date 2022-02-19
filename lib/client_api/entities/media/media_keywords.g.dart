@@ -6,15 +6,28 @@ part of 'media_keywords.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-MediaKeywords _$MediaKeywordsFromJson(Map<String, dynamic> json) =>
-    MediaKeywords(
+MovieKeywords _$MovieKeywordsFromJson(Map<String, dynamic> json) =>
+    MovieKeywords(
+      id: json['id'] as int,
+      keywords: (json['keywords'] as List<dynamic>)
+          .map((e) => Keyword.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$MovieKeywordsToJson(MovieKeywords instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'keywords': instance.keywords.map((e) => e.toJson()).toList(),
+    };
+
+ShowKeywords _$ShowKeywordsFromJson(Map<String, dynamic> json) => ShowKeywords(
       id: json['id'] as int,
       keywords: (json['results'] as List<dynamic>)
           .map((e) => Keyword.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$MediaKeywordsToJson(MediaKeywords instance) =>
+Map<String, dynamic> _$ShowKeywordsToJson(ShowKeywords instance) =>
     <String, dynamic>{
       'id': instance.id,
       'results': instance.keywords.map((e) => e.toJson()).toList(),

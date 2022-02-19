@@ -19,7 +19,7 @@ class MoviePageModel extends ChangeNotifier {
   MediaCredits? _credits;
   MediaDiscussions? _discussions;
   MoviesResponse? _recommendations;
-  MediaKeywords? _keywords;
+  MovieKeywords? _keywords;
   MoviesResponse? _similarMovies;
   MediaVideos? _videos;
   bool _isFavorite = false;
@@ -31,7 +31,7 @@ class MoviePageModel extends ChangeNotifier {
   MediaCredits? get credits => _credits;
   MediaDiscussions? get discussions => _discussions;
   MoviesResponse? get recommendations => _recommendations;
-  MediaKeywords? get keywordsResponse => _keywords;
+  MovieKeywords? get keywordsResponse => _keywords;
   MoviesResponse? get similarMovies => _similarMovies;
   MediaVideos? get videos => _videos;
   bool get isFavorite => _isFavorite;

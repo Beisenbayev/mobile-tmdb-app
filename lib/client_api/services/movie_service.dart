@@ -93,13 +93,13 @@ class MovieService {
     return response;
   }
 
-  Future<MediaKeywords> getMovieKeywords(int movieId) async {
-    MediaKeywords parser(dynamic json) {
+  Future<MovieKeywords> getMovieKeywords(int movieId) async {
+    MovieKeywords parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MediaKeywords.fromJson(jsonMap);
+      return MovieKeywords.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MediaKeywords>(
+    final response = await ApiUtils.get<MovieKeywords>(
       path: 'movie/$movieId/keywords',
       parser: parser,
       queryParameters: ApiDefaults.defaultQueryParameters,
