@@ -1,20 +1,20 @@
 import 'package:moovee_land/client_api/api_config.dart';
-import 'package:moovee_land/client_api/entities/media/media_credits.dart';
-import 'package:moovee_land/client_api/entities/movie/movie_details.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/media/media_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
-import 'package:moovee_land/client_api/entities/movie/movies_response.dart';
+import 'package:moovee_land/client_api/entities/show/show_aggregate_credits.dart';
+import 'package:moovee_land/client_api/entities/show/show_details.dart';
+import 'package:moovee_land/client_api/entities/show/shows_response.dart';
 
-class MovieService {
-  Future<MovieDetails> getMovieDetails(int movieId) async {
-    MovieDetails parser(dynamic json) {
+class ShowService {
+  Future<ShowDetails> getShowDetails(int showId) async {
+    ShowDetails parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MovieDetails.fromJson(jsonMap);
+      return ShowDetails.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MovieDetails>(
-      path: 'movie/$movieId',
+    final response = await ApiUtils.get<ShowDetails>(
+      path: 'tv/$showId',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,
@@ -24,15 +24,15 @@ class MovieService {
     return response;
   }
 
-  Future<MovieAccountStates> getMovieAccountStates(
-      int movieId, String sessionId) async {
-    MovieAccountStates parser(dynamic json) {
+  Future<ShowAccountStates> getShowAccountStates(
+      int showId, String sessionId) async {
+    ShowAccountStates parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MovieAccountStates.fromJson(jsonMap);
+      return ShowAccountStates.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MovieAccountStates>(
-      path: 'movie/$movieId/account_states',
+    final response = await ApiUtils.get<ShowAccountStates>(
+      path: 'tv/$showId/account_states',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,
@@ -42,14 +42,14 @@ class MovieService {
     return response;
   }
 
-  Future<MediaCredits> getMovieCredits(int movieId) async {
-    MediaCredits parser(dynamic json) {
+  Future<ShowAggregateCredits> getShowCredits(int showId) async {
+    ShowAggregateCredits parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MediaCredits.fromJson(jsonMap);
+      return ShowAggregateCredits.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MediaCredits>(
-      path: 'movie/$movieId/credits',
+    final response = await ApiUtils.get<ShowAggregateCredits>(
+      path: 'tv/$showId/aggregate_credits',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,
@@ -59,14 +59,14 @@ class MovieService {
     return response;
   }
 
-  Future<MediaDiscussions> getMovieDiscussions(int movieId) async {
+  Future<MediaDiscussions> getShowDiscussions(int showId) async {
     MediaDiscussions parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
       return MediaDiscussions.fromJson(jsonMap);
     }
 
     final response = await ApiUtils.get<MediaDiscussions>(
-      path: 'movie/$movieId/reviews',
+      path: 'tv/$showId/reviews',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,
@@ -76,14 +76,14 @@ class MovieService {
     return response;
   }
 
-  Future<MoviesResponse> getMovieRecommendations(int movieId) async {
-    MoviesResponse parser(dynamic json) {
+  Future<ShowsResponse> getShowsRecommendations(int showId) async {
+    ShowsResponse parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MoviesResponse.fromJson(jsonMap);
+      return ShowsResponse.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MoviesResponse>(
-      path: 'movie/$movieId/recommendations',
+    final response = await ApiUtils.get<ShowsResponse>(
+      path: 'tv/$showId/recommendations',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,
@@ -93,28 +93,28 @@ class MovieService {
     return response;
   }
 
-  Future<MovieKeywords> getMovieKeywords(int movieId) async {
-    MovieKeywords parser(dynamic json) {
+  Future<ShowKeywords> getShowKeywords(int showId) async {
+    ShowKeywords parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MovieKeywords.fromJson(jsonMap);
+      return ShowKeywords.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MovieKeywords>(
-      path: 'movie/$movieId/keywords',
+    final response = await ApiUtils.get<ShowKeywords>(
+      path: 'tv/$showId/keywords',
       parser: parser,
       queryParameters: ApiDefaults.defaultQueryParameters,
     );
     return response;
   }
 
-  Future<MoviesResponse> getSimilarMovies(int movieId) async {
-    MoviesResponse parser(dynamic json) {
+  Future<ShowsResponse> getSimilarShows(int showId) async {
+    ShowsResponse parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
-      return MoviesResponse.fromJson(jsonMap);
+      return ShowsResponse.fromJson(jsonMap);
     }
 
-    final response = await ApiUtils.get<MoviesResponse>(
-      path: 'movie/$movieId/similar',
+    final response = await ApiUtils.get<ShowsResponse>(
+      path: 'tv/$showId/similar',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,
@@ -124,14 +124,14 @@ class MovieService {
     return response;
   }
 
-  Future<MediaVideos> getMovieVideos(int movieId) async {
+  Future<MediaVideos> getShowVideos(int showId) async {
     MediaVideos parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
       return MediaVideos.fromJson(jsonMap);
     }
 
     final response = await ApiUtils.get<MediaVideos>(
-      path: 'movie/$movieId/videos',
+      path: 'tv/$showId/videos',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,

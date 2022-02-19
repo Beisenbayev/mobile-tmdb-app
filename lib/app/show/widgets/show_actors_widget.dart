@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entities/media/media_credits.dart';
+import 'package:moovee_land/client_api/entities/show/show_aggregate_credits.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
-import 'package:moovee_land/core/models/movie_page_model.dart';
+import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:provider/provider.dart';
 
-class MovieActorsWidget extends StatelessWidget {
-  const MovieActorsWidget({Key? key}) : super(key: key);
+class ShowActorsWidget extends StatelessWidget {
+  const ShowActorsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _credits = context.select((MoviePageModel model) => model.credits);
+    final _credits = context.select((ShowPageModel model) => model.credits);
 
     if (_credits == null || _credits.cast.isEmpty) {
       return const SizedBox.shrink();
@@ -47,7 +47,7 @@ class MovieActorsWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           SizedBox(
-            height: 240,
+            height: 280,
             child: ListView.builder(
               itemCount: _actors.length,
               itemExtent: 130.0,
@@ -79,6 +79,7 @@ class ActorCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _avatar = ModelUtils.getActorImage(cast.profilePath);
+    final _character = ModelUtils.getCastCharacterName(cast.roles);
 
     return Container(
       clipBehavior: Clip.hardEdge,
@@ -105,20 +106,18 @@ class ActorCardWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      cast.character,
+                      _character,
                       style: TextThemeShelf.main,
-                      maxLines: 2,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    // if (cast.episodeCount is int) ...[
-                    //   const SizedBox(height: 3),
-                    //   Text(
-                    //     '${cast.episodeCount} episodes',
-                    //     style: TextThemeShelf.subtitle,
-                    //     maxLines: 1,
-                    //     overflow: TextOverflow.ellipsis,
-                    //   )
-                    // ]
+                    const SizedBox(height: 3),
+                    Text(
+                      '${cast.totalEpisodeCount} episodes',
+                      style: TextThemeShelf.subtitle,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )
                   ],
                 ),
               )

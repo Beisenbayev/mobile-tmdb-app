@@ -13,7 +13,7 @@ class ShowsListWidget extends StatelessWidget {
   const ShowsListWidget({Key? key}) : super(key: key);
 
   void handleCardTap(BuildContext context, int id) {
-    NavigationController.goToMoviePage(context, id);
+    NavigationController.goToShowPage(context, id);
   }
 
   @override

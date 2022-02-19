@@ -56,7 +56,6 @@ class MoviesListModel extends ChangeNotifier {
 
   void loadMoviesByIndex(int index) async {
     if (index < movies.length - 1) return;
-    print(_movies.length);
     await _loadMovies();
   }
 }

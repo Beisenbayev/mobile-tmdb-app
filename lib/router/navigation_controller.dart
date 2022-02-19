@@ -29,4 +29,13 @@ class NavigationController {
     Navigator.of(context)
         .pushNamed(RouteAliasData.movieTrailer, arguments: key);
   }
+
+  static void goToShowPage(BuildContext context, int id) {
+    Navigator.of(context).pushNamed(RouteAliasData.showInfo, arguments: id);
+  }
+
+  static void replaceShowPage(BuildContext context, int id) {
+    Navigator.of(context)
+        .pushReplacementNamed(RouteAliasData.showInfo, arguments: id);
+  }
 }

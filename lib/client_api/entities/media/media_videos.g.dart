@@ -1,19 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'movie_videos.dart';
+part of 'media_videos.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MovieVideos _$MovieVideosFromJson(Map<String, dynamic> json) => MovieVideos(
+MediaVideos _$MediaVideosFromJson(Map<String, dynamic> json) => MediaVideos(
       id: json['id'] as int,
       trailers: (json['results'] as List<dynamic>)
           .map((e) => Trailer.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$MovieVideosToJson(MovieVideos instance) =>
+Map<String, dynamic> _$MediaVideosToJson(MediaVideos instance) =>
     <String, dynamic>{
       'id': instance.id,
       'results': instance.trailers.map((e) => e.toJson()).toList(),
