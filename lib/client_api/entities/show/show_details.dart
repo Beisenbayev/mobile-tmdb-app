@@ -17,7 +17,7 @@ class ShowDetails {
   final List<String> languages;
   @JsonKey(fromJson: EntityUtils.timeFromString)
   final DateTime? lastAirDate;
-  final LastEpisodeToAir lastEpisodeToAir;
+  final LastEpisodeToAir? lastEpisodeToAir;
   final String name;
   final NextEpisodeToAir? nextEpisodeToAir;
   final List<Network> networks;

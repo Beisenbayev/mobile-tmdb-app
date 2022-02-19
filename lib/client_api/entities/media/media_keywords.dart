@@ -5,6 +5,8 @@ part 'media_keywords.g.dart';
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class MediaKeywords {
   final int id;
+  @JsonKey(name: 'results')
+  @JsonKey(name: 'keywords')
   final List<Keyword> keywords;
 
   MediaKeywords({

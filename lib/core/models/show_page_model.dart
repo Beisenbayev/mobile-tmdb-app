@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
+import 'package:moovee_land/client_api/entities/media/media_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
 import 'package:moovee_land/client_api/entities/show/shows_response.dart';
@@ -18,7 +19,7 @@ class ShowPageModel extends ChangeNotifier {
   MediaCredits? _credits;
   MediaDiscussions? _discussions;
   ShowsResponse? _recommendations;
-  // MovieKeywords? _keywords;
+  MediaKeywords? _keywords;
   // MoviesResponse? _similarShows;
   MediaVideos? _videos;
   bool _isFavorite = false;
@@ -30,7 +31,7 @@ class ShowPageModel extends ChangeNotifier {
   MediaCredits? get credits => _credits;
   MediaDiscussions? get discussions => _discussions;
   ShowsResponse? get recommendations => _recommendations;
-  // MovieKeywords? get keywordsResponse => _keywords;
+  MediaKeywords? get keywordsResponse => _keywords;
   // MoviesResponse? get similarShows => _similarShows;
   MediaVideos? get videos => _videos;
   bool get isFavorite => _isFavorite;
@@ -50,7 +51,7 @@ class ShowPageModel extends ChangeNotifier {
     _credits = await _showService.getShowCredits(_showId);
     _discussions = await _showService.getShowDiscussions(_showId);
     _recommendations = await _showService.getShowsRecommendations(_showId);
-    // _keywords = await _showService.getMovieKeywords(_showId);
+    _keywords = await _showService.getShowKeywords(_showId);
     // _similarMovies = await _showService.getSimilarMovies(_showId);
     _videos = await _showService.getShowVideos(_showId);
     notifyListeners();

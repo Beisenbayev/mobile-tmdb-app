@@ -25,8 +25,10 @@ ShowDetails _$ShowDetailsFromJson(Map<String, dynamic> json) => ShowDetails(
       languages:
           (json['languages'] as List<dynamic>).map((e) => e as String).toList(),
       lastAirDate: EntityUtils.timeFromString(json['last_air_date'] as String?),
-      lastEpisodeToAir: LastEpisodeToAir.fromJson(
-          json['last_episode_to_air'] as Map<String, dynamic>),
+      lastEpisodeToAir: json['last_episode_to_air'] == null
+          ? null
+          : LastEpisodeToAir.fromJson(
+              json['last_episode_to_air'] as Map<String, dynamic>),
       name: json['name'] as String,
       nextEpisodeToAir: json['next_episode_to_air'] == null
           ? null
@@ -76,7 +78,7 @@ Map<String, dynamic> _$ShowDetailsToJson(ShowDetails instance) =>
       'in_production': instance.inProduction,
       'languages': instance.languages,
       'last_air_date': instance.lastAirDate?.toIso8601String(),
-      'last_episode_to_air': instance.lastEpisodeToAir.toJson(),
+      'last_episode_to_air': instance.lastEpisodeToAir?.toJson(),
       'name': instance.name,
       'next_episode_to_air': instance.nextEpisodeToAir?.toJson(),
       'networks': instance.networks.map((e) => e.toJson()).toList(),

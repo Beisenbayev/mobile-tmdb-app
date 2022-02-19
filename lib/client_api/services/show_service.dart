@@ -1,6 +1,7 @@
 import 'package:moovee_land/client_api/api_config.dart';
 import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
+import 'package:moovee_land/client_api/entities/media/media_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
 import 'package:moovee_land/client_api/entities/show/shows_response.dart';
@@ -92,19 +93,19 @@ class ShowService {
     return response;
   }
 
-  // Future<MovieKeywords> getMovieKeywords(int showId) async {
-  //   MovieKeywords parser(dynamic json) {
-  //     final jsonMap = json as Map<String, dynamic>;
-  //     return MovieKeywords.fromJson(jsonMap);
-  //   }
+  Future<MediaKeywords> getShowKeywords(int showId) async {
+    MediaKeywords parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return MediaKeywords.fromJson(jsonMap);
+    }
 
-  //   final response = await ApiUtils.get<MovieKeywords>(
-  //     path: 'movie/$showId/keywords',
-  //     parser: parser,
-  //     queryParameters: ApiDefaults.defaultQueryParameters,
-  //   );
-  //   return response;
-  // }
+    final response = await ApiUtils.get<MediaKeywords>(
+      path: 'tv/$showId/keywords',
+      parser: parser,
+      queryParameters: ApiDefaults.defaultQueryParameters,
+    );
+    return response;
+  }
 
   // Future<MoviesResponse> getSimilarMovies(int showId) async {
   //   MoviesResponse parser(dynamic json) {

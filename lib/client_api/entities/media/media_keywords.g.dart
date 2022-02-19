@@ -9,7 +9,7 @@ part of 'media_keywords.dart';
 MediaKeywords _$MediaKeywordsFromJson(Map<String, dynamic> json) =>
     MediaKeywords(
       id: json['id'] as int,
-      keywords: (json['keywords'] as List<dynamic>)
+      keywords: (json['results'] as List<dynamic>)
           .map((e) => Keyword.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -17,7 +17,7 @@ MediaKeywords _$MediaKeywordsFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$MediaKeywordsToJson(MediaKeywords instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'keywords': instance.keywords.map((e) => e.toJson()).toList(),
+      'results': instance.keywords.map((e) => e.toJson()).toList(),
     };
 
 Keyword _$KeywordFromJson(Map<String, dynamic> json) => Keyword(
