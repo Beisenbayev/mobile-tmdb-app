@@ -65,44 +65,65 @@ class _SeasonCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final _season =
         context.select((ShowPageModel model) => model.ditails!.seasons.last);
+    final _poster = ModelUtils.getPosterImage(_season.posterPath);
     final _year = ModelUtils.parseDateTime(_season.airDate, 'y');
     final _date = ModelUtils.parseDateTime(_season.airDate, 'yMMMMd');
     final _subtitle = '$_year | ${_season.episodeCount} episodes';
 
     return Container(
       width: double.infinity,
-      height: 130.0,
+      height: 170.0,
       clipBehavior: Clip.hardEdge,
       decoration: WidgetThemeShelf.roundedCardTheme,
       child: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _season.name,
-                  style: TextThemeShelf.itemTitle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+          Row(
+            children: [
+              SizedBox(
+                width: 120,
+                height: double.infinity,
+                child: _poster,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _season.name,
+                        style: TextThemeShelf.itemTitle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        _subtitle,
+                        style: TextThemeShelf.mainBold,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 10),
+                      Expanded(
+                        child: Text(
+                          _season.overview,
+                          style: TextThemeShelf.main,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        _date,
+                        style: TextThemeShelf.subtitle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 3),
-                Text(
-                  _subtitle,
-                  style: TextThemeShelf.mainBold,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 30),
-                Text(
-                  _date,
-                  style: TextThemeShelf.subtitle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                )
-              ],
-            ),
+              ),
+            ],
           ),
           Material(
             color: Colors.transparent,
