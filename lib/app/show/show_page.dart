@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/app/show/widgets/show_actors_widget.dart';
 import 'package:moovee_land/app/show/widgets/show_discussions_widget.dart';
 import 'package:moovee_land/app/show/widgets/show_info_widget.dart';
+import 'package:moovee_land/app/show/widgets/show_recommendations_widget.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:provider/provider.dart';
 
@@ -41,6 +42,8 @@ class _ShowPageBody extends StatelessWidget {
           ShowActorsWidget(),
           Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
           ShowDiscussionsWidget(),
+          Divider(height: 1, color: Color.fromRGBO(200, 200, 200, 1)),
+          ShowRecommendationsWidget(),
         ],
       ),
     );

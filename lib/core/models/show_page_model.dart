@@ -3,6 +3,7 @@ import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
+import 'package:moovee_land/client_api/entities/show/shows_response.dart';
 import 'package:moovee_land/client_api/services/media_service.dart';
 import 'package:moovee_land/client_api/services/show_service.dart';
 import 'package:moovee_land/core/storage/session_storage.dart';
@@ -16,7 +17,7 @@ class ShowPageModel extends ChangeNotifier {
   ShowAccountStates? _accountStates;
   MediaCredits? _credits;
   MediaDiscussions? _discussions;
-  // MoviesResponse? _recommendations;
+  ShowsResponse? _recommendations;
   // MovieKeywords? _keywords;
   // MoviesResponse? _similarShows;
   MediaVideos? _videos;
@@ -28,7 +29,7 @@ class ShowPageModel extends ChangeNotifier {
   ShowAccountStates? get account => _accountStates;
   MediaCredits? get credits => _credits;
   MediaDiscussions? get discussions => _discussions;
-  // MoviesResponse? get recommendations => _recommendations;
+  ShowsResponse? get recommendations => _recommendations;
   // MovieKeywords? get keywordsResponse => _keywords;
   // MoviesResponse? get similarShows => _similarShows;
   MediaVideos? get videos => _videos;
@@ -48,7 +49,7 @@ class ShowPageModel extends ChangeNotifier {
     }
     _credits = await _showService.getShowCredits(_showId);
     _discussions = await _showService.getShowDiscussions(_showId);
-    // _recommendations = await _showService.getMovieRecommendations(_showId);
+    _recommendations = await _showService.getShowsRecommendations(_showId);
     // _keywords = await _showService.getMovieKeywords(_showId);
     // _similarMovies = await _showService.getSimilarMovies(_showId);
     _videos = await _showService.getShowVideos(_showId);

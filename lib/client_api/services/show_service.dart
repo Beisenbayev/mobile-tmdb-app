@@ -3,6 +3,7 @@ import 'package:moovee_land/client_api/entities/media/media_credits.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
+import 'package:moovee_land/client_api/entities/show/shows_response.dart';
 
 class ShowService {
   Future<ShowDetails> getShowDetails(int showId) async {
@@ -74,22 +75,22 @@ class ShowService {
     return response;
   }
 
-  // Future<MoviesResponse> getMovieRecommendations(int showId) async {
-  //   MoviesResponse parser(dynamic json) {
-  //     final jsonMap = json as Map<String, dynamic>;
-  //     return MoviesResponse.fromJson(jsonMap);
-  //   }
+  Future<ShowsResponse> getShowsRecommendations(int showId) async {
+    ShowsResponse parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return ShowsResponse.fromJson(jsonMap);
+    }
 
-  //   final response = await ApiUtils.get<MoviesResponse>(
-  //     path: 'movie/$showId/recommendations',
-  //     parser: parser,
-  //     queryParameters: <String, dynamic>{
-  //       'api_key': ApiConfig.apiKey,
-  //       'language': 'en-US',
-  //     },
-  //   );
-  //   return response;
-  // }
+    final response = await ApiUtils.get<ShowsResponse>(
+      path: 'tv/$showId/recommendations',
+      parser: parser,
+      queryParameters: <String, dynamic>{
+        'api_key': ApiConfig.apiKey,
+        'language': 'en-US',
+      },
+    );
+    return response;
+  }
 
   // Future<MovieKeywords> getMovieKeywords(int showId) async {
   //   MovieKeywords parser(dynamic json) {
