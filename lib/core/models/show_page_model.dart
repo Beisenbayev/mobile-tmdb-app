@@ -20,7 +20,7 @@ class ShowPageModel extends ChangeNotifier {
   MediaDiscussions? _discussions;
   ShowsResponse? _recommendations;
   MediaKeywords? _keywords;
-  // MoviesResponse? _similarShows;
+  ShowsResponse? _similarShows;
   MediaVideos? _videos;
   bool _isFavorite = false;
   bool _isInWatchlist = false;
@@ -32,7 +32,7 @@ class ShowPageModel extends ChangeNotifier {
   MediaDiscussions? get discussions => _discussions;
   ShowsResponse? get recommendations => _recommendations;
   MediaKeywords? get keywordsResponse => _keywords;
-  // MoviesResponse? get similarShows => _similarShows;
+  ShowsResponse? get similarShows => _similarShows;
   MediaVideos? get videos => _videos;
   bool get isFavorite => _isFavorite;
   bool get isInWatchlist => _isInWatchlist;
@@ -52,7 +52,7 @@ class ShowPageModel extends ChangeNotifier {
     _discussions = await _showService.getShowDiscussions(_showId);
     _recommendations = await _showService.getShowsRecommendations(_showId);
     _keywords = await _showService.getShowKeywords(_showId);
-    // _similarMovies = await _showService.getSimilarMovies(_showId);
+    _similarShows = await _showService.getSimilarShows(_showId);
     _videos = await _showService.getShowVideos(_showId);
     notifyListeners();
   }

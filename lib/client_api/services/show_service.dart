@@ -107,22 +107,22 @@ class ShowService {
     return response;
   }
 
-  // Future<MoviesResponse> getSimilarMovies(int showId) async {
-  //   MoviesResponse parser(dynamic json) {
-  //     final jsonMap = json as Map<String, dynamic>;
-  //     return MoviesResponse.fromJson(jsonMap);
-  //   }
+  Future<ShowsResponse> getSimilarShows(int showId) async {
+    ShowsResponse parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return ShowsResponse.fromJson(jsonMap);
+    }
 
-  //   final response = await ApiUtils.get<MoviesResponse>(
-  //     path: 'movie/$showId/similar',
-  //     parser: parser,
-  //     queryParameters: <String, dynamic>{
-  //       'api_key': ApiConfig.apiKey,
-  //       'language': 'en-US',
-  //     },
-  //   );
-  //   return response;
-  // }
+    final response = await ApiUtils.get<ShowsResponse>(
+      path: 'tv/$showId/similar',
+      parser: parser,
+      queryParameters: <String, dynamic>{
+        'api_key': ApiConfig.apiKey,
+        'language': 'en-US',
+      },
+    );
+    return response;
+  }
 
   Future<MediaVideos> getShowVideos(int showId) async {
     MediaVideos parser(dynamic json) {
