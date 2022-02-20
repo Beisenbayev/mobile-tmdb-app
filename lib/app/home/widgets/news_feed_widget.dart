@@ -27,11 +27,12 @@ class NewsFeedWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _MediaScrollerWidget<Movie>(
-              title: 'Movies',
-              mediaItems: _model.movies,
-              mediaTypes: _model.moviesTypes,
-              changeMediaType: _model.handleChangeMoviesType,
-              openMediaPage: NavigationController.goToMoviePage),
+            title: 'Movies',
+            mediaItems: _model.movies,
+            mediaTypes: _model.moviesTypes,
+            changeMediaType: _model.handleChangeMoviesType,
+            openMediaPage: NavigationController.goToMoviePage,
+          ),
           const SizedBox(height: 16),
           _MediaScrollerWidget<Show>(
             title: 'Shows',
@@ -42,11 +43,12 @@ class NewsFeedWidget extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           _MediaScrollerWidget<Movie>(
-              title: 'Trending',
-              mediaItems: _model.movies,
-              mediaTypes: _model.trandingTypes,
-              changeMediaType: _model.handleChangeMoviesType,
-              openMediaPage: NavigationController.goToMoviePage),
+            title: 'Trending',
+            mediaItems: _model.tranding,
+            mediaTypes: _model.trandingTypes,
+            changeMediaType: _model.handleChangeTrendsType,
+            openMediaPage: NavigationController.goToMoviePage,
+          ),
         ],
       ),
     );
