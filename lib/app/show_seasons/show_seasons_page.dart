@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/app/show_seasons/widgets/show_seasons_list_widget.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
@@ -32,7 +33,13 @@ class _SeasonsListPageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [_TopPosterWidget(), SizedBox(height: 20)],
+      children: const [
+        _TopPosterWidget(),
+        SizedBox(height: 5),
+        Expanded(
+          child: ShowSeasonsListWidget(),
+        )
+      ],
     );
   }
 }
@@ -91,14 +98,20 @@ class _TitleWidget extends StatelessWidget {
         Text(
           _details.name,
           style: TextThemeShelf.itemTitleWhite,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
         Text(
           '$_seasonsCount seasons',
           style: TextThemeShelf.mainWhite,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         Text(
           _date,
           style: TextThemeShelf.subtitle,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
