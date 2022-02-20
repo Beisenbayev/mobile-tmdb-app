@@ -4,6 +4,7 @@ import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
 class ShowSeasonsWidget extends StatelessWidget {
@@ -39,8 +40,14 @@ class ShowSeasonsWidget extends StatelessWidget {
 class _TitleWidget extends StatelessWidget {
   const _TitleWidget({Key? key}) : super(key: key);
 
+  void handleShowAllSeasons(BuildContext context, int id) {
+    NavigationController.goToShowSeasonsPage(context, id);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _id = context.select((ShowPageModel model) => model.ditails!.id);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,7 +57,7 @@ class _TitleWidget extends StatelessWidget {
           style: TextThemeShelf.itemTitle,
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () => handleShowAllSeasons(context, _id),
           child: const Text('All'),
         )
       ],

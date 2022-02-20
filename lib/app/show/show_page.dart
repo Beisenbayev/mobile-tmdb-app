@@ -11,9 +11,7 @@ import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:provider/provider.dart';
 
 class ShowPage extends StatelessWidget {
-  const ShowPage({
-    Key? key,
-  }) : super(key: key);
+  const ShowPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
