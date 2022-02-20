@@ -38,4 +38,8 @@ class NavigationController {
     Navigator.of(context)
         .pushReplacementNamed(RouteAliasData.showInfo, arguments: id);
   }
+
+  static void goToShowSeasonsPage(BuildContext context, int id) {
+    Navigator.of(context).pushNamed(RouteAliasData.showSeasons, arguments: id);
+  }
 }
