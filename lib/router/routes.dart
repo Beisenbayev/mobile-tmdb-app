@@ -77,10 +77,10 @@ abstract class RouteData {
         );
 
       case RouteAliasData.showEpisodes:
-        //final showId = settings.arguments as int;
+        final data = settings.arguments as ShowEpisodeData;
         return MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider(
-            create: (context) => ShowEpisodesModel(),
+            create: (context) => ShowEpisodesModel(data),
             child: const ShowEpisodesPage(),
           ),
         );

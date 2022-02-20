@@ -46,7 +46,7 @@ Episode _$EpisodeFromJson(Map<String, dynamic> json) => Episode(
       overview: json['overview'] as String,
       productionCode: json['production_code'] as String,
       seasonNumber: json['season_number'] as int,
-      stillPath: json['still_path'] as String,
+      stillPath: json['still_path'] as String?,
       voteAverage: (json['vote_average'] as num).toDouble(),
       voteCount: json['vote_count'] as int,
     );

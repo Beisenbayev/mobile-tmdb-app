@@ -2,6 +2,7 @@ import 'package:moovee_land/client_api/api_config.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/media/media_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
+import 'package:moovee_land/client_api/entities/season/season_details.dart';
 import 'package:moovee_land/client_api/entities/show/show_aggregate_credits.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
 import 'package:moovee_land/client_api/entities/show/shows_response.dart';
@@ -132,6 +133,24 @@ class ShowService {
 
     final response = await ApiUtils.get<MediaVideos>(
       path: 'tv/$showId/videos',
+      parser: parser,
+      queryParameters: <String, dynamic>{
+        'api_key': ApiConfig.apiKey,
+        'language': 'en-US',
+      },
+    );
+    return response;
+  }
+
+  Future<SeasonDetails> getShowSeasonDetails(
+      int showId, int seasonNumber) async {
+    SeasonDetails parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return SeasonDetails.fromJson(jsonMap);
+    }
+
+    final response = await ApiUtils.get<SeasonDetails>(
+      path: 'tv/$showId/season/$seasonNumber',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,

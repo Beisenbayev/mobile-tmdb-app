@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
+import 'package:moovee_land/core/models/show_episodes_model.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
 class ShowSeasonsListWidget extends StatelessWidget {
   const ShowSeasonsListWidget({Key? key}) : super(key: key);
 
+  void handleShowEpisodes(BuildContext context, int showId, int seasonNumber) {
+    NavigationController.goToShowEpisodesPage(
+      context,
+      ShowEpisodeData(
+        showId: showId,
+        seasonNumber: seasonNumber,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _details = context.select((ShowPageModel model) => model.details!);
     final _seasons =
         context.select((ShowPageModel model) => model.details!.seasons);
 
@@ -27,7 +40,8 @@ class ShowSeasonsListWidget extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return _SeasonItemWidget(
             season: _seasons[index],
-            //handleCardTap: (int id) => handleCardTap(context, id),
+            handleCardTap: (int seasonNumber) =>
+                handleShowEpisodes(context, _details.id, seasonNumber),
           );
         },
       ),
@@ -37,10 +51,12 @@ class ShowSeasonsListWidget extends StatelessWidget {
 
 class _SeasonItemWidget extends StatelessWidget {
   final Season season;
+  final void Function(int) handleCardTap;
 
   const _SeasonItemWidget({
     Key? key,
     required this.season,
+    required this.handleCardTap,
   }) : super(key: key);
 
   @override
@@ -108,7 +124,7 @@ class _SeasonItemWidget extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {},
+              onTap: () => handleCardTap(season.seasonNumber),
             ),
           ),
         ],
