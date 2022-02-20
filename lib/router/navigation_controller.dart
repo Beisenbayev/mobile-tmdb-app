@@ -42,4 +42,8 @@ class NavigationController {
   static void goToShowSeasonsPage(BuildContext context, int id) {
     Navigator.of(context).pushNamed(RouteAliasData.showSeasons, arguments: id);
   }
+
+  static void goToShowEpisodesPage(BuildContext context, int id) {
+    Navigator.of(context).pushNamed(RouteAliasData.showEpisodes, arguments: id);
+  }
 }
