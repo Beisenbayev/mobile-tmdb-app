@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class MovieTrailerPage extends StatefulWidget {
+class MediaTrailerPage extends StatefulWidget {
   final String youTubeKey;
 
-  const MovieTrailerPage(
+  const MediaTrailerPage(
     this.youTubeKey, {
     Key? key,
   }) : super(key: key);
 
   @override
-  State<MovieTrailerPage> createState() => _MovieTrailerPageState();
+  State<MediaTrailerPage> createState() => _MediaTrailerPageState();
 }
 
-class _MovieTrailerPageState extends State<MovieTrailerPage> {
+class _MediaTrailerPageState extends State<MediaTrailerPage> {
   late final YoutubePlayerController _controller;
 
   @override

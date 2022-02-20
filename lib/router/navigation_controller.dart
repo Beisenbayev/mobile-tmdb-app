@@ -27,7 +27,7 @@ class NavigationController {
 
   static void goToTrailerPage(BuildContext context, String key) {
     Navigator.of(context)
-        .pushNamed(RouteAliasData.movieTrailer, arguments: key);
+        .pushNamed(RouteAliasData.mediaTrailer, arguments: key);
   }
 
   static void goToShowPage(BuildContext context, int id) {
