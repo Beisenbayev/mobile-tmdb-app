@@ -27,6 +27,7 @@ class NewsFeedModel extends ChangeNotifier {
   NewsFeedModel() {
     handleChangeMoviesType('Top Rated');
     handleChangeShowsType('Top Rated');
+    handleChangeTrendsType('Today');
   }
 
   Future<List<Movie>> _loadMovies(String type) async {
@@ -43,9 +44,6 @@ class NewsFeedModel extends ChangeNotifier {
         break;
       case 'Upcoming':
         movies = (await _homeService.getUpcomingMovies(1)).movies;
-        break;
-      default:
-        movies = [];
         break;
     }
 
@@ -67,12 +65,23 @@ class NewsFeedModel extends ChangeNotifier {
       case 'Airing Today':
         shows = (await _homeService.getAiringTodayShows(1)).shows;
         break;
-      default:
-        shows = [];
-        break;
     }
 
     return shows;
+  }
+
+  Future<List<Movie>> _loadTrends(String type) async {
+    List<Movie> tranding = [];
+    switch (type) {
+      case 'Today':
+        tranding = (await _homeService.getTrendingMovies(1, 'day')).movies;
+        break;
+      case 'Week':
+        tranding = (await _homeService.getTrendingMovies(1, 'week')).movies;
+        break;
+    }
+
+    return tranding;
   }
 
   void handleChangeMoviesType(String type) async {
@@ -86,6 +95,13 @@ class NewsFeedModel extends ChangeNotifier {
     _shows.clear();
     final showsByType = await _loadShows(type);
     _shows.addAll(showsByType);
+    notifyListeners();
+  }
+
+  void handleChangeTrendsType(String type) async {
+    _tranding.clear();
+    final trendsByType = await _loadTrends(type);
+    _tranding.addAll(trendsByType);
     notifyListeners();
   }
 }

@@ -187,4 +187,22 @@ class HomeService {
     );
     return response;
   }
+
+  Future<MoviesResponse> getTrendingMovies(int index, String timeWindow) async {
+    MoviesResponse parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return MoviesResponse.fromJson(jsonMap);
+    }
+
+    final response = await ApiUtils.get<MoviesResponse>(
+      path: '/trending/movie/$timeWindow',
+      parser: parser,
+      queryParameters: <String, dynamic>{
+        'api_key': ApiConfig.apiKey,
+        'language': 'en-US',
+        'page': index.toString(),
+      },
+    );
+    return response;
+  }
 }
