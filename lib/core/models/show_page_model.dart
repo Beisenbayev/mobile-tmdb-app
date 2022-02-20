@@ -14,7 +14,7 @@ class ShowPageModel extends ChangeNotifier {
   final _showService = ShowService();
   final _mediaService = MediaService();
   final int _showId;
-  ShowDetails? _ditails;
+  ShowDetails? _details;
   ShowAccountStates? _accountStates;
   ShowAggregateCredits? _credits;
   MediaDiscussions? _discussions;
@@ -26,7 +26,7 @@ class ShowPageModel extends ChangeNotifier {
   bool _isInWatchlist = false;
 
   int get showId => _showId;
-  ShowDetails? get ditails => _ditails;
+  ShowDetails? get details => _details;
   ShowAccountStates? get account => _accountStates;
   ShowAggregateCredits? get credits => _credits;
   MediaDiscussions? get discussions => _discussions;
@@ -44,7 +44,7 @@ class ShowPageModel extends ChangeNotifier {
   void _loadShow() async {
     final _sessionId = await _sessionStorage.getSessionId();
 
-    _ditails = await _showService.getShowDetails(_showId);
+    _details = await _showService.getShowDetails(_showId);
     if (_sessionId != null) {
       await _loadAccountStates(_sessionId);
     }

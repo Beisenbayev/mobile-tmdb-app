@@ -11,8 +11,8 @@ class ShowSeasonsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = context.select((ShowPageModel model) => model.ditails);
-    final _body = (_ditails == null)
+    final _details = context.select((ShowPageModel model) => model.details);
+    final _body = (_details == null)
         ? const Center(child: CircularProgressIndicator())
         : const _SeasonsListPageBody();
 
@@ -42,8 +42,8 @@ class _TopPosterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = context.select((ShowPageModel model) => model.ditails!);
-    final _poster = ModelUtils.getPosterImage(_ditails.posterPath);
+    final _details = context.select((ShowPageModel model) => model.details!);
+    final _poster = ModelUtils.getPosterImage(_details.posterPath);
 
     return Container(
       width: double.infinity,
@@ -81,7 +81,7 @@ class _TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _details = context.select((ShowPageModel model) => model.ditails!);
+    final _details = context.select((ShowPageModel model) => model.details!);
     final _seasonsCount = _details.seasons.length;
     final _date = ModelUtils.parseDateTime(_details.firstAirDate, 'yMMMMd');
 

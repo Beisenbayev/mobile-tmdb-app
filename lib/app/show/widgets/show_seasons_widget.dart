@@ -13,7 +13,7 @@ class ShowSeasonsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _seasons =
-        context.select((ShowPageModel model) => model.ditails!.seasons);
+        context.select((ShowPageModel model) => model.details!.seasons);
 
     if (_seasons.isEmpty) {
       return const SizedBox.shrink();
@@ -46,7 +46,7 @@ class _TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _id = context.select((ShowPageModel model) => model.ditails!.id);
+    final _id = context.select((ShowPageModel model) => model.details!.id);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,7 +71,7 @@ class _SeasonCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _season =
-        context.select((ShowPageModel model) => model.ditails!.seasons.last);
+        context.select((ShowPageModel model) => model.details!.seasons.last);
     final _poster = ModelUtils.getPosterImage(_season.posterPath);
     final _year = ModelUtils.parseDateTime(_season.airDate, 'y');
     final _date = ModelUtils.parseDateTime(_season.airDate, 'yMMMMd');

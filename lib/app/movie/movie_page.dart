@@ -16,8 +16,8 @@ class MoviePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = context.select((MoviePageModel model) => model.ditails);
-    final _body = (_ditails == null)
+    final _details = context.select((MoviePageModel model) => model.details);
+    final _body = (_details == null)
         ? const Center(child: CircularProgressIndicator())
         : const _MoviePageBody();
 

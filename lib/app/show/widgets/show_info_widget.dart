@@ -51,14 +51,14 @@ class _TopPosterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _model = context.read<ShowPageModel>();
-    final _ditails = context.select((ShowPageModel model) => model.ditails!);
+    final _details = context.select((ShowPageModel model) => model.details!);
     final _isFavorite =
         context.select((ShowPageModel model) => model.isFavorite);
     final _isInWatchlist =
         context.select((ShowPageModel model) => model.isInWatchlist);
 
-    final _showBackdrop = ModelUtils.getBackdropImage(_ditails.backdropPath);
-    final _showPoster = ModelUtils.getPosterImage(_ditails.posterPath);
+    final _showBackdrop = ModelUtils.getBackdropImage(_details.backdropPath);
+    final _showPoster = ModelUtils.getPosterImage(_details.posterPath);
     final _favoriteIcon = _isFavorite
         ? const Icon(Icons.favorite_rounded)
         : const Icon(Icons.favorite_outline_rounded);
@@ -131,8 +131,8 @@ class _TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = context.select((ShowPageModel model) => model.ditails!);
-    final _year = ModelUtils.parseDateTime(_ditails.firstAirDate, 'y');
+    final _details = context.select((ShowPageModel model) => model.details!);
+    final _year = ModelUtils.parseDateTime(_details.firstAirDate, 'y');
 
     return RichText(
       maxLines: 3,
@@ -140,7 +140,7 @@ class _TitleWidget extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: _ditails.name,
+            text: _details.name,
             style: TextThemeShelf.itemTitleWhite,
           ),
           TextSpan(
@@ -162,7 +162,7 @@ class _UserScoreWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = context.select((ShowPageModel model) => model.ditails!);
+    final _details = context.select((ShowPageModel model) => model.details!);
     final _videos = context.select((ShowPageModel model) => model.videos!);
     final _videoKey = ModelUtils.getOfficialTrailerKey(_videos.trailers);
     final _mainAlignment = _videoKey.isNotEmpty
@@ -189,7 +189,7 @@ class _UserScoreWidget extends StatelessWidget {
                 width: 55,
                 height: 55,
                 child: RadialPercentWidget(
-                  percent: (_ditails.voteAverage * 10),
+                  percent: (_details.voteAverage * 10),
                   activeLineColor: ColorThemeShelf.radialPercentActive,
                   freeLineColor: ColorThemeShelf.radialPercentFree,
                   fillColor: ColorThemeShelf.radialPercentFill,
@@ -247,19 +247,19 @@ class _GenreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _info = '';
-    final _ditails = context.select((ShowPageModel model) => model.ditails!);
-    final _date = ModelUtils.parseDateTime(_ditails.firstAirDate, 'yMd');
+    final _details = context.select((ShowPageModel model) => model.details!);
+    final _date = ModelUtils.parseDateTime(_details.firstAirDate, 'yMd');
     if (_date.isNotEmpty) _info = _date;
-    final _country = _ditails.productionCountries.isNotEmpty
-        ? _ditails.productionCountries[0].iso31661
+    final _country = _details.productionCountries.isNotEmpty
+        ? _details.productionCountries[0].iso31661
         : '';
     if (_country.replaceAll(' ', '').isNotEmpty) _info = '$_info ($_country)';
-    final _hours = _ditails.episodeRunTime.isNotEmpty
-        ? ModelUtils.getHoursFromMinute(_ditails.episodeRunTime[0])
+    final _hours = _details.episodeRunTime.isNotEmpty
+        ? ModelUtils.getHoursFromMinute(_details.episodeRunTime[0])
         : '';
     if (_hours.replaceAll(' ', '').isNotEmpty) _info = '$_info • $_hours';
     final _genres =
-        _ditails.genres.map((ganre) => ganre.name).toList().join(', ');
+        _details.genres.map((ganre) => ganre.name).toList().join(', ');
     if (_genres.isNotEmpty) _info = '$_info • $_genres';
 
     return Container(
@@ -293,24 +293,24 @@ class _DescriptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = context.select((ShowPageModel model) => model.ditails!);
-    final tagline = (_ditails.tagline != null && _ditails.tagline!.isNotEmpty)
+    final _details = context.select((ShowPageModel model) => model.details!);
+    final tagline = (_details.tagline != null && _details.tagline!.isNotEmpty)
         ? Column(
             children: [
-              Text(_ditails.tagline!, style: TextThemeShelf.subtitleCursive),
+              Text(_details.tagline!, style: TextThemeShelf.subtitleCursive),
               const SizedBox(height: 12.0)
             ],
           )
         : const SizedBox.shrink();
 
     final overview =
-        (_ditails.overview != null && _ditails.overview!.isNotEmpty)
+        (_details.overview != null && _details.overview!.isNotEmpty)
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Overview', style: TextThemeShelf.itemTitleWhite),
                   const SizedBox(height: 10.0),
-                  Text(_ditails.overview!, style: TextThemeShelf.mainWhite),
+                  Text(_details.overview!, style: TextThemeShelf.mainWhite),
                 ],
               )
             : const SizedBox.shrink();

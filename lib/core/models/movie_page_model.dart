@@ -14,7 +14,7 @@ class MoviePageModel extends ChangeNotifier {
   final _movieService = MovieService();
   final _mediaService = MediaService();
   final int _movieId;
-  MovieDetails? _ditails;
+  MovieDetails? _details;
   MovieAccountStates? _accountStates;
   MediaCredits? _credits;
   MediaDiscussions? _discussions;
@@ -26,7 +26,7 @@ class MoviePageModel extends ChangeNotifier {
   bool _isInWatchlist = false;
 
   int get movieId => _movieId;
-  MovieDetails? get ditails => _ditails;
+  MovieDetails? get details => _details;
   MovieAccountStates? get account => _accountStates;
   MediaCredits? get credits => _credits;
   MediaDiscussions? get discussions => _discussions;
@@ -44,7 +44,7 @@ class MoviePageModel extends ChangeNotifier {
   void _loadMovie() async {
     final _sessionId = await _sessionStorage.getSessionId();
 
-    _ditails = await _movieService.getMovieDetails(_movieId);
+    _details = await _movieService.getMovieDetails(_movieId);
     if (_sessionId != null) {
       await _loadAccountStates(_sessionId);
     }
