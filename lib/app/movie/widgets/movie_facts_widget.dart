@@ -10,9 +10,9 @@ class MovieFactsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ditails = context.select((MoviePageModel model) => model.ditails!);
-    final _budget = ModelUtils.getCashFormatFromInt(_ditails.budget);
-    final _revenue = ModelUtils.getCashFormatFromInt(_ditails.revenue);
+    final _details = context.select((MoviePageModel model) => model.details!);
+    final _budget = ModelUtils.getCashFormatFromInt(_details.budget);
+    final _revenue = ModelUtils.getCashFormatFromInt(_details.revenue);
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -23,11 +23,11 @@ class MovieFactsWidget extends StatelessWidget {
         children: [
           MovieFactItemWidget(
             title: 'Status',
-            description: _ditails.status,
+            description: _details.status,
           ),
           MovieFactItemWidget(
             title: 'Original Language',
-            description: _ditails.originalLanguage.toUpperCase(),
+            description: _details.originalLanguage.toUpperCase(),
           ),
           MovieFactItemWidget(
             title: 'Budget',

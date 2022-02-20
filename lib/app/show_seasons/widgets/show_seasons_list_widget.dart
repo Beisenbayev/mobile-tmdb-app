@@ -1,85 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/client_api/entities/show/show_details.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
+import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
-import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
-class ShowSeasonsWidget extends StatelessWidget {
-  const ShowSeasonsWidget({Key? key}) : super(key: key);
+class ShowSeasonsListWidget extends StatelessWidget {
+  const ShowSeasonsListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _seasons =
         context.select((ShowPageModel model) => model.details!.seasons);
 
-    if (_seasons.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 6,
+        //vertical: PaddingConsts.screenVertical,
         horizontal: PaddingConsts.screenHorizontal,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const <Widget>[
-          _TitleWidget(),
-          SizedBox(height: 4.0),
-          _SeasonCardWidget(),
-          SizedBox(height: 14),
-        ],
+      child: ListView.builder(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        itemCount: _seasons.length,
+        itemExtent: 170,
+        itemBuilder: (BuildContext context, int index) {
+          return _SeasonItemWidget(
+            season: _seasons[index],
+            //handleCardTap: (int id) => handleCardTap(context, id),
+          );
+        },
       ),
     );
   }
 }
 
-class _TitleWidget extends StatelessWidget {
-  const _TitleWidget({Key? key}) : super(key: key);
+class _SeasonItemWidget extends StatelessWidget {
+  final Season season;
 
-  void handleShowAllSeasons(BuildContext context, int id) {
-    NavigationController.goToShowSeasonsPage(context, id);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final _id = context.select((ShowPageModel model) => model.details!.id);
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Text(
-          'Current season',
-          style: TextThemeShelf.itemTitle,
-        ),
-        TextButton(
-          onPressed: () => handleShowAllSeasons(context, _id),
-          child: const Text('All'),
-        )
-      ],
-    );
-  }
-}
-
-class _SeasonCardWidget extends StatelessWidget {
-  const _SeasonCardWidget({Key? key}) : super(key: key);
+  const _SeasonItemWidget({
+    Key? key,
+    required this.season,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _season =
-        context.select((ShowPageModel model) => model.details!.seasons.last);
-    final _poster = ModelUtils.getPosterImage(_season.posterPath);
-    final _year = ModelUtils.parseDateTime(_season.airDate, 'y');
-    final _date = ModelUtils.parseDateTime(_season.airDate, 'yMMMMd');
-    final _subtitle = '$_year | ${_season.episodeCount} episodes';
+    final _poster = ModelUtils.getPosterImage(season.posterPath);
+    final _year = ModelUtils.parseDateTime(season.airDate, 'y');
+    final _date = ModelUtils.parseDateTime(season.airDate, 'yMMMMd');
+    final _subtitle = '$_year | ${season.episodeCount} episodes';
 
     return Container(
       width: double.infinity,
-      height: 170.0,
+      margin: const EdgeInsets.symmetric(vertical: 10),
       clipBehavior: Clip.hardEdge,
       decoration: WidgetThemeShelf.roundedCardTheme,
       child: Stack(
@@ -98,7 +71,7 @@ class _SeasonCardWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _season.name,
+                        season.name,
                         style: TextThemeShelf.itemTitle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -113,7 +86,7 @@ class _SeasonCardWidget extends StatelessWidget {
                       const SizedBox(height: 10),
                       Expanded(
                         child: Text(
-                          _season.overview,
+                          season.overview,
                           style: TextThemeShelf.main,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,

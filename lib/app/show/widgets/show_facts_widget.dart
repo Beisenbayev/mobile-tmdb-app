@@ -9,7 +9,7 @@ class ShowFactsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _details = context.select((ShowPageModel model) => model.ditails!);
+    final _details = context.select((ShowPageModel model) => model.details!);
     final _network = _details.networks.map((e) => e.name).toList().join('');
 
     return Padding(
