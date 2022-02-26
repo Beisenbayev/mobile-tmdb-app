@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
+import 'package:moovee_land/core/models/show_episodes_model.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
@@ -68,8 +69,19 @@ class _TitleWidget extends StatelessWidget {
 class _SeasonCardWidget extends StatelessWidget {
   const _SeasonCardWidget({Key? key}) : super(key: key);
 
+  void handleShowEpisodes(BuildContext context, int showId, int seasonNumber) {
+    NavigationController.goToShowEpisodesPage(
+      context,
+      ShowEpisodeData(
+        showId: showId,
+        seasonNumber: seasonNumber,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _details = context.select((ShowPageModel model) => model.details!);
     final _season =
         context.select((ShowPageModel model) => model.details!.seasons.last);
     final _poster = ModelUtils.getPosterImage(_season.posterPath);
@@ -135,7 +147,8 @@ class _SeasonCardWidget extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {},
+              onTap: () => handleShowEpisodes(
+                  context, _details.id, _season.seasonNumber),
             ),
           ),
         ],
