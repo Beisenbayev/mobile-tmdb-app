@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/app/show_episodes/widgets/show_season_info_widget.dart';
 import 'package:moovee_land/core/models/show_episodes_model.dart';
 import 'package:provider/provider.dart';
 
@@ -7,8 +8,11 @@ class ShowEpisodesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _details = context.select((ShowEpisodesModel model) => model.details);
-    final _body = (_details == null)
+    final _showDetails =
+        context.select((ShowEpisodesModel model) => model.showDetails);
+    final _seasonDetails =
+        context.select((ShowEpisodesModel model) => model.seasonDetails);
+    final _body = (_showDetails == null || _seasonDetails == null)
         ? const Center(child: CircularProgressIndicator())
         : const _SeasonsListPageBody();
 
@@ -29,12 +33,7 @@ class _SeasonsListPageBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
-        Text('episode'),
-        //_TopPosterWidget(),
-        SizedBox(height: 5),
-        // Expanded(
-        //   child: ShowSeasonsListWidget(),
-        // )
+        ShowSeasonInfoWidget(),
       ],
     );
   }
