@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/app/episode/widgets/episode_info_widget.dart';
 import 'package:moovee_land/core/models/episode_page_model.dart';
 import 'package:provider/provider.dart';
 
@@ -7,10 +8,13 @@ class EpisodePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _details = context.select((EpisodePageModel model) => model.details);
-    final _body = (_details != null)
-        ? const _EpisodePageBody()
-        : const CircularProgressIndicator();
+    final _showDetails =
+        context.select((EpisodePageModel model) => model.showDetails);
+    final _episodeDetails =
+        context.select((EpisodePageModel model) => model.episodeDetails);
+    final _body = (_showDetails == null || _episodeDetails == null)
+        ? const Center(child: CircularProgressIndicator())
+        : const _EpisodePageBody();
 
     return Scaffold(
       appBar: AppBar(
@@ -26,6 +30,14 @@ class _EpisodePageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('episode');
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          EpisodeInfoWidget(),
+          SizedBox(height: 16),
+        ],
+      ),
+    );
   }
 }

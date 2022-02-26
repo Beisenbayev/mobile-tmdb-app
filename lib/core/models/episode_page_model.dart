@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/episode/episode_details.dart';
+import 'package:moovee_land/client_api/entities/show/show_details.dart';
 import 'package:moovee_land/client_api/services/show_service.dart';
 
 class ShowEpisodeData {
@@ -19,9 +20,11 @@ class EpisodePageModel extends ChangeNotifier {
   final int _showId;
   final int _seasonNumber;
   final int _episodeNumber;
-  EpisodeDetails? _details;
+  ShowDetails? _showDetails;
+  EpisodeDetails? _episodeDetails;
 
-  EpisodeDetails? get details => _details;
+  ShowDetails? get showDetails => _showDetails;
+  EpisodeDetails? get episodeDetails => _episodeDetails;
 
   EpisodePageModel(ShowEpisodeData data)
       : _showId = data.showId,
@@ -31,7 +34,8 @@ class EpisodePageModel extends ChangeNotifier {
   }
 
   Future<void> _loadEpisode() async {
-    _details = await _showService.getShowEpisodeDetails(
+    _showDetails = await _showService.getShowDetails(_showId);
+    _episodeDetails = await _showService.getShowEpisodeDetails(
         _showId, _seasonNumber, _episodeNumber);
     notifyListeners();
   }
