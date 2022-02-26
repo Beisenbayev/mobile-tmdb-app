@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/app/show_episodes/widgets/show_episodes_list_widget.dart';
 import 'package:moovee_land/app/show_episodes/widgets/show_season_info_widget.dart';
 import 'package:moovee_land/core/models/show_episodes_model.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +35,10 @@ class _SeasonsListPageBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
         ShowSeasonInfoWidget(),
+        SizedBox(height: 5),
+        Expanded(
+          child: ShowEpisodesListWidget(),
+        )
       ],
     );
   }
