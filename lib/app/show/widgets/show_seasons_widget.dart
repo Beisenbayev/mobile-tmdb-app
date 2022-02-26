@@ -72,7 +72,7 @@ class _SeasonCardWidget extends StatelessWidget {
   void handleShowEpisodes(BuildContext context, int showId, int seasonNumber) {
     NavigationController.goToShowEpisodesPage(
       context,
-      ShowEpisodeData(
+      ShowSeasonData(
         showId: showId,
         seasonNumber: seasonNumber,
       ),

@@ -3,11 +3,11 @@ import 'package:moovee_land/client_api/entities/season/season_details.dart';
 import 'package:moovee_land/client_api/entities/show/show_details.dart';
 import 'package:moovee_land/client_api/services/show_service.dart';
 
-class ShowEpisodeData {
+class ShowSeasonData {
   final int showId;
   final int seasonNumber;
 
-  ShowEpisodeData({
+  ShowSeasonData({
     required this.showId,
     required this.seasonNumber,
   });
@@ -23,7 +23,7 @@ class ShowEpisodesModel extends ChangeNotifier {
   ShowDetails? get showDetails => _showDetails;
   SeasonDetails? get seasonDetails => _seasonDetails;
 
-  ShowEpisodesModel(ShowEpisodeData data)
+  ShowEpisodesModel(ShowSeasonData data)
       : _showId = data.showId,
         _seasonNumber = data.seasonNumber {
     _loadEpisodes();

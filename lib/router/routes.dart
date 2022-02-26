@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/app/episode/episode_page.dart';
 import 'package:moovee_land/app/media_trailer/media_trailer_page.dart';
 import 'package:moovee_land/app/show/show_page.dart';
 import 'package:moovee_land/app/show_episodes/show_episodes_page.dart';
 import 'package:moovee_land/app/show_seasons/show_seasons_page.dart';
+import 'package:moovee_land/core/models/episode_page_model.dart';
 import 'package:moovee_land/core/models/login_page_model.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/models/show_episodes_model.dart';
@@ -23,6 +25,7 @@ class RouteAliasData {
   static const String showInfo = 'home/show';
   static const String showSeasons = 'home/show/seasons';
   static const String showEpisodes = 'home/show/seasons/episodes';
+  static const String episode = 'home/show/seasons/episodes/episode';
 }
 
 abstract class RouteData {
@@ -77,11 +80,20 @@ abstract class RouteData {
         );
 
       case RouteAliasData.showEpisodes:
-        final data = settings.arguments as ShowEpisodeData;
+        final data = settings.arguments as ShowSeasonData;
         return MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider(
             create: (context) => ShowEpisodesModel(data),
             child: const ShowEpisodesPage(),
+          ),
+        );
+
+      case RouteAliasData.episode:
+        final data = settings.arguments as ShowEpisodeData;
+        return MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => EpisodePageModel(data),
+            child: const EpisodePage(),
           ),
         );
 
