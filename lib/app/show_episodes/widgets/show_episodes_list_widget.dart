@@ -1,32 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entities/show/show_details.dart';
+import 'package:moovee_land/client_api/entities/season/season_details.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
 import 'package:moovee_land/core/models/show_episodes_model.dart';
-import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
-import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
-class ShowSeasonsListWidget extends StatelessWidget {
-  const ShowSeasonsListWidget({Key? key}) : super(key: key);
-
-  void handleShowEpisodes(BuildContext context, int showId, int seasonNumber) {
-    NavigationController.goToShowEpisodesPage(
-      context,
-      ShowEpisodeData(
-        showId: showId,
-        seasonNumber: seasonNumber,
-      ),
-    );
-  }
+class ShowEpisodesListWidget extends StatelessWidget {
+  const ShowEpisodesListWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _details = context.select((ShowPageModel model) => model.details!);
-    final _seasons =
-        context.select((ShowPageModel model) => model.details!.seasons);
+    final _episodes = context
+        .select((ShowEpisodesModel model) => model.seasonDetails!.episodes);
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -35,13 +22,11 @@ class ShowSeasonsListWidget extends StatelessWidget {
       ),
       child: ListView.builder(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        itemCount: _seasons.length,
+        itemCount: _episodes.length,
         itemExtent: 170,
         itemBuilder: (BuildContext context, int index) {
-          return _SeasonItemWidget(
-            season: _seasons[index],
-            handleCardTap: (int seasonNumber) =>
-                handleShowEpisodes(context, _details.id, seasonNumber),
+          return _EpisodeItemWidget(
+            episode: _episodes[index],
           );
         },
       ),
@@ -49,22 +34,18 @@ class ShowSeasonsListWidget extends StatelessWidget {
   }
 }
 
-class _SeasonItemWidget extends StatelessWidget {
-  final Season season;
-  final void Function(int) handleCardTap;
+class _EpisodeItemWidget extends StatelessWidget {
+  final Episode episode;
 
-  const _SeasonItemWidget({
+  const _EpisodeItemWidget({
     Key? key,
-    required this.season,
-    required this.handleCardTap,
+    required this.episode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _poster = ModelUtils.getPosterImage(season.posterPath);
-    final _year = ModelUtils.parseDateTime(season.airDate, 'y');
-    final _date = ModelUtils.parseDateTime(season.airDate, 'yMMMMd');
-    final _subtitle = '$_year | ${season.episodeCount} episodes';
+    final _poster = ModelUtils.getPosterImage(episode.stillPath);
+    final _date = ModelUtils.parseDateTime(episode.airDate, 'yMMMMd');
 
     return Container(
       width: double.infinity,
@@ -87,22 +68,22 @@ class _SeasonItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        season.name,
+                        'Episode ${episode.episodeNumber}',
                         style: TextThemeShelf.itemTitle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 3),
                       Text(
-                        _subtitle,
+                        episode.name,
                         style: TextThemeShelf.mainBold,
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 10),
                       Expanded(
                         child: Text(
-                          season.overview,
+                          episode.overview,
                           style: TextThemeShelf.main,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -120,12 +101,6 @@ class _SeasonItemWidget extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () => handleCardTap(season.seasonNumber),
-            ),
           ),
         ],
       ),
