@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/core/models/episode_page_model.dart';
-import 'package:moovee_land/core/models/show_episodes_model.dart';
+import 'package:moovee_land/core/models/season_page_model.dart';
 import 'package:moovee_land/router/routes.dart';
 
 class NavigationController {
@@ -45,7 +45,7 @@ class NavigationController {
     Navigator.of(context).pushNamed(RouteAliasData.showSeasons, arguments: id);
   }
 
-  static void goToShowEpisodesPage(BuildContext context, ShowSeasonData data) {
+  static void goToSeasonPage(BuildContext context, ShowSeasonData data) {
     Navigator.of(context)
         .pushNamed(RouteAliasData.showEpisodes, arguments: data);
   }

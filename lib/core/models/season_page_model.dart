@@ -13,7 +13,7 @@ class ShowSeasonData {
   });
 }
 
-class ShowEpisodesModel extends ChangeNotifier {
+class SeasonPageModel extends ChangeNotifier {
   final _showService = ShowService();
   final int _showId;
   final int _seasonNumber;
@@ -23,13 +23,13 @@ class ShowEpisodesModel extends ChangeNotifier {
   ShowDetails? get showDetails => _showDetails;
   SeasonDetails? get seasonDetails => _seasonDetails;
 
-  ShowEpisodesModel(ShowSeasonData data)
+  SeasonPageModel(ShowSeasonData data)
       : _showId = data.showId,
         _seasonNumber = data.seasonNumber {
-    _loadEpisodes();
+    _loadSeason();
   }
 
-  void _loadEpisodes() async {
+  void _loadSeason() async {
     _showDetails = await _showService.getShowDetails(_showId);
     _seasonDetails =
         await _showService.getShowSeasonDetails(_showId, _seasonNumber);

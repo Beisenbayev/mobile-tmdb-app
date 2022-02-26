@@ -1,4 +1,5 @@
 import 'package:moovee_land/client_api/api_config.dart';
+import 'package:moovee_land/client_api/entities/episode/episode_details.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/media/media_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';
@@ -151,6 +152,24 @@ class ShowService {
 
     final response = await ApiUtils.get<SeasonDetails>(
       path: 'tv/$showId/season/$seasonNumber',
+      parser: parser,
+      queryParameters: <String, dynamic>{
+        'api_key': ApiConfig.apiKey,
+        'language': 'en-US',
+      },
+    );
+    return response;
+  }
+
+  Future<EpisodeDetails> getShowEpisodeDetails(
+      int showId, int seasonNumber, int episodeNumber) async {
+    EpisodeDetails parser(dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      return EpisodeDetails.fromJson(jsonMap);
+    }
+
+    final response = await ApiUtils.get<EpisodeDetails>(
+      path: 'tv/$showId/season/$seasonNumber/episode/$episodeNumber',
       parser: parser,
       queryParameters: <String, dynamic>{
         'api_key': ApiConfig.apiKey,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/models/show_episodes_model.dart';
+import 'package:moovee_land/core/models/season_page_model.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:provider/provider.dart';
 
-class ShowSeasonInfoWidget extends StatelessWidget {
-  const ShowSeasonInfoWidget({Key? key}) : super(key: key);
+class SeasonInfoWidget extends StatelessWidget {
+  const SeasonInfoWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _TopPosterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _details =
-        context.select((ShowEpisodesModel model) => model.seasonDetails!);
+        context.select((SeasonPageModel model) => model.seasonDetails!);
     final _poster = ModelUtils.getPosterImage(_details.posterPath);
 
     return Row(
@@ -66,9 +66,9 @@ class _TitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _showDetails =
-        context.select((ShowEpisodesModel model) => model.showDetails!);
+        context.select((SeasonPageModel model) => model.showDetails!);
     final _seasonDetails =
-        context.select((ShowEpisodesModel model) => model.seasonDetails!);
+        context.select((SeasonPageModel model) => model.seasonDetails!);
     final _episodesCount = _seasonDetails.episodes.length;
     final _date = ModelUtils.parseDateTime(_seasonDetails.airDate, 'yMMMMd');
 
@@ -115,7 +115,7 @@ class _DescriptionWidgetState extends State<_DescriptionWidget> {
   @override
   Widget build(BuildContext context) {
     final _overview = context
-        .select((ShowEpisodesModel model) => model.seasonDetails!.overview);
+        .select((SeasonPageModel model) => model.seasonDetails!.overview);
     final _icon =
         _isOverviewShowed ? Icons.arrow_drop_up : Icons.arrow_drop_down;
     final _overviewWidget = _isOverviewShowed
