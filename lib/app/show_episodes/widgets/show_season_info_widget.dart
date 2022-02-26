@@ -98,21 +98,57 @@ class _TitleWidget extends StatelessWidget {
   }
 }
 
-class _DescriptionWidget extends StatelessWidget {
+class _DescriptionWidget extends StatefulWidget {
   const _DescriptionWidget({Key? key}) : super(key: key);
+
+  @override
+  State<_DescriptionWidget> createState() => _DescriptionWidgetState();
+}
+
+class _DescriptionWidgetState extends State<_DescriptionWidget> {
+  bool _isOverviewShowed = false;
+
+  void toggleOverviewPanel() {
+    setState(() => {_isOverviewShowed = !_isOverviewShowed});
+  }
 
   @override
   Widget build(BuildContext context) {
     final _overview = context
         .select((ShowEpisodesModel model) => model.seasonDetails!.overview);
+    final _icon =
+        _isOverviewShowed ? Icons.arrow_drop_up : Icons.arrow_drop_down;
+    final _overviewWidget = _isOverviewShowed
+        ? Text(_overview, style: TextThemeShelf.mainWhite)
+        : const SizedBox.shrink();
 
     if (_overview.isEmpty) {
       return const SizedBox.shrink();
     }
 
-    return Container(
-      margin: const EdgeInsets.only(top: 16.0),
-      child: Text(_overview, style: TextThemeShelf.mainWhite),
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          TextButton(
+            onPressed: toggleOverviewPanel,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  'Overview',
+                  style: TextThemeShelf.itemTitleWhite,
+                ),
+                const SizedBox(width: 10),
+                Icon(_icon, size: 24, color: Colors.white),
+              ],
+            ),
+          ),
+          _overviewWidget
+        ],
+      ),
     );
   }
 }
