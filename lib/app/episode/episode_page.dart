@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moovee_land/app/episode/widgets/episode_actors_widget.dart';
 import 'package:moovee_land/app/episode/widgets/episode_info_widget.dart';
 import 'package:moovee_land/core/models/episode_page_model.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,7 @@ class _EpisodePageBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           EpisodeInfoWidget(),
-          SizedBox(height: 16),
+          EpisodeActorsWidget()
         ],
       ),
     );

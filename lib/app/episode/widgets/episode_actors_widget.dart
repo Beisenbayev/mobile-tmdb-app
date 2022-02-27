@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entities/media/media_credits.dart';
+import 'package:moovee_land/client_api/entities/episode/episode_credits.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
+import 'package:moovee_land/core/models/episode_page_model.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
-import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:provider/provider.dart';
 
-class MovieActorsWidget extends StatelessWidget {
-  const MovieActorsWidget({Key? key}) : super(key: key);
+class EpisodeActorsWidget extends StatelessWidget {
+  const EpisodeActorsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _credits = context.select((MoviePageModel model) => model.credits);
+    final _credits =
+        context.select((EpisodePageModel model) => model.episodeCredits);
 
     if (_credits == null || _credits.cast.isEmpty) {
       return const SizedBox.shrink();
@@ -35,7 +36,7 @@ class MovieActorsWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
-                  'Top Billed Cast',
+                  'Cast',
                   style: TextThemeShelf.itemTitle,
                 ),
                 TextButton(
@@ -56,7 +57,7 @@ class MovieActorsWidget extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                  child: ActorCardWidget(
+                  child: _ActorCardWidget(
                     cast: _actors[index],
                   ),
                 );
@@ -69,9 +70,9 @@ class MovieActorsWidget extends StatelessWidget {
   }
 }
 
-class ActorCardWidget extends StatelessWidget {
+class _ActorCardWidget extends StatelessWidget {
   final Cast cast;
-  const ActorCardWidget({
+  const _ActorCardWidget({
     Key? key,
     required this.cast,
   }) : super(key: key);
