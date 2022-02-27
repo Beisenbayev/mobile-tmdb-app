@@ -97,4 +97,20 @@ class ModelUtils {
     if (roles.isEmpty) return '';
     return roles[0].character;
   }
+
+  static String getCastGender(int? gender) {
+    if (gender == null) return '';
+    switch (gender) {
+      case 0:
+        return 'Neutral';
+      case 1:
+        return 'Female';
+      case 2:
+        return 'Male';
+      case 3:
+        return 'Neutral';
+      default:
+        return '';
+    }
+  }
 }

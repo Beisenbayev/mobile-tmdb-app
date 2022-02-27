@@ -20,7 +20,7 @@ class ShowCreditsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cast'),
+        title: const Text('Full Cast'),
       ),
       body: _body,
     );

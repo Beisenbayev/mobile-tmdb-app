@@ -15,6 +15,10 @@ class MovieActorsWidget extends StatelessWidget {
     NavigationController.goToMovieCastPage(context, movieId);
   }
 
+  void handleShowCastPage(BuildContext context, int castId) {
+    NavigationController.goToCastPage(context, castId);
+  }
+
   @override
   Widget build(BuildContext context) {
     final _details = context.select((MoviePageModel model) => model.details!);
@@ -64,6 +68,8 @@ class MovieActorsWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
                   child: _ActorCardWidget(
                     cast: _actors[index],
+                    handleCardTap: (int castId) =>
+                        handleShowCastPage(context, castId),
                   ),
                 );
               },
@@ -77,9 +83,12 @@ class MovieActorsWidget extends StatelessWidget {
 
 class _ActorCardWidget extends StatelessWidget {
   final Cast cast;
+  final Function(int) handleCardTap;
+
   const _ActorCardWidget({
     Key? key,
     required this.cast,
+    required this.handleCardTap,
   }) : super(key: key);
 
   @override
@@ -124,7 +133,7 @@ class _ActorCardWidget extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {},
+              onTap: () => handleCardTap(cast.id),
             ),
           ),
         ],

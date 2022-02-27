@@ -36,7 +36,7 @@ class _EpisodePageBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           EpisodeInfoWidget(),
-          EpisodeActorsWidget()
+          EpisodeActorsWidget(),
         ],
       ),
     );

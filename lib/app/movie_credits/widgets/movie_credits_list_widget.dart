@@ -12,7 +12,7 @@ class MovieCreditsListWidget extends StatelessWidget {
   const MovieCreditsListWidget({Key? key}) : super(key: key);
 
   void handleShowCastPage(BuildContext context, int castId) {
-    NavigationController.goToMovieCastPage(context, castId);
+    NavigationController.goToCastPage(context, castId);
   }
 
   @override

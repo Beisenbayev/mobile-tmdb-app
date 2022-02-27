@@ -42,12 +42,12 @@ class NavigationController {
   }
 
   static void goToShowSeasonsPage(BuildContext context, int id) {
-    Navigator.of(context).pushNamed(RouteAliasData.showSeasons, arguments: id);
+    Navigator.of(context)
+        .pushNamed(RouteAliasData.showAllSeasons, arguments: id);
   }
 
   static void goToSeasonPage(BuildContext context, ShowSeasonData data) {
-    Navigator.of(context)
-        .pushNamed(RouteAliasData.showEpisodes, arguments: data);
+    Navigator.of(context).pushNamed(RouteAliasData.season, arguments: data);
   }
 
   static void goToEpisodePage(BuildContext context, ShowEpisodeData data) {
@@ -56,11 +56,15 @@ class NavigationController {
 
   static void goToMovieCastPage(BuildContext context, int movieId) {
     Navigator.of(context)
-        .pushNamed(RouteAliasData.movieCast, arguments: movieId);
+        .pushNamed(RouteAliasData.movieFullCast, arguments: movieId);
   }
 
   static void goToShowCastPage(BuildContext context, int showId) {
     Navigator.of(context)
-        .pushNamed(RouteAliasData.showCast, arguments: showId);
+        .pushNamed(RouteAliasData.showFullCast, arguments: showId);
+  }
+
+  static void goToCastPage(BuildContext context, int castId) {
+    Navigator.of(context).pushNamed(RouteAliasData.cast, arguments: castId);
   }
 }
