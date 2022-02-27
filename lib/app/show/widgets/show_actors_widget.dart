@@ -56,7 +56,7 @@ class ShowActorsWidget extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                  child: ActorCardWidget(
+                  child: _ActorCardWidget(
                     cast: _actors[index],
                   ),
                 );
@@ -69,9 +69,9 @@ class ShowActorsWidget extends StatelessWidget {
   }
 }
 
-class ActorCardWidget extends StatelessWidget {
+class _ActorCardWidget extends StatelessWidget {
   final Cast cast;
-  const ActorCardWidget({
+  const _ActorCardWidget({
     Key? key,
     required this.cast,
   }) : super(key: key);

@@ -73,7 +73,7 @@ class _HorizontalScrollShowsWidget extends StatelessWidget {
           final _recommendedShow = _shows[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: RecommendedShowCardWidget(
+            child: _RecommendedShowCardWidget(
               show: _recommendedShow,
               handleTap: (int id) => _handleCardTap(context, id),
             ),
@@ -84,11 +84,11 @@ class _HorizontalScrollShowsWidget extends StatelessWidget {
   }
 }
 
-class RecommendedShowCardWidget extends StatelessWidget {
+class _RecommendedShowCardWidget extends StatelessWidget {
   final Show show;
   final void Function(int) handleTap;
 
-  const RecommendedShowCardWidget({
+  const _RecommendedShowCardWidget({
     Key? key,
     required this.show,
     required this.handleTap,

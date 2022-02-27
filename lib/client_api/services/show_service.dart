@@ -1,6 +1,4 @@
 import 'package:moovee_land/client_api/api_config.dart';
-import 'package:moovee_land/client_api/entities/episode/episode_credits.dart';
-import 'package:moovee_land/client_api/entities/episode/episode_details.dart';
 import 'package:moovee_land/client_api/entities/media/media_discussions.dart';
 import 'package:moovee_land/client_api/entities/media/media_keywords.dart';
 import 'package:moovee_land/client_api/entities/media/media_videos.dart';

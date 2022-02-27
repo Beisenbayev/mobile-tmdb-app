@@ -55,16 +55,16 @@ class _KeywordButtonsWidget extends StatelessWidget {
     return Wrap(
       spacing: 10.0,
       children: _keywordsResponse.keywords.map((item) {
-        return ShowKeywordButtonWidget(keyword: item);
+        return _ShowKeywordButtonWidget(keyword: item);
       }).toList(),
     );
   }
 }
 
-class ShowKeywordButtonWidget extends StatelessWidget {
+class _ShowKeywordButtonWidget extends StatelessWidget {
   final Keyword keyword;
 
-  const ShowKeywordButtonWidget({
+  const _ShowKeywordButtonWidget({
     Key? key,
     required this.keyword,
   }) : super(key: key);

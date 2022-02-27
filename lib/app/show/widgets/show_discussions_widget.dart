@@ -76,17 +76,17 @@ class _DiscussionsListWidget extends StatelessWidget {
         return Container(
           height: 255.0,
           margin: const EdgeInsets.symmetric(vertical: 6),
-          child: DiscussionsCardWidget(discussion: item),
+          child: _DiscussionsCardWidget(discussion: item),
         );
       }).toList(),
     );
   }
 }
 
-class DiscussionsCardWidget extends StatelessWidget {
+class _DiscussionsCardWidget extends StatelessWidget {
   final Discussion discussion;
 
-  const DiscussionsCardWidget({
+  const _DiscussionsCardWidget({
     Key? key,
     required this.discussion,
   }) : super(key: key);
