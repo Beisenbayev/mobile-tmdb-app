@@ -5,6 +5,7 @@ import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/theme/colors_theme.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/widgets/rating_widget.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
 class EpisodeInfoWidget extends StatelessWidget {
@@ -60,13 +61,28 @@ class _TopPosterWidget extends StatelessWidget {
 class _TitleWidget extends StatelessWidget {
   const _TitleWidget({Key? key}) : super(key: key);
 
+  void handleShowTrailer(BuildContext context, String key) {
+    NavigationController.goToTrailerPage(context, key);
+  }
+
   @override
   Widget build(BuildContext context) {
     final _showDetails =
         context.select((EpisodePageModel model) => model.showDetails!);
     final _episodeDetails =
         context.select((EpisodePageModel model) => model.episodeDetails!);
+    final _episodeVideos =
+        context.select((EpisodePageModel model) => model.episodeVideos!);
     final _date = ModelUtils.parseDateTime(_episodeDetails.airDate, 'yMMMMd');
+    final _videoKey = ModelUtils.getOfficialTrailerKey(_episodeVideos.trailers);
+    final _playButton = _videoKey.isNotEmpty
+        ? _PlayTrailerButtonWidget(
+            handleOnTap: () => handleShowTrailer(context, _videoKey),
+          )
+        : const SizedBox.shrink();
+    final _dividerLine = _videoKey.isNotEmpty
+        ? Container(width: 1, height: 24, color: Colors.white.withOpacity(0.3))
+        : const SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,20 +117,65 @@ class _TitleWidget extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         const SizedBox(height: 5.0),
-        Text(
-          'Season ${_episodeDetails.seasonNumber}  |  Episode ${_episodeDetails.episodeNumber}',
-          style: TextThemeShelf.mainWhite,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-        const SizedBox(height: 5.0),
-        Text(
-          _date,
-          style: TextThemeShelf.subtitle,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+        SizedBox(
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Season ${_episodeDetails.seasonNumber}  |  Episode ${_episodeDetails.episodeNumber}',
+                    style: TextThemeShelf.mainWhite,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 5.0),
+                  Text(
+                    _date,
+                    style: TextThemeShelf.subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+              _dividerLine,
+              _playButton
+            ],
+          ),
         ),
       ],
+    );
+  }
+}
+
+class _PlayTrailerButtonWidget extends StatelessWidget {
+  final void Function() handleOnTap;
+
+  const _PlayTrailerButtonWidget({
+    Key? key,
+    required this.handleOnTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: handleOnTap,
+      child: Row(
+        children: const <Widget>[
+          Icon(
+            Icons.play_arrow,
+            color: Colors.white,
+          ),
+          SizedBox(width: 6),
+          Text(
+            'Play Trailer',
+            style: TextThemeShelf.mainWhite,
+          ),
+        ],
+      ),
     );
   }
 }

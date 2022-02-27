@@ -161,41 +161,4 @@ class ShowService {
     );
     return response;
   }
-
-  Future<EpisodeDetails> getShowEpisodeDetails(
-      int showId, int seasonNumber, int episodeNumber) async {
-    EpisodeDetails parser(dynamic json) {
-      final jsonMap = json as Map<String, dynamic>;
-      return EpisodeDetails.fromJson(jsonMap);
-    }
-
-    final response = await ApiUtils.get<EpisodeDetails>(
-      path: 'tv/$showId/season/$seasonNumber/episode/$episodeNumber',
-      parser: parser,
-      queryParameters: <String, dynamic>{
-        'api_key': ApiConfig.apiKey,
-        'language': 'en-US',
-      },
-    );
-    return response;
-  }
-
-  Future<EpisodeCredits> getEpisodeCredits(
-      int showId, int seasonNumber, int episodeNumber) async {
-    EpisodeCredits parser(dynamic json) {
-      final jsonMap = json as Map<String, dynamic>;
-      return EpisodeCredits.fromJson(jsonMap);
-    }
-
-    final response = await ApiUtils.get<EpisodeCredits>(
-      path:
-          'tv/$showId/season/$seasonNumber/episode/$episodeNumber/credits',
-      parser: parser,
-      queryParameters: <String, dynamic>{
-        'api_key': ApiConfig.apiKey,
-        'language': 'en-US',
-      },
-    );
-    return response;
-  }
 }
