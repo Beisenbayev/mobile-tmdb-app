@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entities/media/media_credits.dart';
+import 'package:moovee_land/client_api/entities/show/show_aggregate_credits.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/models/movie_page_model.dart';
+import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
-class MovieCreditsListWidget extends StatelessWidget {
-  const MovieCreditsListWidget({Key? key}) : super(key: key);
+class ShowCreditsListWidget extends StatelessWidget {
+  const ShowCreditsListWidget({Key? key}) : super(key: key);
 
   void handleShowCastPage(BuildContext context, int castId) {
-    NavigationController.goToMovieCastPage(context, castId);
+    NavigationController.goToShowCastPage(context, castId);
   }
 
   @override
   Widget build(BuildContext context) {
-    final _cast = context.select((MoviePageModel model) => model.credits!.cast);
+    final _cast = context.select((ShowPageModel model) => model.credits!.cast);
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -52,6 +52,7 @@ class _CastItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _avatar = ModelUtils.getActorImage(cast.profilePath);
+    final _character = ModelUtils.getCastCharacterName(cast.roles);
 
     return Container(
       width: double.infinity,
@@ -82,7 +83,7 @@ class _CastItemWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 3),
                       Text(
-                        cast.character,
+                        _character,
                         style: TextThemeShelf.main,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

@@ -58,4 +58,9 @@ class NavigationController {
     Navigator.of(context)
         .pushNamed(RouteAliasData.movieCast, arguments: movieId);
   }
+
+  static void goToShowCastPage(BuildContext context, int showId) {
+    Navigator.of(context)
+        .pushNamed(RouteAliasData.showCast, arguments: showId);
+  }
 }

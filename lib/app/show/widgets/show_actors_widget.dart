@@ -5,13 +5,19 @@ import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
 class ShowActorsWidget extends StatelessWidget {
   const ShowActorsWidget({Key? key}) : super(key: key);
 
+  void handleShowAllCast(BuildContext context, int showId) {
+    NavigationController.goToShowCastPage(context, showId);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _details = context.select((ShowPageModel model) => model.details!);
     final _credits = context.select((ShowPageModel model) => model.credits);
 
     if (_credits == null || _credits.cast.isEmpty) {
@@ -39,7 +45,7 @@ class ShowActorsWidget extends StatelessWidget {
                   style: TextThemeShelf.itemTitle,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => handleShowAllCast(context, _details.id),
                   child: const Text('All'),
                 )
               ],

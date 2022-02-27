@@ -4,6 +4,7 @@ import 'package:moovee_land/app/media_trailer/media_trailer_page.dart';
 import 'package:moovee_land/app/movie_credits/movie_credits_page.dart';
 import 'package:moovee_land/app/show/show_page.dart';
 import 'package:moovee_land/app/season/season_page.dart';
+import 'package:moovee_land/app/show_credits/show_credits_page.dart';
 import 'package:moovee_land/app/show_seasons/show_seasons_page.dart';
 import 'package:moovee_land/core/models/episode_page_model.dart';
 import 'package:moovee_land/core/models/login_page_model.dart';
@@ -24,6 +25,7 @@ class RouteAliasData {
   static const String movieInfo = 'home/movie';
   static const String movieCast = 'home/movie/cast';
   static const String showInfo = 'home/show';
+  static const String showCast = 'home/show/cast';
   static const String mediaTrailer = 'home/media/trailer';
   static const String showSeasons = 'home/show/seasons';
   static const String showEpisodes = 'home/show/seasons/episodes';
@@ -105,6 +107,15 @@ abstract class RouteData {
           builder: (context) => ChangeNotifierProvider(
             create: (context) => MoviePageModel(movieId),
             child: const MovieCreditsPage(),
+          ),
+        );
+
+      case RouteAliasData.showCast:
+        final showId = settings.arguments as int;
+        return MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => ShowPageModel(showId),
+            child: const ShowCreditsPage(),
           ),
         );
 
