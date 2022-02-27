@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/app/episode/episode_page.dart';
 import 'package:moovee_land/app/media_trailer/media_trailer_page.dart';
+import 'package:moovee_land/app/movie_credits/movie_credits_page.dart';
 import 'package:moovee_land/app/show/show_page.dart';
 import 'package:moovee_land/app/season/season_page.dart';
 import 'package:moovee_land/app/show_seasons/show_seasons_page.dart';
@@ -21,8 +22,9 @@ class RouteAliasData {
   static const String login = 'login';
   static const String home = 'home';
   static const String movieInfo = 'home/movie';
-  static const String mediaTrailer = 'home/media/trailer';
+  static const String movieCast = 'home/movie/cast';
   static const String showInfo = 'home/show';
+  static const String mediaTrailer = 'home/media/trailer';
   static const String showSeasons = 'home/show/seasons';
   static const String showEpisodes = 'home/show/seasons/episodes';
   static const String episode = 'home/show/seasons/episodes/episode';
@@ -55,12 +57,6 @@ abstract class RouteData {
           ),
         );
 
-      case RouteAliasData.mediaTrailer:
-        final youTubeKey = settings.arguments as String;
-        return MaterialPageRoute(
-          builder: (context) => MediaTrailerPage(youTubeKey),
-        );
-
       case RouteAliasData.showInfo:
         final showId = settings.arguments as int;
         return MaterialPageRoute(
@@ -68,6 +64,12 @@ abstract class RouteData {
             create: (context) => ShowPageModel(showId),
             child: const ShowPage(),
           ),
+        );
+
+      case RouteAliasData.mediaTrailer:
+        final youTubeKey = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => MediaTrailerPage(youTubeKey),
         );
 
       case RouteAliasData.showSeasons:
@@ -94,6 +96,15 @@ abstract class RouteData {
           builder: (context) => ChangeNotifierProvider(
             create: (context) => EpisodePageModel(data),
             child: const EpisodePage(),
+          ),
+        );
+
+      case RouteAliasData.movieCast:
+        final movieId = settings.arguments as int;
+        return MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider(
+            create: (context) => MoviePageModel(movieId),
+            child: const MovieCreditsPage(),
           ),
         );
 

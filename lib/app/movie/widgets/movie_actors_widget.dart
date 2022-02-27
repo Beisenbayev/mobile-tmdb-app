@@ -5,13 +5,19 @@ import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/movie_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
 class MovieActorsWidget extends StatelessWidget {
   const MovieActorsWidget({Key? key}) : super(key: key);
 
+  void handleShowAllCast(BuildContext context, int movieId) {
+    NavigationController.goToMovieCastPage(context, movieId);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _details = context.select((MoviePageModel model) => model.details!);
     final _credits = context.select((MoviePageModel model) => model.credits);
 
     if (_credits == null || _credits.cast.isEmpty) {
@@ -39,7 +45,7 @@ class MovieActorsWidget extends StatelessWidget {
                   style: TextThemeShelf.itemTitle,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => handleShowAllCast(context, _details.id),
                   child: const Text('All'),
                 )
               ],
