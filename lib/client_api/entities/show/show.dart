@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:moovee_land/client_api/entities/entity_utils.dart';
 
 part 'show.g.dart';
 
@@ -10,7 +11,7 @@ class Show {
   final String? backdropPath;
   final double voteAverage;
   final String overview;
-  @JsonKey(fromJson: _timeFromString)
+  @JsonKey(fromJson: EntityUtils.timeFromString)
   final DateTime? firstAirDate;
   final List<String> originCountry;
   final List<int> genreIds;
@@ -37,8 +38,4 @@ class Show {
 
   factory Show.fromJson(Map<String, dynamic> json) => _$ShowFromJson(json);
   Map<String, dynamic> toJson() => _$ShowToJson(this);
-
-  static DateTime? _timeFromString(String? date) {
-    return (date == null || date.isEmpty) ? null : DateTime.tryParse(date);
-  }
 }

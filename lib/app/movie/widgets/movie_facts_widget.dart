@@ -21,19 +21,19 @@ class MovieFactsWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MovieFactItemWidget(
+          _MovieFactItemWidget(
             title: 'Status',
             description: _details.status,
           ),
-          MovieFactItemWidget(
+          _MovieFactItemWidget(
             title: 'Original Language',
             description: _details.originalLanguage.toUpperCase(),
           ),
-          MovieFactItemWidget(
+          _MovieFactItemWidget(
             title: 'Budget',
             description: _budget,
           ),
-          MovieFactItemWidget(
+          _MovieFactItemWidget(
             title: 'Revenue',
             description: _revenue,
           ),
@@ -43,11 +43,11 @@ class MovieFactsWidget extends StatelessWidget {
   }
 }
 
-class MovieFactItemWidget extends StatelessWidget {
+class _MovieFactItemWidget extends StatelessWidget {
   final String title;
   final String description;
 
-  const MovieFactItemWidget({
+  const _MovieFactItemWidget({
     Key? key,
     required this.title,
     required this.description,

@@ -5,6 +5,7 @@ import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
+import 'package:moovee_land/core/widgets/rating_widget.dart';
 import 'package:provider/provider.dart';
 
 class ShowDiscussionsWidget extends StatelessWidget {
@@ -75,17 +76,17 @@ class _DiscussionsListWidget extends StatelessWidget {
         return Container(
           height: 255.0,
           margin: const EdgeInsets.symmetric(vertical: 6),
-          child: DiscussionsCardWidget(discussion: item),
+          child: _DiscussionsCardWidget(discussion: item),
         );
       }).toList(),
     );
   }
 }
 
-class DiscussionsCardWidget extends StatelessWidget {
+class _DiscussionsCardWidget extends StatelessWidget {
   final Discussion discussion;
 
-  const DiscussionsCardWidget({
+  const _DiscussionsCardWidget({
     Key? key,
     required this.discussion,
   }) : super(key: key);
@@ -96,8 +97,10 @@ class DiscussionsCardWidget extends StatelessWidget {
         ModelUtils.getSecuredActorImage(discussion.authorDetails.avatarPath);
     final _date = ModelUtils.parseDateTime(discussion.createdAt, 'yMMMMd');
     final _ratingWidget = (discussion.authorDetails.rating != null)
-        ? _ReviewerRatingWidget(
-            rating: discussion.authorDetails.rating!.toStringAsFixed(0))
+        ? MediaRatingWidget(
+            rating: discussion.authorDetails.rating!.toStringAsFixed(0),
+            marginTop: 10.0,
+          )
         : const SizedBox.shrink();
     final _username = discussion.author.isNotEmpty
         ? discussion.author
@@ -166,48 +169,6 @@ class DiscussionsCardWidget extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _ReviewerRatingWidget extends StatelessWidget {
-  final String rating;
-
-  const _ReviewerRatingWidget({
-    Key? key,
-    required this.rating,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 60,
-      height: 24,
-      margin: const EdgeInsets.only(top: 10),
-      decoration: const BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.all(
-          Radius.circular(6),
-        ),
-      ),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.star_rate_rounded,
-              size: 14,
-              color: Colors.white,
-            ),
-            const SizedBox(width: 3),
-            Text(
-              rating,
-              style: TextThemeShelf.smallWhite,
-            ),
-          ],
-        ),
       ),
     );
   }

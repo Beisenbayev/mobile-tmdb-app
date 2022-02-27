@@ -13,7 +13,8 @@ Show _$ShowFromJson(Map<String, dynamic> json) => Show(
       backdropPath: json['backdrop_path'] as String?,
       voteAverage: (json['vote_average'] as num).toDouble(),
       overview: json['overview'] as String,
-      firstAirDate: Show._timeFromString(json['first_air_date'] as String?),
+      firstAirDate:
+          EntityUtils.timeFromString(json['first_air_date'] as String?),
       originCountry: (json['origin_country'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),

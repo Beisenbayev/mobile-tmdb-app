@@ -56,7 +56,7 @@ class MovieActorsWidget extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                  child: ActorCardWidget(
+                  child: _ActorCardWidget(
                     cast: _actors[index],
                   ),
                 );
@@ -69,9 +69,9 @@ class MovieActorsWidget extends StatelessWidget {
   }
 }
 
-class ActorCardWidget extends StatelessWidget {
+class _ActorCardWidget extends StatelessWidget {
   final Cast cast;
-  const ActorCardWidget({
+  const _ActorCardWidget({
     Key? key,
     required this.cast,
   }) : super(key: key);
@@ -110,15 +110,6 @@ class ActorCardWidget extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    // if (cast.episodeCount is int) ...[
-                    //   const SizedBox(height: 3),
-                    //   Text(
-                    //     '${cast.episodeCount} episodes',
-                    //     style: TextThemeShelf.subtitle,
-                    //     maxLines: 1,
-                    //     overflow: TextOverflow.ellipsis,
-                    //   )
-                    // ]
                   ],
                 ),
               )

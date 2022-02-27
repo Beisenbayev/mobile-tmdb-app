@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/models/show_episodes_model.dart';
+import 'package:moovee_land/core/models/season_page_model.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
@@ -70,9 +70,9 @@ class _SeasonCardWidget extends StatelessWidget {
   const _SeasonCardWidget({Key? key}) : super(key: key);
 
   void handleShowEpisodes(BuildContext context, int showId, int seasonNumber) {
-    NavigationController.goToShowEpisodesPage(
+    NavigationController.goToSeasonPage(
       context,
-      ShowEpisodeData(
+      ShowSeasonData(
         showId: showId,
         seasonNumber: seasonNumber,
       ),

@@ -19,19 +19,19 @@ class ShowFactsWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ShowFactItemWidget(
+          _ShowFactItemWidget(
             title: 'Status',
             description: _details.status,
           ),
-          ShowFactItemWidget(
+          _ShowFactItemWidget(
             title: 'Original Language',
             description: _details.originalLanguage.toUpperCase(),
           ),
-          ShowFactItemWidget(
+          _ShowFactItemWidget(
             title: 'Network',
             description: _network,
           ),
-          ShowFactItemWidget(
+          _ShowFactItemWidget(
             title: 'Type',
             description: _details.type,
           ),
@@ -41,11 +41,11 @@ class ShowFactsWidget extends StatelessWidget {
   }
 }
 
-class ShowFactItemWidget extends StatelessWidget {
+class _ShowFactItemWidget extends StatelessWidget {
   final String title;
   final String description;
 
-  const ShowFactItemWidget({
+  const _ShowFactItemWidget({
     Key? key,
     required this.title,
     required this.description,

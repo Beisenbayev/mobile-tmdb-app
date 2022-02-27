@@ -1,19 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:moovee_land/client_api/entities/season/season_details.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
-import 'package:moovee_land/core/models/show_episodes_model.dart';
+import 'package:moovee_land/core/models/episode_page_model.dart';
+import 'package:moovee_land/core/models/season_page_model.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
-class ShowEpisodesListWidget extends StatelessWidget {
-  const ShowEpisodesListWidget({Key? key}) : super(key: key);
+class SeasonEpisodesListWidget extends StatelessWidget {
+  const SeasonEpisodesListWidget({Key? key}) : super(key: key);
+
+  void handleShowEpisode(
+      BuildContext context, int showId, int seasonNumber, int episodeNumber) {
+    NavigationController.goToEpisodePage(
+      context,
+      ShowEpisodeData(
+        showId: showId,
+        seasonNumber: seasonNumber,
+        episodeNumber: episodeNumber,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final _showDetails =
+        context.select((SeasonPageModel model) => model.showDetails!);
+    final _seasonDetails =
+        context.select((SeasonPageModel model) => model.seasonDetails!);
     final _episodes = context
-        .select((ShowEpisodesModel model) => model.seasonDetails!.episodes);
+        .select((SeasonPageModel model) => model.seasonDetails!.episodes);
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -27,6 +45,8 @@ class ShowEpisodesListWidget extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return _EpisodeItemWidget(
             episode: _episodes[index],
+            handleCardTap: (int episodeNumber) => handleShowEpisode(context,
+                _showDetails.id, _seasonDetails.seasonNumber, episodeNumber),
           );
         },
       ),
@@ -36,10 +56,12 @@ class ShowEpisodesListWidget extends StatelessWidget {
 
 class _EpisodeItemWidget extends StatelessWidget {
   final Episode episode;
+  final void Function(int) handleCardTap;
 
   const _EpisodeItemWidget({
     Key? key,
     required this.episode,
+    required this.handleCardTap,
   }) : super(key: key);
 
   @override
@@ -102,6 +124,12 @@ class _EpisodeItemWidget extends StatelessWidget {
               ),
             ],
           ),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () => handleCardTap(episode.episodeNumber),
+            ),
+          )
         ],
       ),
     );

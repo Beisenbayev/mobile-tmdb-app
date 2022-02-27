@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:moovee_land/client_api/entities/show/show_aggregate_credits.dart';
+import 'package:moovee_land/client_api/entities/episode/episode_credits.dart';
 import 'package:moovee_land/core/consts/padding_consts.dart';
+import 'package:moovee_land/core/models/episode_page_model.dart';
 import 'package:moovee_land/core/models/utils/model_utils.dart';
-import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
 import 'package:provider/provider.dart';
 
-class ShowActorsWidget extends StatelessWidget {
-  const ShowActorsWidget({Key? key}) : super(key: key);
+class EpisodeActorsWidget extends StatelessWidget {
+  const EpisodeActorsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _credits = context.select((ShowPageModel model) => model.credits);
+    final _credits =
+        context.select((EpisodePageModel model) => model.episodeCredits);
 
     if (_credits == null || _credits.cast.isEmpty) {
       return const SizedBox.shrink();
@@ -35,7 +36,7 @@ class ShowActorsWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Text(
-                  'Top Billed Cast',
+                  'Cast',
                   style: TextThemeShelf.itemTitle,
                 ),
                 TextButton(
@@ -47,7 +48,7 @@ class ShowActorsWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10.0),
           SizedBox(
-            height: 280,
+            height: 240,
             child: ListView.builder(
               itemCount: _actors.length,
               itemExtent: 130.0,
@@ -79,7 +80,6 @@ class _ActorCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _avatar = ModelUtils.getActorImage(cast.profilePath);
-    final _character = ModelUtils.getCastCharacterName(cast.roles);
 
     return Container(
       clipBehavior: Clip.hardEdge,
@@ -106,18 +106,11 @@ class _ActorCardWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      _character,
+                      cast.character,
                       style: TextThemeShelf.main,
-                      maxLines: 3,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 3),
-                    Text(
-                      '${cast.totalEpisodeCount} episodes',
-                      style: TextThemeShelf.subtitle,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    )
                   ],
                 ),
               )

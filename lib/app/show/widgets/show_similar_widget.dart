@@ -73,7 +73,7 @@ class _HorizontalScrollShowsWidget extends StatelessWidget {
           final _similarShow = _shows[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: SimilarShowCardWidget(
+            child: _SimilarShowCardWidget(
               show: _similarShow,
               handleTap: (int id) => _handleCardTap(context, id),
             ),
@@ -84,11 +84,11 @@ class _HorizontalScrollShowsWidget extends StatelessWidget {
   }
 }
 
-class SimilarShowCardWidget extends StatelessWidget {
+class _SimilarShowCardWidget extends StatelessWidget {
   final Show show;
   final void Function(int) handleTap;
 
-  const SimilarShowCardWidget({
+  const _SimilarShowCardWidget({
     Key? key,
     required this.show,
     required this.handleTap,

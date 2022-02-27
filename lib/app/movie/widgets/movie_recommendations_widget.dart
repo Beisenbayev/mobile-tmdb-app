@@ -73,7 +73,7 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
           final _recommendedMovie = _movies[index];
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6.0),
-            child: RecommendedMovieCardWidget(
+            child: _RecommendedMovieCardWidget(
               movie: _recommendedMovie,
               handleTap: (int id) => _handleCardTap(context, id),
             ),
@@ -84,11 +84,11 @@ class _HorizontalScrollMoviesWidget extends StatelessWidget {
   }
 }
 
-class RecommendedMovieCardWidget extends StatelessWidget {
+class _RecommendedMovieCardWidget extends StatelessWidget {
   final Movie movie;
   final void Function(int) handleTap;
 
-  const RecommendedMovieCardWidget({
+  const _RecommendedMovieCardWidget({
     Key? key,
     required this.movie,
     required this.handleTap,
