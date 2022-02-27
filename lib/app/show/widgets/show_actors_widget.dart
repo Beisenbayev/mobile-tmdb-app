@@ -5,13 +5,23 @@ import 'package:moovee_land/core/models/utils/model_utils.dart';
 import 'package:moovee_land/core/models/show_page_model.dart';
 import 'package:moovee_land/core/theme/text_theme.dart';
 import 'package:moovee_land/core/theme/widget_theme.dart';
+import 'package:moovee_land/router/navigation_controller.dart';
 import 'package:provider/provider.dart';
 
 class ShowActorsWidget extends StatelessWidget {
   const ShowActorsWidget({Key? key}) : super(key: key);
 
+  void handleShowAllCast(BuildContext context, int showId) {
+    NavigationController.goToShowCastPage(context, showId);
+  }
+
+  void handleShowCastPage(BuildContext context, int castId) {
+    NavigationController.goToCastPage(context, castId);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _details = context.select((ShowPageModel model) => model.details!);
     final _credits = context.select((ShowPageModel model) => model.credits);
 
     if (_credits == null || _credits.cast.isEmpty) {
@@ -39,7 +49,7 @@ class ShowActorsWidget extends StatelessWidget {
                   style: TextThemeShelf.itemTitle,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () => handleShowAllCast(context, _details.id),
                   child: const Text('All'),
                 )
               ],
@@ -58,6 +68,8 @@ class ShowActorsWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
                   child: _ActorCardWidget(
                     cast: _actors[index],
+                    handleCardTap: (int castId) =>
+                        handleShowCastPage(context, castId),
                   ),
                 );
               },
@@ -71,9 +83,12 @@ class ShowActorsWidget extends StatelessWidget {
 
 class _ActorCardWidget extends StatelessWidget {
   final Cast cast;
+  final Function(int) handleCardTap;
+
   const _ActorCardWidget({
     Key? key,
     required this.cast,
+    required this.handleCardTap,
   }) : super(key: key);
 
   @override
@@ -126,7 +141,7 @@ class _ActorCardWidget extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              onTap: () {},
+              onTap: () => handleCardTap(cast.id),
             ),
           ),
         ],

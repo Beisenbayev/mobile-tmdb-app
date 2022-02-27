@@ -27,23 +27,14 @@ class EpisodeActorsWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(
+          const Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 5.0,
               horizontal: PaddingConsts.screenHorizontal,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  'Cast',
-                  style: TextThemeShelf.itemTitle,
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('All'),
-                )
-              ],
+            child: Text(
+              'Cast',
+              style: TextThemeShelf.itemTitle,
             ),
           ),
           const SizedBox(height: 10.0),
